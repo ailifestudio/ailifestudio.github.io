@@ -131,11 +131,51 @@ class BlogAutomation:
         
         return all_articles
     
-    def create_data_json(self, articles: List[Dict]) -> Dict:
-        """data.json 형식으로 변환"""
+    def load_existing_articles(self, data_file='data.json') -> List[Dict]:
+        """기존 data.json에서 기사 로드"""
+        try:
+            if os.path.exists(data_file):
+                with open(data_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    return data.get('articles', [])
+        except Exception as e:
+            print(f"  ⚠️ 기존 데이터 로드 실패: {e}")
+        return []
+    
+    def create_data_json(self, articles: List[Dict], max_articles: int = 50) -> Dict:
+        """
+        data.json 형식으로 변환 (기존 글 유지 + 새 글 추가)
+        
+        Args:
+            articles: 새로 추가할 기사 목록
+            max_articles: 최대 보관 기사 수 (기본 50개)
+        """
+        # 1. 기존 기사 로드
+        existing = self.load_existing_articles()
+        print(f"\n📚 기존 기사: {len(existing)}개")
+        
+        # 2. 새 기사 추가 (중복 제거)
+        existing_titles = {article['title'] for article in existing}
+        new_count = 0
+        
+        for article in articles:
+            if article['title'] not in existing_titles:
+                existing.insert(0, article)  # 최신 글을 맨 앞에 추가
+                new_count += 1
+        
+        print(f"➕ 신규 기사: {new_count}개 추가")
+        
+        # 3. 최대 개수 제한 (오래된 글 삭제)
+        if len(existing) > max_articles:
+            removed = len(existing) - max_articles
+            existing = existing[:max_articles]
+            print(f"🗑️  오래된 기사: {removed}개 삭제")
+        
+        print(f"📊 총 기사: {len(existing)}개")
+        
         return {
             'updatedAt': datetime.now().strftime('%Y-%m-%d %H:%M'),
-            'articles': articles
+            'articles': existing
         }
     
     def save_data_json(self, data: Dict, output_path='data.json'):
