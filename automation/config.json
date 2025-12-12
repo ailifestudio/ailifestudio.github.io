@@ -1,0 +1,32 @@
+{
+  "rss_feeds": [
+    {
+      "name": "TechCrunch",
+      "url": "https://techcrunch.com/feed/",
+      "max_items": 3
+    },
+    {
+      "name": "The Verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "max_items": 3
+    },
+    {
+      "name": "Hacker News",
+      "url": "https://hnrss.org/frontpage",
+      "max_items": 3
+    },
+    {
+      "name": "AI News",
+      "url": "https://www.artificialintelligence-news.com/feed/",
+      "max_items": 3
+    },
+    {
+      "name": "MIT Tech Review",
+      "url": "https://www.technologyreview.com/feed/",
+      "max_items": 3
+    }
+  ],
+  "max_articles": 20,
+  "use_ai_summary": true,
+  "openai_api_key": ""
+}
