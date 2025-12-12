@@ -1,0 +1,28 @@
+{
+  "gemini_api_key": "",
+  "generation_settings": {
+    "topics_per_run": 1,
+    "min_content_length": 1500,
+    "max_content_length": 3000,
+    "category": "AI/테크",
+    "language": "ko"
+  },
+  "trending_sources": [
+    "유튜브",
+    "네이버 블로그",
+    "카페",
+    "뉴스",
+    "X (트위터)"
+  ],
+  "excluded_keywords": [
+    "부업",
+    "수익",
+    "돈벌기",
+    "재테크"
+  ],
+  "thumbnail_style": {
+    "style": "modern, clean, professional",
+    "colors": "blue gradient, tech colors",
+    "elements": "AI, technology, workspace"
+  }
+}

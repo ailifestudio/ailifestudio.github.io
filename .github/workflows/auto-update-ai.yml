@@ -1,0 +1,84 @@
+name: Auto Update Blog with AI
+
+on:
+  schedule:
+    # 매일 오전 9시, 오후 3시, 오후 9시 (KST = UTC+9)
+    - cron: '0 0,6,12 * * *'  # UTC 0시, 6시, 12시 = KST 9시, 15시, 21시
+  workflow_dispatch:  # 수동 실행 가능
+    inputs:
+      enable_ai:
+        description: 'AI 콘텐츠 생성 활성화'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  update-blog:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 체크아웃
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Python 설정
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 의존성 설치
+      run: |
+        cd automation
+        pip install -r requirements.txt
+        
+    - name: 🤖 블로그 자동 업데이트 (AI + RSS)
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        cd automation
+        
+        # AI 활성화 여부 확인
+        ENABLE_AI="${{ github.event.inputs.enable_ai || 'true' }}"
+        
+        if [ "$ENABLE_AI" = "true" ] && [ -n "$GEMINI_API_KEY" ]; then
+          echo "🤖 AI 콘텐츠 생성 + RSS 크롤링 모드"
+          python blog_automation.py --rss-config config_korean.json
+        else
+          echo "📰 RSS 크롤링만 실행"
+          python blog_automation.py --rss-config config_korean.json --no-ai
+        fi
+        
+    - name: 📊 data.json 이동
+      run: |
+        if [ -f automation/data.json ]; then
+          cp automation/data.json data.json
+          echo "✅ data.json 업데이트 완료"
+        else
+          echo "❌ data.json 생성 실패"
+          exit 1
+        fi
+        
+    - name: 📤 변경사항 커밋 및 푸시
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+        git add data.json
+        
+        # 변경사항이 있을 때만 커밋
+        if ! git diff --staged --quiet; then
+          # AI 생성 여부에 따라 커밋 메시지 변경
+          if [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then
+            git commit -m "🤖 자동 업데이트 (AI + RSS): $(date +'%Y-%m-%d %H:%M')"
+          else
+            git commit -m "📰 자동 업데이트 (RSS): $(date +'%Y-%m-%d %H:%M')"
+          fi
+          
+          git push
+          echo "✅ 블로그 업데이트 완료!"
+        else
+          echo "ℹ️ 변경사항 없음"
+        fi

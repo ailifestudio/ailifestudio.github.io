@@ -5,10 +5,11 @@
 ## 🌟 주요 기능
 
 - ✅ **완전 자동화**: GitHub Actions로 매일 3회 자동 업데이트
+- 🤖 **AI 콘텐츠 생성**: Gemini API로 트렌드 기반 자동 글 생성 (NEW!)
 - 🤖 **AI 요약**: OpenAI GPT를 활용한 자동 뉴스 요약
 - 📰 **RSS 크롤링**: 여러 뉴스 소스에서 자동 수집
 - 🎨 **반응형 디자인**: 모바일/데스크톱 최적화
-- 💰 **완전 무료**: GitHub Pages 무료 호스팅
+- 💰 **완전 무료**: GitHub Pages + 무료 AI API
 
 ## 🚀 빠른 시작
 
@@ -25,7 +26,14 @@ pip install -r automation/requirements.txt
 
 ### 1-1. 간편 실행 (추천)
 
-**Linux/Mac:**
+#### 🤖 AI 콘텐츠 생성 + RSS (신기능!)
+```bash
+./update_blog_ai.sh                 # AI 자동 생성 + 한글 뉴스
+./update_blog_ai.sh --no-ai         # RSS만
+./update_blog_ai.sh --ai-only       # AI만
+```
+
+#### 📰 RSS만 사용 (기존 방식)
 ```bash
 ./update_blog.sh                    # 영문 뉴스
 ./update_blog.sh config_korean.json # 한글 뉴스
@@ -33,19 +41,26 @@ pip install -r automation/requirements.txt
 
 **Windows:**
 ```cmd
-update_blog.bat                    # 영문 뉴스
-update_blog.bat config_korean.json # 한글 뉴스
+update_blog.bat config_korean.json  # 한글 뉴스
 ```
 
-### 2. OpenAI API 키 설정 (선택사항)
+### 2. API 키 설정 (선택사항)
 
-AI 요약 기능을 사용하려면 OpenAI API 키가 필요합니다:
+#### 🤖 Gemini API (AI 콘텐츠 자동 생성용 - 무료!)
+
+1. [Google AI Studio](https://aistudio.google.com/apikey)에서 API 키 발급
+2. GitHub 저장소 Settings → Secrets and variables → Actions
+3. `GEMINI_API_KEY` 시크릿 추가
+
+#### 📝 OpenAI API (뉴스 요약용)
 
 1. [OpenAI 플랫폼](https://platform.openai.com/)에서 API 키 발급
 2. GitHub 저장소 Settings → Secrets and variables → Actions
 3. `OPENAI_API_KEY` 시크릿 추가
 
-> **참고**: API 키 없이도 작동하지만, 원본 요약문이 사용됩니다.
+> **참고**: API 키 없이도 작동합니다. AI 생성 및 요약 기능만 비활성화됩니다.
+> 
+> **🆕 상세 가이드**: [AI 콘텐츠 생성 가이드](AI_CONTENT_GUIDE.md) 참고
 
 ### 3. 뉴스 소스 설정
 
