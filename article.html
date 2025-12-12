@@ -183,11 +183,8 @@
             document.getElementById('category').textContent = article.category || 'AI/테크';
             document.getElementById('category-badge').textContent = article.category || 'AI/테크';
 
-            // AI 생성 배지
-            const isAI = article.type === 'ai_generated' || article.source === 'AI 자동 생성';
-            if (!isAI) {
-                document.getElementById('ai-badge').style.display = 'none';
-            }
+            // AI 생성 배지 숨김
+            document.getElementById('ai-badge').style.display = 'none';
 
             // 썸네일
             if (article.image) {

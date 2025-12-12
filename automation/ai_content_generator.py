@@ -64,37 +64,47 @@ AI 실전 활용 주제 1개를 추천해줘.
         print(f"\n[2단계] 블로그 글 생성 중...")
         
         post_prompt = f"""
-[작성 규칙]
-0. 제목은 반드시 <h2> 태그 사용, 중요 키워드는 <strong> 또는 <mark>로 강조
-1. 인사말 없이 글 바로 시작
-2. 1500자 이상 작성
-3. 구성:
-   - 제목 (<h2>)
-   - 서문 2-3문장 (<p>)
-   - 본문 4~6개 섹션 (<h3> 제목 + <p> 설명 또는 <ul><li> 리스트)
-   - 실무 활용 예시
-   - 주의사항 또는 한계점
-   - 정리 요약
-4. 각 큰 섹션마다 이미지 키워드 1줄 삽입
-   형식: [IMAGE:설명]
-   예: [IMAGE:ChatGPT 업무 자동화 화면]
-5. HTML 태그만 사용 (허용: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <mark>)
-6. 중요 문장은 <strong> 또는 <mark>로 강조
-7. 실무 팁은 아래 스타일 박스 사용:
+당신은 친근하고 공감 능력이 뛰어난 AI/테크 블로거입니다.
+독자가 쉽게 이해하고 바로 실천할 수 있는 실용적인 글을 작성해주세요.
 
-<p style="border-left:4px solid #3b82f6; padding-left:10px; background:#f0f9ff; padding:10px;">
-<strong>💡 TIP:</strong> 내용
-</p>
+[작성 톤]
+- 친근하고 대화하듯 자연스럽게
+- "~해요", "~니다" 혼용 (너무 딱딱하지 않게)
+- 이모지 적절히 활용 (💡, ✨, 🎯, 💪 등)
+- 독자에게 직접 말 거는 느낌
 
-8. 코드 예시는 <pre> 태그 사용:
+[글 구조]
+1. <h2>제목</h2> (이모지 포함)
 
-<pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; overflow-x:auto;">
-코드 내용
-</pre>
+2. 도입부 (2-3문장)
+   - 독자의 고민/문제점 공감
+   - "이런 경험 있으시죠?"
+
+3. 본문 (필수 4-6개 섹션)
+   각 섹션마다:
+   - [IMAGE:구체적인 이미지 설명] (영어로, 예: modern ai workspace with laptop)
+   - <h3>섹션 제목</h3>
+   - 설명 (<p>) 또는 리스트 (<ul><li>)
+   - 💡 TIP 박스 (선택):
+     <p style="border-left:4px solid #3b82f6; padding-left:10px; background:#f0f9ff; padding:10px;">
+     <strong>💡 꿀팁:</strong> 실전 팁
+     </p>
+
+4. 마무리
+   - 핵심 요약
+   - 행동 유도 ("오늘부터 바로 써보세요!")
+
+[중요 규칙]
+- 2000자 이상 작성
+- 각 섹션 앞에 [IMAGE:...] 필수 (4-6개)
+- 이미지 키워드는 영어로, 구체적으로 (예: "ChatGPT interface on laptop screen")
+- <strong>, <mark> 적극 활용
+- 실제 사용 가능한 구체적 예시 포함
+- 코드 예시는 <pre> 태그
 
 주제: {topic}
 
-실제 사용 가능한 구체적인 내용으로 작성해주세요.
+지금 바로 독자가 따라할 수 있는 실전 가이드를 작성해주세요!
 """
         
         try:
@@ -189,28 +199,48 @@ DALL-E 또는 Midjourney 프롬프트를 영어로 작성해줘.
             print("❌ 글 생성 실패")
             return None
         
-        # 3. 요약문 생성
-        print("\n[3단계] 요약문 생성 중...")
+        # 3. 이미지 자동 삽입
+        print("\n[3단계] 이미지 자동 삽입 중...")
+        try:
+            from unsplash_images import add_images_to_content, extract_keywords_from_content
+            
+            # 이미지 키워드 확인
+            keywords = extract_keywords_from_content(post['content'])
+            print(f"  ✅ {len(keywords)}개 이미지 키워드 발견")
+            
+            # 이미지 자동 삽입
+            post['content'] = add_images_to_content(post['content'])
+            print(f"  ✅ 이미지 삽입 완료")
+        except Exception as e:
+            print(f"  ⚠️ 이미지 삽입 실패: {e}")
+        
+        # 4. 요약문 생성
+        print("\n[4단계] 요약문 생성 중...")
         summary = self.generate_summary(post['content'])
         print(f"  ✅ 요약 완료")
         
-        # 4. 썸네일 프롬프트 생성
-        print("\n[4단계] 썸네일 프롬프트 생성 중...")
-        thumbnail_prompt = self.generate_thumbnail_prompt(topic)
-        print(f"  ✅ 프롬프트: {thumbnail_prompt}")
+        # 5. 썸네일 생성 (첫 번째 이미지 키워드 사용)
+        print("\n[5단계] 썸네일 이미지 설정 중...")
+        thumbnail_url = 'https://source.unsplash.com/800x600/?artificial-intelligence,technology'
         
-        # 5. data.json 형식으로 변환
+        if post['image_keywords']:
+            first_keyword = post['image_keywords'][0]
+            from unsplash_images import search_unsplash_image
+            thumbnail_url = search_unsplash_image(first_keyword)
+            print(f"  ✅ 썸네일: {first_keyword}")
+        
+        # 6. data.json 형식으로 변환
         article = {
             'title': post['title'],
-            'source': 'AI 자동 생성',
+            'source': 'AI/테크',  # "AI 자동 생성" 대신 카테고리명 사용
             'time': '방금 전',
             'summary': summary,
-            'link': '#',  # GitHub Pages 내부 링크 (추후 구현)
-            'image': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80',  # AI 관련 기본 이미지
+            'link': '#',
+            'image': thumbnail_url,
             'content': post['content'],
             'category': 'AI/테크',
+            'type': 'ai_generated',  # 내부적으로만 사용
             'created_at': post['created_at'],
-            'thumbnail_prompt': thumbnail_prompt,
             'image_keywords': post['image_keywords']
         }
         

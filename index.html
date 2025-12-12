@@ -162,11 +162,11 @@
                 card.className = 'break-inside-avoid mb-4 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200';
                 
                 // AI 생성 글인지 확인
-                const isAIGenerated = item.type === 'ai_generated' || item.source === 'AI 자동 생성';
+                const isAIGenerated = item.type === 'ai_generated';
                 const articleLink = item.link && item.link !== '#' ? item.link : `article.html?id=${encodeURIComponent(item.title)}`;
                 
-                // 카테고리 표시 (AI 생성 글은 AI/테크로 표시)
-                const categoryBadge = item.category || 'AI/테크';
+                // 카테고리 표시
+                const categoryBadge = item.category || item.source;
                 
                 let imageHtml = item.image ? 
                     `<a href="${articleLink}" ${!isAIGenerated ? 'target="_blank"' : ''} class="block relative h-48 overflow-hidden bg-gray-200 cursor-pointer">
@@ -177,10 +177,7 @@
                     ${imageHtml}
                     <div class="p-4">
                         <div class="flex items-center justify-between mb-2 text-xs">
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold px-2 py-1 rounded ${isAIGenerated ? 'bg-purple-100 text-purple-600' : 'bg-blue-100 text-blue-600'}">${categoryBadge}</span>
-                                ${isAIGenerated ? '<span class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-2 py-1 rounded text-xs">🤖 AI 생성</span>' : ''}
-                            </div>
+                            <span class="font-bold px-2 py-1 rounded bg-blue-100 text-blue-600">${categoryBadge}</span>
                             <span class="text-gray-500">${item.time}</span>
                         </div>
                         
