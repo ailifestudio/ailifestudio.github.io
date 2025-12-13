@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-13 13:51",
+  "updatedAt": "2025-12-13 13:54",
   "total": 15,
   "articles": [
+    {
+      "title": "2025년 AI로 복잡한 문서 순식간에 분석, 보고서 자동 생성 실전 팁",
+      "source": "AI Life Studio",
+      "time": "2025-12-13 13:54",
+      "summary": "2025년에는 인공지능이 기업 핵심 업무에 깊이 통합되어 복잡한 문서를 분석하고 보고서를 자동 생성하는 능력이 중요해질 것입니다. AI는 단순 반복을 넘어 멀티모달 이해와 컨텍스트 추론으로 문서 속 숨겨진 인사이트를 찾아내, 생산성과 의사결정 속도를 혁신적으로 향상할 잠재력을 가집니다. 본 글은 2025년 AI 기술을 활용한 문서 분석 및 보고서 자동 생성",
+      "link": "/article.html?slug=2025-12-13-2025-ai",
+      "image": "https://via.placeholder.com/1280x720/1e293b/60a5fa?text=AI%20algorithm%20processing%20divers",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-13-2025-ai",
+      "canonical_url": ""
+    },
     {
       "title": "막힌 아이디어, AI로 뚫는 2025년 최신 브레인스토밍 실전 전략",
       "source": "AI Life Studio",
@@ -84,18 +96,6 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-13-ai-article-072726",
-      "canonical_url": ""
-    },
-    {
-      "title": "2025 최신 멀티모달 AI로 일상 생산성 극대화하는 실전 활용법",
-      "source": "AI Life Studio",
-      "time": "2025-12-13 07:13",
-      "summary": "2025년 멀티모달 AI는 텍스트, 이미지, 오디오, 비디오 등 다양한 유형의 정보를 동시에 이해하고 통합 분석하여 기존 단일 모달리티 AI의 한계를 뛰어넘습니다. 이는 마치 인간처럼 세상을 인지하며 복잡한 상황을 깊이 이해하고 더욱 정교한 솔루션을 제공함으로써, 개인과 기업의 생산성을 획기적으로 극대화할 것입니다.",
-      "link": "/article.html?slug=2025-12-13-2025-ai",
-      "image": "https://picsum.photos/seed/f46ff8430e32d4a1/1280/720",
-      "category": "AI/테크",
-      "type": "markdown",
-      "slug": "2025-12-13-2025-ai",
       "canonical_url": ""
     },
     {
