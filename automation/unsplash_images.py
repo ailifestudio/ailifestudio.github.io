@@ -176,16 +176,19 @@ def add_images_to_content(content: str, unsplash_key: str = None) -> str:
 
 def add_images_to_content_with_generation(content: str, use_ai_generation: bool = True) -> str:
     """
-    [IMAGE:...] 키워드를 이미지로 변환 (Unsplash 우선, 실패 시 AI 생성)
+    [IMAGE:...] 키워드를 이미지로 변환 (generated_images.json 직접 사용)
     
     Args:
         content: HTML 콘텐츠
-        use_ai_generation: AI 이미지 생성 사용 여부
+        use_ai_generation: AI 이미지 생성 사용 여부 (사용 안 함)
     
     Returns:
         이미지가 삽입된 HTML
     """
     import re
+    
+    # generated_images.json 미리 로드 (함수 외부에서 한 번만)
+    generated_images_cache = load_generated_images()
     
     def replace_image(match):
         keyword = match.group(1).strip()
@@ -193,18 +196,20 @@ def add_images_to_content_with_generation(content: str, use_ai_generation: bool 
         # 한글 키워드 검증 및 경고
         if any('\uac00' <= char <= '\ud7a3' for char in keyword):
             print(f"    ⚠️ 한글 키워드 발견: {keyword}")
-            # 기본 영어 키워드로 대체
             keyword = "modern technology workspace"
         
-        # 키워드 정제 (영어로 확인)
-        print(f"    🔍 이미지 검색: {keyword}")
+        # generated_images.json에서 직접 검색 (캐시 사용)
+        if keyword in generated_images_cache:
+            image_url = generated_images_cache[keyword]
+            print(f"    ✅ 이미지 발견: {image_url[:60]}...")
+        else:
+            # Fallback: Unsplash 무료 이미지
+            print(f"    ⚠️ generated_images.json에 없음, Unsplash 사용")
+            import hashlib
+            keywords_clean = keyword.replace(' ', ',')
+            image_url = f"https://source.unsplash.com/1280x720/?{keywords_clean}"
         
-        # 1차: Unsplash 시도
-        image_url = search_unsplash_image(keyword)
-        source_text = "Photo by Unsplash"
-        
-        # 2차: AI 생성 시도 (선택적)
-        # 현재는 Unsplash만 사용 (안정성)
+        source_text = "Photo by AI/Unsplash"
         
         # 이미지 HTML 생성
         return f'''
