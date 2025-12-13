@@ -7,7 +7,7 @@
     <link>https://ailifestudio.github.io/</link>
     <description>AI와 테크 뉴스를 자동으로 큐레이팅하는 블로그</description>
     <language>ko</language>
-    <lastBuildDate>Sat, 13 Dec 2025 00:49:10 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Dec 2025 00:50:20 +0000</lastBuildDate>
 
     <item>
       <title><![CDATA[OSMU 블로그 시스템에 오신 것을 환영합니다]]></title>
@@ -19,32 +19,32 @@
 <hr />
 <h2 id="_2">🏗️ 표준 디렉토리 구조</h2>
 <p>이 시스템은 명확하고 예측 가능한 디렉토리 구조를 사용합니다:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">Root</span><span class="p">)</span>
-<span class="err">├──</span><span class="w"> </span><span class="n">contents</span><span class="o">/</span><span class="w">          </span><span class="err">#</span><span class="w"> </span><span class="err">📝</span><span class="w"> </span><span class="o">[</span><span class="n">Input</span><span class="o">]</span><span class="w"> </span><span class="n">원본</span><span class="w"> </span><span class="n">Markdown</span><span class="w"> </span><span class="n">파일</span>
-<span class="err">├──</span><span class="w"> </span><span class="k">data</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="err">📊</span><span class="w"> </span><span class="o">[</span><span class="n">Output</span><span class="o">]</span><span class="w"> </span><span class="n">UI용</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">데이터</span>
-<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">dashboard_summary</span><span class="p">.</span><span class="n">json</span>
-<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="err">{</span><span class="n">category</span><span class="err">}</span><span class="o">/</span><span class="n">page_</span><span class="o">*</span><span class="p">.</span><span class="n">json</span>
-<span class="err">└──</span><span class="w"> </span><span class="n">feed</span><span class="o">/</span><span class="w">              </span><span class="err">#</span><span class="w"> </span><span class="err">📡</span><span class="w"> </span><span class="o">[</span><span class="n">Output</span><span class="o">]</span><span class="w"> </span><span class="n">WordPress용</span><span class="w"> </span><span class="n">피드</span>
-<span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="n">rss</span><span class="p">.</span><span class="nc">xml</span>
-<span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="n">full_export</span><span class="p">.</span><span class="n">json</span>
-</code></pre></div>
+<pre class="codehilite"><code>/ (Root)
+├── contents/          # 📝 [Input] 원본 Markdown 파일
+├── data/              # 📊 [Output] UI용 JSON 데이터
+│   ├── dashboard_summary.json
+│   └── {category}/page_*.json
+└── feed/              # 📡 [Output] WordPress용 피드
+    ├── rss.xml
+    └── full_export.json
+</code></pre>
 
 <hr />
 <h2 id="_3">✨ 핵심 기능</h2>
 <h3 id="1">1️⃣ 간편한 글 작성</h3>
 <p>Markdown 파일을 <code>contents/</code> 폴더에 저장하기만 하면 됩니다.</p>
 <p><strong>Front Matter 예시:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;글</span><span class="nv"> </span><span class="s">제목&quot;</span>
-<span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025-12-13</span>
-<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ai</span><span class="w">          </span><span class="c1"># ai, it, economy, life, global</span>
-<span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;글</span><span class="nv"> </span><span class="s">요약&quot;</span>
-<span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://...&quot;</span>
-<span class="nt">tags</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">태그1</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">태그2</span>
-<span class="nn">---</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-yaml">---
+title: &quot;글 제목&quot;
+date: 2025-12-13
+category: ai          # ai, it, economy, life, global
+summary: &quot;글 요약&quot;
+image: &quot;https://...&quot;
+tags:
+  - 태그1
+  - 태그2
+---
+</code></pre>
 
 <h3 id="2">2️⃣ 완전 자동화</h3>
 <p>Git에 푸시하면 GitHub Actions가 자동으로:
@@ -68,26 +68,26 @@
 <hr />
 <h2 id="_4">🚀 빠른 시작</h2>
 <h3 id="1_1">1. 새 글 작성</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># contents/ 폴더에 Markdown 파일 생성</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;---</span>
-<span class="s1">title: &quot;나의 첫 글&quot;</span>
-<span class="s1">date: 2025-12-13</span>
-<span class="s1">category: it</span>
-<span class="s1">summary: &quot;첫 글입니다&quot;</span>
-<span class="s1">image: &quot;https://images.unsplash.com/photo-1...&quot;</span>
-<span class="s1">---</span>
+<pre class="codehilite"><code class="language-bash"># contents/ 폴더에 Markdown 파일 생성
+echo '---
+title: &quot;나의 첫 글&quot;
+date: 2025-12-13
+category: it
+summary: &quot;첫 글입니다&quot;
+image: &quot;https://images.unsplash.com/photo-1...&quot;
+---
 
-<span class="s1">## 안녕하세요!</span>
+## 안녕하세요!
 
-<span class="s1">첫 글입니다.</span>
-<span class="s1">&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>contents/my-first-post.md
-</code></pre></div>
+첫 글입니다.
+' &gt; contents/my-first-post.md
+</code></pre>
 
 <h3 id="2-git">2. Git 푸시</h3>
-<div class="codehilite"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>contents/
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;✨ 새 글 추가: 나의 첫 글&quot;</span>
-git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</code></pre></div>
+<pre class="codehilite"><code class="language-bash">git add contents/
+git commit -m &quot;✨ 새 글 추가: 나의 첫 글&quot;
+git push origin main
+</code></pre>
 
 <h3 id="3_1">3. 자동 배포 확인</h3>
 <ul>
@@ -155,15 +155,15 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 <li>Canonical URL 자동 설정</li>
 </ol>
 <h3 id="_7">로컬 빌드 테스트</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 빌드 스크립트 실행</span>
-python<span class="w"> </span>automation/build_blog.py
+<pre class="codehilite"><code class="language-bash"># 빌드 스크립트 실행
+python automation/build_blog.py
 
-<span class="c1"># 로컬 서버 실행</span>
-python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">8000</span>
+# 로컬 서버 실행
+python -m http.server 8000
 
-<span class="c1"># 브라우저에서 확인</span>
-<span class="c1"># http://localhost:8000</span>
-</code></pre></div>
+# 브라우저에서 확인
+# http://localhost:8000
+</code></pre>
 
 <hr />
 <h2 id="_8">📚 문서</h2>
@@ -216,17 +216,17 @@ python<span class="w"> </span>-m<span class="w"> </span>http.server<span class="
 <hr />
 <h2 id="_15">🐛 문제 해결</h2>
 <h3 id="_16">빌드 실패 시</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 디렉토리 구조 확인</span>
-ls<span class="w"> </span>-la<span class="w"> </span>contents/
-ls<span class="w"> </span>-la<span class="w"> </span>data/
-ls<span class="w"> </span>-la<span class="w"> </span>feed/
+<pre class="codehilite"><code class="language-bash"># 1. 디렉토리 구조 확인
+ls -la contents/
+ls -la data/
+ls -la feed/
 
-<span class="c1"># 2. Python 패키지 설치</span>
-pip<span class="w"> </span>install<span class="w"> </span>python-frontmatter<span class="w"> </span>requests<span class="w"> </span>markdown
+# 2. Python 패키지 설치
+pip install python-frontmatter requests markdown
 
-<span class="c1"># 3. 로컬 빌드 테스트</span>
-python<span class="w"> </span>automation/build_blog.py
-</code></pre></div>
+# 3. 로컬 빌드 테스트
+python automation/build_blog.py
+</code></pre>
 
 <h3 id="_17">배포 안 될 때</h3>
 <ol>
@@ -278,11 +278,11 @@ python<span class="w"> </span>automation/build_blog.py
 <h2 id="3-midjourney">3. Midjourney로 프레젠테이션 이미지 생성</h2>
 <p>무료 이미지를 찾다가 시간을 허비하셨나요?</p>
 <p><strong>Midjourney 실전 활용:</strong></p>
-<div class="codehilite"><pre><span></span><code>프롬프트 예시:
+<pre class="codehilite"><code>프롬프트 예시:
 &quot;professional office team collaboration, 
 modern minimalist style, blue and white colors, 
 high quality photography --ar 16:9 --v 6&quot;
-</code></pre></div>
+</code></pre>
 
 <p><strong>장점:</strong>
 - 저작권 걱정 없음
@@ -308,9 +308,9 @@ high quality photography --ar 16:9 --v 6&quot;
 - 출처 자동 표시 (신뢰성 확보)
 - 후속 질문으로 깊이 있는 조사 가능</p>
 <p><strong>활용 예시:</strong></p>
-<div class="codehilite"><pre><span></span><code>&quot;2025년 AI 마케팅 트렌드 상위 5개와 
+<pre class="codehilite"><code>&quot;2025년 AI 마케팅 트렌드 상위 5개와 
 각각의 실제 활용 사례를 출처와 함께 정리해줘&quot;
-</code></pre></div>
+</code></pre>
 
 <p><strong>결과:</strong> 1시간 걸릴 리서치를 5분 만에 완료</p>
 <hr />
