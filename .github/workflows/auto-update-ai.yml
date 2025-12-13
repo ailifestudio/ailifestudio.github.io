@@ -39,6 +39,7 @@ jobs:
     - name: 🤖 블로그 자동 업데이트 (AI + RSS)
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         cd automation
