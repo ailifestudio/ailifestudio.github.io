@@ -137,7 +137,7 @@ class BlogAutomation:
         front_matter = f"""---
 title: "{article['title']}"
 date: {article.get('created_at', datetime.now().strftime('%Y-%m-%d %H:%M'))}
-category: {article.get('category', 'AI/테크')}
+category: ai
 summary: "{article.get('summary', '')[:200]}"
 image: {article.get('image', '')}
 tags: [AI, 자동화, 생산성]

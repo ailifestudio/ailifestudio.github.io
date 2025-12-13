@@ -171,7 +171,7 @@ AI 실전 활용 주제 1개를 추천해줘.
                 'content': html_content,
                 'image_keywords': image_keywords,
                 'created_at': datetime.now().strftime('%Y-%m-%d %H:%M'),
-                'category': 'AI/테크'
+                'category': 'ai'
             }
         except Exception as e:
             print(f"  ❌ 글 생성 실패: {e}")
@@ -288,7 +288,7 @@ DALL-E 또는 Midjourney 프롬프트를 영어로 작성해줘.
             'link': '#',
             'image': thumbnail_url,
             'content': post['content'],
-            'category': 'AI/테크',
+            'category': 'ai',
             'type': 'ai_generated',  # 내부적으로만 사용
             'created_at': post['created_at'],
             'image_keywords': post['image_keywords']
