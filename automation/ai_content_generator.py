@@ -37,13 +37,15 @@ class AIContentGenerator:
         """API 키 로드 (단일/복수 지원)"""
         # 방법 1: 복수 키 (JSON 배열)
         keys_json = os.getenv('GEMINI_API_KEYS', '')
+        print(f"🔍 DEBUG: GEMINI_API_KEYS 환경변수 = {keys_json[:50] if keys_json else '(없음)'}...")
         if keys_json:
             try:
                 keys = json.loads(keys_json)
                 if isinstance(keys, list) and keys:
+                    print(f"✅ DEBUG: {len(keys)}개 키 로드 성공")
                     return keys
-            except:
-                pass
+            except Exception as e:
+                print(f"❌ DEBUG: JSON 파싱 실패 - {e}")
         
         # 방법 2: 단일 키
         single_key = os.getenv('GEMINI_API_KEY', self.config.get('gemini_api_key', ''))
