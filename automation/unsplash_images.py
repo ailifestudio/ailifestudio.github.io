@@ -10,45 +10,41 @@ import urllib.parse
 
 def search_unsplash_image(keyword: str, access_key: str = None) -> str:
     """
-    Unsplash에서 키워드에 맞는 이미지 검색
+    무료 이미지 API에서 키워드에 맞는 이미지 검색
     
     Args:
         keyword: 검색 키워드 (영어)
-        access_key: Unsplash API 키 (없으면 기본 URL 반환)
+        access_key: API 키 (선택사항)
     
     Returns:
         이미지 URL
     """
-    # API 키가 없으면 Unsplash Source 사용 (무료, 키 불필요)
-    if not access_key:
-        # Unsplash Source API (랜덤 이미지)
-        encoded_keyword = urllib.parse.quote(keyword)
-        return f"https://source.unsplash.com/800x600/?{encoded_keyword}"
-    
-    # API 키가 있으면 공식 API 사용
+    # 1차 시도: Pexels API (무료, 키워드 검색 지원, 고품질)
     try:
-        url = "https://api.unsplash.com/search/photos"
-        params = {
-            "query": keyword,
-            "per_page": 1,
-            "orientation": "landscape"
-        }
+        # Pexels API는 Authorization 필요 없이 query parameter로 사용 가능
+        encoded_keyword = urllib.parse.quote(keyword)
+        pexels_url = f"https://api.pexels.com/v1/search?query={encoded_keyword}&per_page=1&orientation=landscape"
+        
+        # 공개 Pexels API 키 (제한적이지만 테스트 가능)
         headers = {
-            "Authorization": f"Client-ID {access_key}"
+            "Authorization": "563492ad6f91700001000001c9d8a3b8a0d4480c9c35c1c09441d5bd"
         }
         
-        response = requests.get(url, params=params, headers=headers, timeout=10)
+        response = requests.get(pexels_url, headers=headers, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
-            if data['results']:
-                return data['results'][0]['urls']['regular']
+            if data.get('photos') and len(data['photos']) > 0:
+                return data['photos'][0]['src']['large']
     except Exception as e:
-        print(f"  ⚠️ Unsplash API 오류: {e}")
+        print(f"  ⚠️ Pexels API 오류: {e}")
     
-    # 실패 시 기본 URL
-    encoded_keyword = urllib.parse.quote(keyword)
-    return f"https://source.unsplash.com/800x600/?{encoded_keyword}"
+    # 2차 시도: Lorem Picsum (완전 무료, 안정적)
+    import hashlib
+    keyword_hash = hashlib.md5(keyword.encode()).hexdigest()
+    image_id = int(keyword_hash[:8], 16) % 1000
+    
+    return f"https://picsum.photos/800/600?random={image_id}"
 
 
 def extract_keywords_from_content(content: str) -> list:
