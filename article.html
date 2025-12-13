@@ -11,6 +11,13 @@
         body { font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif; }
         
         /* 콘텐츠 스타일 */
+        .article-content h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin: 2.5rem 0 1.5rem;
+            color: #111827;
+        }
+        
         .article-content h2 {
             font-size: 1.875rem;
             font-weight: 700;
@@ -27,14 +34,22 @@
         
         .article-content p {
             margin: 1rem 0;
-            line-height: 1.75;
+            line-height: 1.8;
             color: #4b5563;
+            font-size: 1.0625rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
         }
         
         .article-content ul {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
             list-style: disc;
+        }
+        
+        .article-content ol {
+            list-style: decimal;
         }
         
         .article-content li {
@@ -48,20 +63,50 @@
             color: #1f2937;
         }
         
-        .article-content mark {
-            background: #fef3c7;
-            padding: 0.125rem 0.25rem;
+        .article-content em {
+            font-style: italic;
+            color: #6b7280;
+        }
+        
+        .article-content code {
+            background: #f3f4f6;
+            padding: 0.125rem 0.375rem;
             border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875em;
+            color: #db2777;
         }
         
         .article-content pre {
-            margin: 1.5rem 0;
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
             overflow-x: auto;
+            margin: 1.5rem 0;
         }
         
-        /* 이미지 키워드 숨김 */
-        .article-content p:has([data-image-keyword]) {
-            display: none;
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: #6b7280;
+            font-style: italic;
+        }
+        
+        .article-content a {
+            color: #3b82f6;
+            text-decoration: underline;
+        }
+        
+        .article-content a:hover {
+            color: #2563eb;
         }
     </style>
 </head>
@@ -93,23 +138,24 @@
         <div class="mb-8">
             <div class="flex items-center gap-3 mb-4">
                 <span id="category" class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">AI/테크</span>
-                <span id="ai-badge" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-sm">🤖 AI 생성</span>
+                <span id="date" class="text-sm text-gray-500"></span>
             </div>
             <h1 id="title" class="text-4xl font-bold text-gray-900 mb-4"></h1>
+            <p id="summary" class="text-lg text-gray-600 leading-relaxed mb-6"></p>
             <div class="flex items-center gap-4 text-sm text-gray-500">
-                <span id="source"></span>
+                <span id="source">AI Life Studio</span>
                 <span>•</span>
                 <span id="time"></span>
             </div>
         </div>
 
         <!-- 썸네일 -->
-        <div id="thumbnail-container" class="mb-8 rounded-2xl overflow-hidden">
+        <div id="thumbnail-container" class="mb-8 rounded-2xl overflow-hidden shadow-lg">
             <img id="thumbnail" class="w-full h-auto" onerror="this.parentElement.style.display='none'">
         </div>
 
         <!-- 본문 -->
-        <div id="content" class="article-content prose max-w-none bg-white p-8 rounded-2xl shadow-sm">
+        <div id="content" class="article-content bg-white p-8 md:p-12 rounded-2xl shadow-sm">
             <!-- AI 생성 콘텐츠가 여기에 표시됩니다 -->
         </div>
 
@@ -135,25 +181,49 @@
     </div>
 
     <script>
+        // 카테고리 매핑 (영문 → 한글)
+        const categoryNames = {
+            'ai': 'AI',
+            'it': 'IT/Tech',
+            'economy': '경제',
+            'life': '라이프',
+            'global': '글로벌'
+        };
+
         async function loadArticle() {
             try {
-                // URL에서 기사 제목 가져오기
+                // URL에서 slug 가져오기
                 const urlParams = new URLSearchParams(window.location.search);
-                const articleTitle = urlParams.get('id');
+                const slug = urlParams.get('slug');
                 
-                if (!articleTitle) {
+                if (!slug) {
                     showNotFound();
                     return;
                 }
 
-                // data.json 로드
-                const response = await fetch('data.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error('데이터 로드 실패');
+                // slug에서 카테고리 추출 (파일명 형식: YYYY-MM-DD-title)
+                // contents/ 디렉토리 구조에서 카테고리를 알 수 없으므로
+                // 모든 카테고리 JSON 파일을 검색해야 함
+                const categories = ['ai', 'it', 'economy', 'life', 'global'];
+                let article = null;
                 
-                const data = await response.json();
-                
-                // 제목으로 기사 찾기
-                const article = data.articles.find(a => a.title === decodeURIComponent(articleTitle));
+                // 각 카테고리의 page_1.json에서 검색
+                for (const cat of categories) {
+                    try {
+                        const response = await fetch(`data/${cat}/page_1.json?t=` + new Date().getTime());
+                        if (response.ok) {
+                            const data = await response.json();
+                            article = data.items.find(item => item.slug === slug);
+                            if (article) {
+                                article.category = categoryNames[cat] || cat.toUpperCase();
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        // 카테고리 파일이 없으면 다음으로
+                        continue;
+                    }
+                }
                 
                 if (!article) {
                     showNotFound();
@@ -178,13 +248,12 @@
             document.title = article.title + ' - Curator.AI';
             document.getElementById('article-title').textContent = article.title;
             document.getElementById('title').textContent = article.title;
-            document.getElementById('source').textContent = article.source;
-            document.getElementById('time').textContent = article.time;
+            document.getElementById('summary').textContent = article.summary || '';
+            document.getElementById('source').textContent = article.source || 'AI Life Studio';
+            document.getElementById('date').textContent = article.date || '';
+            document.getElementById('time').textContent = article.time || formatDate(article.date);
             document.getElementById('category').textContent = article.category || 'AI/테크';
             document.getElementById('category-badge').textContent = article.category || 'AI/테크';
-
-            // AI 생성 배지 숨김
-            document.getElementById('ai-badge').style.display = 'none';
 
             // 썸네일
             if (article.image) {
@@ -194,15 +263,28 @@
             }
 
             // 본문 내용
-            let content = article.content || article.summary;
-            
-            // [IMAGE:...] 키워드 제거
-            content = content.replace(/\[IMAGE:[^\]]+\]/g, '');
+            let content = article.content || article.html || formatContent(article.summary);
             
             document.getElementById('content').innerHTML = content;
 
             // 아이콘 초기화
             lucide.createIcons();
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ko-KR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        function formatContent(text) {
+            if (!text) return '';
+            // 간단한 텍스트를 HTML 문단으로 변환
+            return text.split('\n\n').map(p => `<p>${p}</p>`).join('');
         }
 
         function showNotFound() {
