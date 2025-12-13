@@ -325,17 +325,17 @@ Output only the prompt in English (no explanations).
         print("\n[3단계] 이미지 자동 생성 및 삽입 중...")
         try:
             from unsplash_images import extract_keywords_from_content
-            from auto_image_generator import extract_new_keywords_from_content, generate_images_for_keywords, save_generated_images
+            from free_ai_image_generator import generate_images_for_keywords, save_generated_images
             
             # 이미지 키워드 확인
             all_keywords = extract_keywords_from_content(post['content'])
             print(f"  ✅ {len(all_keywords)}개 이미지 키워드 발견")
             
-            # 모든 키워드에 대해 이미지 자동 생성
+            # 모든 키워드에 대해 이미지 자동 생성 (완전 무료)
             if all_keywords:
                 print(f"\n  🎨 {len(all_keywords)}개 이미지 자동 생성 중...")
-                print(f"     ├─ Gemini API: 프롬프트 향상")
-                print(f"     └─ Unsplash API: 무료 고품질 이미지")
+                print(f"     ├─ Hugging Face SDXL-Turbo (완전 무료)")
+                print(f"     └─ Fallback: Unsplash API (무료)")
                 
                 # 이미지 생성
                 new_images = generate_images_for_keywords(all_keywords)
