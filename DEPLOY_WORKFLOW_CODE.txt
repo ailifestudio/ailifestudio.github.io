@@ -1,0 +1,79 @@
+# =====================================================
+# GitHub Actions Workflow - 아래 코드를 복사하세요
+# =====================================================
+#
+# 사용 방법:
+# 1. GitHub 저장소 → Actions → "New workflow"
+# 2. "set up a workflow yourself" 클릭
+# 3. 아래 코드 전체를 복사하여 붙여넣기
+# 4. Commit new file 클릭
+#
+# =====================================================
+
+name: Deploy OSMU Blog System
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'contents/**'
+      - 'automation/**'
+      - 'index.html'
+  workflow_dispatch:  # 수동 트리거 허용
+  schedule:
+    - cron: '0 0,8,16 * * *'  # 09:00, 17:00, 01:00 KST (3번 실행)
+
+permissions:
+  contents: write  # 🔐 명시적 권한
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          pip install python-frontmatter requests markdown pyyaml
+      
+      - name: ✅ Verify Directory Structure
+        run: |
+          if [ ! -d "contents" ]; then
+            echo "❌ ERROR: contents/ directory missing!"
+            exit 1
+          fi
+          echo "✅ contents/ directory exists"
+          ls -la contents/
+      
+      - name: 🔨 Build Blog (Generate data/ and feed/)
+        run: python automation/build_blog.py
+      
+      - name: 📤 Deploy to GitHub
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions Bot"
+          
+          git add data/ feed/ contents/
+          
+          if git diff --cached --quiet; then
+            echo "✅ No changes to deploy"
+          else
+            git commit -m "🤖 자동 배포: 블로그 빌드 완료 $(date +'%Y-%m-%d %H:%M')"
+            git push
+            echo "✅ Deployed successfully!"
+          fi
+
+# =====================================================
+# 완료 후 검증:
+# - Actions 탭에서 "Deploy OSMU Blog System" 확인
+# - "Run workflow" 버튼으로 수동 실행 테스트
+# =====================================================
