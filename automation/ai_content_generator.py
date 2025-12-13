@@ -67,8 +67,8 @@ class AIContentGenerator:
         
         for attempt in range(max_retries):
             try:
-                text = self._generate_with_retry(prompt)
-                return text
+                response = self.model.generate_content(prompt)
+                return response.text
             except Exception as e:
                 error_msg = str(e).lower()
                 
