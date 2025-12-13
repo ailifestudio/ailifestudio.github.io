@@ -199,12 +199,14 @@ AI 실전 활용 주제 1개를 추천해줘.
 <strong>💡 TIP:</strong> 내용
 </p>
 
-8. 코드·명령어·프롬프트 예시는 반드시 <pre> 태그 사용:
+8. 코드·명령어·프롬프트 예시는 반드시 아래 <pre> 태그를 **정확히** 복사해서 사용:
 
 <pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; white-space:pre-wrap; word-wrap:break-word; line-height:1.6; border:1px solid #334155; margin:15px 0;">
 코드나 명령어 또는 프롬프트 예시
 (여러 줄 가능, 자동 줄바꿈 적용됨)
 </pre>
+
+⚠️ 주의: style 속성을 정확히 복사하세요! white-space 오타 금지!
 
 9. 주의사항·경고는 아래 스타일 박스 사용:
 
