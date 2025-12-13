@@ -44,19 +44,19 @@ def search_unsplash_image(keyword: str, access_key: str = None) -> str:
     generated_images = load_generated_images()
     if keyword in generated_images:
         image_url = generated_images[keyword]
-        print(f"    ✅ Gemini 생성 이미지 사용: {keyword}")
+        print(f"    ✅ Gemini 이미지 사용: {keyword}")
         print(f"       → {image_url[:60]}...")
         return image_url
     
-    # 2순위: 플레이스홀더 (Gemini로 생성 필요)
-    print(f"    🎨 Gemini 프롬프트 필요: {keyword}")
-    print(f"       → automation/gemini_image_generator.py 실행 필요")
+    # 2순위: 플레이스홀더 (이 키워드는 아직 생성 안 됨)
+    print(f"    ⚠️ 이미지 없음: '{keyword}'")
+    print(f"       → generated_images.json에 없는 새 키워드입니다")
     
     # 16:9 비율 플레이스홀더
     placeholder_url = f"https://via.placeholder.com/1280x720/1e293b/60a5fa?text={urllib.parse.quote(keyword[:30])}"
     
-    print(f"    ⚠️ 플레이스홀더 사용: {placeholder_url}")
-    print(f"    ℹ️  실제 이미지는 Gemini로 생성 후 generated_images.json에 추가하세요")
+    print(f"    🔧 임시 Placeholder 사용: {placeholder_url[:70]}...")
+    print(f"    💡 해결: 이 키워드로 이미지 생성 후 generated_images.json 업데이트 필요")
     
     return placeholder_url
 
