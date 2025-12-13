@@ -280,23 +280,31 @@ DeepSeek vs ChatGPT: 2025년 무료 코딩 AI 성능 비교와 실무 활용팁
         return html
     
     def _extract_image_keywords(self, html: str, max_images: int = 5) -> List[str]:
-        """[IMAGE:...] 형식의 이미지 키워드 추출 (최대 5개 제한)"""
-        pattern = r'\[IMAGE:([^\]]+)\]'
-        keywords = re.findall(pattern, html)
+        """[IMAGE_PLACEHOLDER_N] 형식의 플레이스홀더 개수 추출"""
+        pattern = r'\[IMAGE_PLACEHOLDER_(\d+)\]'
+        matches = re.findall(pattern, html)
         
-        # 최대 개수 제한
-        if len(keywords) > max_images:
-            print(f"  ⚠️ 이미지 {len(keywords)}개 발견 → {max_images}개로 제한")
-            keywords = keywords[:max_images]
+        if matches:
+            # 플레이스홀더 번호를 정렬하여 순서대로 처리
+            placeholder_numbers = sorted([int(m) for m in matches])
+            print(f"  ℹ️  이미지 플레이스홀더 {len(placeholder_numbers)}개 발견: {placeholder_numbers}")
+            
+            # 최대 개수 제한
+            if len(placeholder_numbers) > max_images:
+                print(f"  ⚠️ 플레이스홀더 {len(placeholder_numbers)}개 → {max_images}개로 제한")
+                placeholder_numbers = placeholder_numbers[:max_images]
+            
+            # 플레이스홀더를 문자열로 반환 (예: ['1', '2', '3'])
+            return [str(n) for n in placeholder_numbers]
         
-        return keywords
+        return []
     
     def generate_summary(self, content: str, max_length: int = 200) -> str:
         """요약문 생성"""
         # HTML 태그 제거
         text = re.sub(r'<[^>]+>', '', content)
-        # 이미지 키워드 제거
-        text = re.sub(r'\[IMAGE:[^\]]+\]', '', text)
+        # 이미지 플레이스홀더 제거
+        text = re.sub(r'\[IMAGE_PLACEHOLDER_\d+\]', '', text)
         
         if len(text) <= max_length:
             return text
@@ -372,16 +380,40 @@ Output only the prompt in English (no explanations).
         summary = self.generate_summary(post['content'])
         print(f"  ✅ 요약 완료")
         
-        # 5. 썸네일 생성 (첫 번째 이미지 키워드 사용)
+        # 5. 썸네일 생성 (컨텍스트 기반 생성)
         print("\n[5단계] 썸네일 이미지 설정 중...")
-        # 16:9 비율 (1280x720) 사용
-        thumbnail_url = 'https://picsum.photos/seed/ai-tech/1280/720'
         
-        if post['image_keywords']:
-            first_keyword = post['image_keywords'][0]
-            from unsplash_images import search_unsplash_image
-            thumbnail_url = search_unsplash_image(first_keyword)
-            print(f"  ✅ 썸네일: {first_keyword}")
+        # 썸네일은 주제 기반으로 Pollinations.ai에서 생성
+        try:
+            import hashlib
+            import requests
+            import urllib.parse
+            from pathlib import Path
+            
+            # 주제 기반 프롬프트 생성
+            thumbnail_prompt = f"{topic}, professional blog thumbnail, modern design, tech aesthetic, high quality, 16:9"
+            encoded_prompt = urllib.parse.quote(thumbnail_prompt)
+            thumbnail_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&nologo=true&enhance=true"
+            
+            # 썸네일 로컬 저장
+            output_dir = Path(__file__).parent / "generated_images"
+            output_dir.mkdir(exist_ok=True)
+            
+            file_hash = hashlib.md5(topic.encode()).hexdigest()[:8]
+            thumbnail_path = output_dir / f"thumbnail_{file_hash}.png"
+            
+            response = requests.get(thumbnail_url, timeout=30)
+            if response.status_code == 200:
+                with open(thumbnail_path, 'wb') as f:
+                    f.write(response.content)
+                thumbnail_url = f"automation/generated_images/thumbnail_{file_hash}.png"
+                print(f"  ✅ 썸네일 생성 완료")
+            else:
+                thumbnail_url = 'https://picsum.photos/seed/ai-tech/1280/720'
+                print(f"  ⚠️ 썸네일 생성 실패, 기본 이미지 사용")
+        except Exception as e:
+            thumbnail_url = 'https://picsum.photos/seed/ai-tech/1280/720'
+            print(f"  ⚠️ 썸네일 생성 오류: {e}")
         
         # 6. data.json 형식으로 변환
         article = {
