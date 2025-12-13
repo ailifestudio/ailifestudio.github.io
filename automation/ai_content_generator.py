@@ -178,19 +178,20 @@ AI 실전 활용 주제 1개를 추천해줘.
    - 실무 활용 예시
    - 주의사항 또는 한계점
    - 정리 요약
-4. 이미지 키워드는 전체 글에 최대 3~5개만 삽입 ⚠️ 매우 중요!
-   형식: [IMAGE:영어_설명]
-   예시:
-   - [IMAGE:modern workspace with laptop and coffee]
-   - [IMAGE:AI chatbot interface on smartphone screen]
-   - [IMAGE:person using productivity tools on computer]
+4. ⚠️ 이미지 플레이스홀더는 전체 글에 최대 3~5개만 삽입 (매우 중요!)
+   형식: [IMAGE_PLACEHOLDER_1], [IMAGE_PLACEHOLDER_2], ...
    
    ⚠️ 필수 규칙:
-   - **최대 5개 이미지만 삽입** (너무 많으면 글 가독성 저하!)
-   - 이미지 키워드는 100% 영어로만 작성 (한글 절대 금지!)
-   - 구체적이고 시각적인 설명 (3-8단어)
-   - 검색 가능한 명확한 영어 키워드 사용
-   - 핵심 섹션에만 배치 (모든 섹션에 넣지 말 것!)
+   - **플레이스홀더만 삽입** (영어 설명 넣지 말 것!)
+   - 순서대로 번호 매기기: 1, 2, 3, 4, 5
+   - 최대 5개까지만 삽입
+   - 핵심 섹션 바로 아래에 배치
+   - 예시:
+     <h3>AI 활용 전략</h3>
+     <p>AI를 활용하여...</p>
+     [IMAGE_PLACEHOLDER_1]
+   
+   ⚠️ 중요: 이미지는 나중에 섹션 내용을 분석하여 자동 생성됩니다!
 5. HTML 태그만 사용 (허용: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <mark>, <pre>, <br>)
 6. 중요 문장은 <strong> 또는 <mark>로 강조
 7. 실무 팁은 아래 스타일 박스 사용 (일반 텍스트용):
@@ -321,34 +322,18 @@ Output only the prompt in English (no explanations).
             print("❌ 글 생성 실패")
             return None
         
-        # 3. 이미지 자동 생성 및 삽입
-        print("\n[3단계] 이미지 자동 생성 및 삽입 중...")
+        # 3. 컨텍스트 기반 이미지 자동 생성 및 삽입
+        print("\n[3단계] 컨텍스트 기반 이미지 생성 및 삽입 중...")
         try:
-            from unsplash_images import extract_keywords_from_content
-            from free_ai_image_generator import generate_images_for_keywords, save_generated_images
+            from context_aware_image_generator import process_content_with_context_aware_images
             
-            # 이미지 키워드 확인
-            all_keywords = extract_keywords_from_content(post['content'])
-            print(f"  ✅ {len(all_keywords)}개 이미지 키워드 발견")
+            # 컨텍스트 기반 이미지 생성
+            print(f"  🎨 섹션 내용 분석 및 최적화된 이미지 생성 중...")
+            print(f"     ├─ Gemini API: 섹션 내용 분석 & 프롬프트 최적화")
+            print(f"     └─ Pollinations.ai: 고품질 AI 이미지 생성 (무료)")
             
-            # 모든 키워드에 대해 이미지 자동 생성 (완전 무료)
-            if all_keywords:
-                print(f"\n  🎨 {len(all_keywords)}개 이미지 자동 생성 중...")
-                print(f"     ├─ Hugging Face SDXL-Turbo (완전 무료)")
-                print(f"     └─ Fallback: Unsplash API (무료)")
-                
-                # 이미지 생성
-                new_images = generate_images_for_keywords(all_keywords)
-                
-                if new_images:
-                    # generated_images.json 업데이트
-                    save_generated_images(new_images)
-                    print(f"\n  ✅ {len(new_images)}개 이미지 생성 및 저장 완료")
-            
-            # 이미지 삽입 (generated_images.json에서 자동 로드)
-            from unsplash_images import add_images_to_content_with_generation
-            post['content'] = add_images_to_content_with_generation(post['content'])
-            print(f"  ✅ 이미지 삽입 완료")
+            post['content'] = process_content_with_context_aware_images(post['content'])
+            print(f"  ✅ 이미지 생성 및 삽입 완료")
             
         except Exception as e:
             print(f"  ⚠️ 이미지 처리 실패: {e}")
