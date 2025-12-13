@@ -46,7 +46,7 @@ jobs:
         # AI 활성화 여부 확인
         ENABLE_AI="${{ github.event.inputs.enable_ai || 'true' }}"
         
-        if [ "$ENABLE_AI" = "true" ] && [ -n "$GEMINI_API_KEY" ]; then
+        if [ "$ENABLE_AI" = "true" ] && { [ -n "$GEMINI_API_KEY" ] || [ -n "$GEMINI_API_KEYS" ]; }; then
           echo "🤖 AI 콘텐츠 생성 + RSS 크롤링 모드"
           python blog_automation.py --rss-config config_korean.json
         else
@@ -74,7 +74,7 @@ jobs:
         # 변경사항이 있을 때만 커밋
         if ! git diff --staged --quiet; then
           # AI 생성 여부에 따라 커밋 메시지 변경
-          if [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then
+          if [ -n "${{ secrets.GEMINI_API_KEY }}" ] || [ -n "${{ secrets.GEMINI_API_KEYS }}" ]; then
             git commit -m "🤖 자동 업데이트 (AI + RSS): $(date +'%Y-%m-%d %H:%M')"
           else
             git commit -m "📰 자동 업데이트 (RSS): $(date +'%Y-%m-%d %H:%M')"
