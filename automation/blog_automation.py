@@ -131,22 +131,30 @@ class BlogAutomation:
         # 파일명 생성 (날짜-slug 형식)
         today = datetime.now().strftime('%Y-%m-%d')
         
-        # 영문 slug 생성 (한글 제거, 영문/숫자만 유지)
+        # 영문 slug 생성
         title = article['title']
-        # 1. 특수문자를 공백이나 하이픈으로 변환
+        
+        # 1. 특수문자를 하이픈으로 변환
         title = title.replace('/', '-').replace(':', '-').replace('(', '').replace(')', '')
+        
         # 2. 영문, 숫자, 공백, 하이픈만 남기고 제거
         title_slug = re.sub(r'[^a-zA-Z0-9\s-]', '', title)
+        
         # 3. 여러 공백을 하나의 하이픈으로
         title_slug = re.sub(r'\s+', '-', title_slug.strip())
+        
         # 4. 여러 하이픈을 하나로
         title_slug = re.sub(r'-+', '-', title_slug)
-        # 5. 앞뒤 하이픈 제거
-        title_slug = title_slug.strip('-')
         
-        # slug가 비어있으면 기본값 사용
-        if not title_slug:
-            title_slug = f"ai-article-{datetime.now().strftime('%H%M%S')}"
+        # 5. 앞뒤 하이픈 제거
+        title_slug = title_slug.strip('-').lower()
+        
+        # slug가 비어있거나 너무 짧으면 대체 slug 생성
+        if not title_slug or len(title_slug) < 5:
+            # 카테고리 + 타임스탬프 기반 slug
+            category = article.get('category', 'ai')
+            timestamp = datetime.now().strftime('%H%M%S')
+            title_slug = f"{category}-article-{timestamp}"
         
         # 너무 길면 자르기 (최대 50자)
         title_slug = title_slug[:50].rstrip('-')
