@@ -318,36 +318,41 @@ Output only the prompt in English (no explanations).
             print("❌ 글 생성 실패")
             return None
         
-        # 3. 이미지 자동 삽입 (Gemini + Nano Banana 방식)
-        print("\n[3단계] 이미지 자동 삽입 중...")
+        # 3. 이미지 자동 생성 및 삽입
+        print("\n[3단계] 이미지 자동 생성 및 삽입 중...")
         try:
-            from unsplash_images import add_images_to_content_with_generation, extract_keywords_from_content
-            from auto_generate_images import extract_new_keywords_from_content, generate_prompts_for_keywords, save_prompts_to_file
+            from unsplash_images import extract_keywords_from_content
+            from auto_image_generator import extract_new_keywords_from_content, generate_images_for_keywords, save_generated_images
             
             # 이미지 키워드 확인
-            keywords = extract_keywords_from_content(post['content'])
-            print(f"  ✅ {len(keywords)}개 이미지 키워드 발견")
+            all_keywords = extract_keywords_from_content(post['content'])
+            print(f"  ✅ {len(all_keywords)}개 이미지 키워드 발견")
             
-            # 새 키워드에 대한 프롬프트 생성 (Gemini API)
-            new_keywords = extract_new_keywords_from_content(post['content'])
-            if new_keywords:
-                print(f"\n  🎨 새 키워드 {len(new_keywords)}개 발견 → Gemini로 프롬프트 생성 중...")
-                prompts = generate_prompts_for_keywords(new_keywords)
-                if prompts:
-                    save_prompts_to_file(prompts)
-                    print(f"  ✅ 프롬프트 저장 완료 → image_generation_requests.json")
-                    print(f"     ⚠️ GenSpark Assistant가 이 파일을 읽고 Nano Banana로 이미지 생성 필요")
+            # 모든 키워드에 대해 이미지 자동 생성
+            if all_keywords:
+                print(f"\n  🎨 {len(all_keywords)}개 이미지 자동 생성 중...")
+                print(f"     ├─ Gemini API: 프롬프트 향상")
+                print(f"     └─ Unsplash API: 무료 고품질 이미지")
+                
+                # 이미지 생성
+                new_images = generate_images_for_keywords(all_keywords)
+                
+                if new_images:
+                    # generated_images.json 업데이트
+                    save_generated_images(new_images)
+                    print(f"\n  ✅ {len(new_images)}개 이미지 생성 및 저장 완료")
             
-            # 이미지 자동 삽입 (기존 이미지 또는 placeholder)
+            # 이미지 삽입 (generated_images.json에서 자동 로드)
+            from unsplash_images import add_images_to_content_with_generation
             post['content'] = add_images_to_content_with_generation(post['content'])
             print(f"  ✅ 이미지 삽입 완료")
+            
         except Exception as e:
-            print(f"  ⚠️ 이미지 삽입 실패: {e}")
+            print(f"  ⚠️ 이미지 처리 실패: {e}")
             import traceback
             traceback.print_exc()
-            # 실패해도 계속 진행
-            from unsplash_images import add_images_to_content
-            post['content'] = add_images_to_content(post['content'])
+            # 실패해도 계속 진행 (이미지 없이)
+            pass
         
         # 4. 요약문 생성
         print("\n[4단계] 요약문 생성 중...")

@@ -31,47 +31,36 @@ def load_generated_images():
 
 def search_unsplash_image(keyword: str, access_key: str = None) -> str:
     """
-    이미지 URL 검색 (Gemini 생성 이미지 우선, 스마트 매칭)
+    이미지 URL 검색 (generated_images.json에서)
     
     Args:
         keyword: 검색 키워드 (영어)
         access_key: API 키 (선택사항, 사용 안 함)
     
     Returns:
-        이미지 URL (Gemini 생성 또는 스마트 매칭)
+        이미지 URL (generated_images.json에 있어야 함)
     """
-    # 1순위: Gemini로 생성된 이미지 확인 (정확한 매칭)
+    # generated_images.json에서 검색
     generated_images = load_generated_images()
+    
     if keyword in generated_images:
         image_url = generated_images[keyword]
-        print(f"    ✅ Gemini 이미지 사용: {keyword}")
+        print(f"    ✅ 이미지 사용: {keyword}")
         print(f"       → {image_url[:60]}...")
         return image_url
     
-    # 2순위: 스마트 매칭 (유사한 키워드 찾기)
-    try:
-        from smart_image_matcher import search_image_smart
-        print(f"    🔍 스마트 매칭 시도: '{keyword}'")
-        image_url = search_image_smart(keyword)
-        
-        # 매칭 성공 (플레이스홀더가 아닌 실제 이미지)
-        if image_url and not image_url.startswith("https://via.placeholder.com"):
-            print(f"       → {image_url[:60]}...")
-            return image_url
-    except Exception as e:
-        print(f"    ⚠️ 스마트 매칭 실패: {e}")
+    # 이미지 없음 (자동 생성 단계에서 추가되었어야 함)
+    print(f"    ⚠️ 이미지 없음: '{keyword}'")
+    print(f"       → 자동 생성 단계를 확인하세요")
     
-    # 3순위: 플레이스홀더 (이 키워드는 아직 생성 안 됨)
-    print(f"    ⚠️ 매칭 실패: '{keyword}'")
-    print(f"       → generated_images.json에 없는 새 키워드입니다")
+    # Fallback: Unsplash 무료 이미지
+    import hashlib
+    keywords_clean = keyword.replace(' ', ',')
+    fallback_url = f"https://source.unsplash.com/1280x720/?{keywords_clean}"
     
-    # 16:9 비율 플레이스홀더
-    placeholder_url = f"https://via.placeholder.com/1280x720/1e293b/60a5fa?text={urllib.parse.quote(keyword[:30])}"
+    print(f"    🔧 Unsplash Fallback 사용: {fallback_url[:70]}...")
     
-    print(f"    🔧 임시 Placeholder 사용: {placeholder_url[:70]}...")
-    print(f"    💡 해결: 이 키워드로 이미지 생성 후 generated_images.json 업데이트 필요")
-    
-    return placeholder_url
+    return fallback_url
 
 
 def extract_keywords_from_content(content: str, max_images: int = 5) -> list:
