@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-13 07:14",
-  "total": 8,
+  "updatedAt": "2025-12-13 07:27",
+  "total": 9,
   "articles": [
+    {
+      "title": "AI 비서로 일상과 학습 생산성 극대화하는 최신 실전 활용법",
+      "source": "AI Life Studio",
+      "time": "2025-12-13 07:27",
+      "summary": "인공지능(AI) 비서는 최신 자연어 처리 기술을 기반으로 개인의 일상과 학습 생산성을 극대화하는 강력한 파트너입니다. 이 글은 ChatGPT, Gemini 등 AI 비서를 활용하여 일상 관리, 학습, 연구, 콘텐츠 생성 등 다양한 영역에서 효과적인 프롬프트를 사용하여 원하는 결과를 얻는 실전적인 활용법을 제시합니다. AI를 지능적인 협업 도구로 활용하여 잠",
+      "link": "/article.html?slug=2025-12-13-ai-article-072726",
+      "image": "https://picsum.photos/seed/dc33a3822eeb2f34/1280/720",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-13-ai-article-072726",
+      "canonical_url": ""
+    },
     {
       "title": "2025 최신 멀티모달 AI로 일상 생산성 극대화하는 실전 활용법",
       "source": "AI Life Studio",
