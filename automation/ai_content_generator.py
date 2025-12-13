@@ -318,20 +318,33 @@ Output only the prompt in English (no explanations).
             print("❌ 글 생성 실패")
             return None
         
-        # 3. 이미지 자동 삽입 (Unsplash 우선, 실패 시 Nano Banana 생성)
+        # 3. 이미지 자동 삽입 (Gemini + Nano Banana 방식)
         print("\n[3단계] 이미지 자동 삽입 중...")
         try:
             from unsplash_images import add_images_to_content_with_generation, extract_keywords_from_content
+            from auto_generate_images import extract_new_keywords_from_content, generate_prompts_for_keywords, save_prompts_to_file
             
             # 이미지 키워드 확인
             keywords = extract_keywords_from_content(post['content'])
             print(f"  ✅ {len(keywords)}개 이미지 키워드 발견")
             
-            # 이미지 자동 삽입 (Unsplash 우선, 실패 시 AI 생성)
+            # 새 키워드에 대한 프롬프트 생성 (Gemini API)
+            new_keywords = extract_new_keywords_from_content(post['content'])
+            if new_keywords:
+                print(f"\n  🎨 새 키워드 {len(new_keywords)}개 발견 → Gemini로 프롬프트 생성 중...")
+                prompts = generate_prompts_for_keywords(new_keywords)
+                if prompts:
+                    save_prompts_to_file(prompts)
+                    print(f"  ✅ 프롬프트 저장 완료 → image_generation_requests.json")
+                    print(f"     ⚠️ GenSpark Assistant가 이 파일을 읽고 Nano Banana로 이미지 생성 필요")
+            
+            # 이미지 자동 삽입 (기존 이미지 또는 placeholder)
             post['content'] = add_images_to_content_with_generation(post['content'])
             print(f"  ✅ 이미지 삽입 완료")
         except Exception as e:
             print(f"  ⚠️ 이미지 삽입 실패: {e}")
+            import traceback
+            traceback.print_exc()
             # 실패해도 계속 진행
             from unsplash_images import add_images_to_content
             post['content'] = add_images_to_content(post['content'])
