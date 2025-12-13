@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-13 06:09",
-  "total": 3,
+  "updatedAt": "2025-12-13 06:12",
+  "total": 4,
   "articles": [
+    {
+      "title": "AI 비서로 업무와 일상을 스마트하게 자동화하는 최신 전략",
+      "source": "AI Life Studio",
+      "time": "2025-12-13 06:12",
+      "summary": "AI 비서는 인공지능 기술 발전을 통해 업무와 일상을 스마트하게 자동화하여 생산성과 편의성을 극대화하는 강력한 도구로 자리 잡았습니다. 이들은 고도화된 음성 및 텍스트 이해, 지능형 스케줄 관리, 정보 검색 및 요약, 자동화된 커뮤니케이션, 타 시스템 연동 등 다양한 핵심 기능을 제공합니다.",
+      "link": "/article.html?slug=2025-12-13-AI-비서로-업무와-일상을-스마트하게-자동화하는-최신-",
+      "image": "https://source.unsplash.com/800x600/?A%20futuristic%20AI%20assistant%20holographic%20interface%20projected%20from%20a%20smart%20device",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-13-AI-비서로-업무와-일상을-스마트하게-자동화하는-최신-",
+      "canonical_url": ""
+    },
     {
       "title": "나만의 AI 비서로 일상/업무 효율 높이는 시간 절약 실전법",
       "source": "AI Life Studio",
