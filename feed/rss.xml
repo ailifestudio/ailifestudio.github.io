@@ -7,7 +7,7 @@
     <link>https://ailifestudio.github.io/</link>
     <description>AI와 테크 뉴스를 자동으로 큐레이팅하는 블로그</description>
     <language>ko</language>
-    <lastBuildDate>Sat, 13 Dec 2025 05:06:08 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Dec 2025 05:10:14 +0000</lastBuildDate>
 
     <item>
       <title><![CDATA[OSMU 블로그 시스템에 오신 것을 환영합니다]]></title>
@@ -344,7 +344,7 @@ high quality photography --ar 16:9 --v 6&quot;
 <p><em>이 글이 도움이 되었다면, 주변 동료들과 공유해주세요!</em></p>]]></content:encoded>
       <pubDate>Fri, 12 Dec 2025 00:00:00 +0000</pubDate>
       <guid isPermaLink="false">2025-12-12-ai-productivity-tips</guid>
-      <category><![CDATA[AI]]></category>
+      <category><![CDATA[AI/테크]]></category>
     </item>
   </channel>
 </rss>

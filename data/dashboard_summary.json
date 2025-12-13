@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-12-13 05:06",
+  "updatedAt": "2025-12-13 05:10",
   "total": 2,
   "articles": [
     {
@@ -21,7 +21,7 @@
       "summary": "AI 도구를 활용해 업무 효율을 극대화하는 실전 팁 5가지를 소개합니다. ChatGPT, Notion AI, Midjourney 등 최신 AI 도구 활용법을 배워보세요.",
       "link": "/article.html?slug=2025-12-12-ai-productivity-tips",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
-      "category": "AI",
+      "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-12-ai-productivity-tips",
       "canonical_url": ""
