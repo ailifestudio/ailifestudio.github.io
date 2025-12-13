@@ -123,8 +123,11 @@ class BlogAutomation:
         from datetime import datetime
         import re
         
-        # contents 디렉토리 확인
-        contents_dir = '../contents'
+        # contents 디렉토리 확인 (절대 경로)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(script_dir)
+        contents_dir = os.path.join(project_root, 'contents')
+        
         if not os.path.exists(contents_dir):
             os.makedirs(contents_dir)
         
