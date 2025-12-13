@@ -213,7 +213,9 @@
                         const response = await fetch(`data/${cat}/page_1.json?t=` + new Date().getTime());
                         if (response.ok) {
                             const data = await response.json();
-                            article = data.items.find(item => item.slug === slug);
+                            // JSON 파일에서 articles 배열 사용 (items가 아님!)
+                            const articles = data.articles || data.items || [];
+                            article = articles.find(item => item.slug === slug);
                             if (article) {
                                 article.category = categoryNames[cat] || cat.toUpperCase();
                                 break;
