@@ -140,12 +140,11 @@ class AIContentGenerator:
 당신의 임무는 현재 시점에서 대중의 관심이 폭발하고 있지만, 아직 공급이 부족한 **'블루오션 키워드'**를 발굴하는 것입니다.
 
 # Context Data
-1. **Current Date**: {current_date} (오늘 날짜를 반드시 인식할 것)
+1. **Current Date**: {datetime.now().strftime('%Y-%m-%d')} (오늘 날짜를 반드시 인식할 것)
 2. **Target Audience**: AI를 실무에 당장 적용하고 싶어 하는 3040 직장인 및 프리랜서.
 3. **Existing Articles**: 아래 목록에 있는 주제는 **절대 중복 불가**. 유사한 소재라도 접근 방식(Angle)이 완전히 달라야 함.
-   """
-   {existing_titles_text}
-   """
+
+{existing_titles_text}
 
 # Task: Topic Selection & Title Engineering
 다음 4단계 사고 과정(Chain of Thought)을 거쳐 **단 하나의 필승 주제**를 선정하시오.
