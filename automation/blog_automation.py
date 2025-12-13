@@ -93,7 +93,7 @@ class BlogAutomation:
         return processed
     
     def generate_ai_article(self) -> Dict:
-        """AI로 콘텐츠 자동 생성"""
+        """AI로 콘텐츠 자동 생성 및 Markdown 파일 저장"""
         if not self.enable_ai:
             return None
         
@@ -105,6 +105,10 @@ class BlogAutomation:
             article = self.ai_generator.create_article_for_blog()
             if article:
                 article['type'] = 'ai_generated'
+                
+                # Markdown 파일로 저장
+                self._save_ai_article_as_markdown(article)
+                
                 return article
         except Exception as e:
             print(f"❌ AI 콘텐츠 생성 실패: {e}")
@@ -112,6 +116,53 @@ class BlogAutomation:
             traceback.print_exc()
         
         return None
+    
+    def _save_ai_article_as_markdown(self, article: Dict):
+        """AI 생성 글을 Markdown 파일로 저장"""
+        import os
+        from datetime import datetime
+        
+        # contents 디렉토리 확인
+        contents_dir = '../contents'
+        if not os.path.exists(contents_dir):
+            os.makedirs(contents_dir)
+        
+        # 파일명 생성 (날짜-slug 형식)
+        today = datetime.now().strftime('%Y-%m-%d')
+        title_slug = article['title'][:30].replace(' ', '-').replace('/', '-')
+        filename = f"{today}-{title_slug}.md"
+        filepath = os.path.join(contents_dir, filename)
+        
+        # Front Matter 생성
+        front_matter = f"""---
+title: "{article['title']}"
+date: {article.get('created_at', datetime.now().strftime('%Y-%m-%d %H:%M'))}
+category: {article.get('category', 'AI/테크')}
+summary: "{article.get('summary', '')[:200]}"
+image: {article.get('image', '')}
+tags: [AI, 자동화, 생산성]
+type: ai_generated
+---
+
+"""
+        
+        # Markdown 내용
+        content = article.get('content', '')
+        
+        # 파일 저장
+        try:
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(front_matter)
+                f.write(content)
+            
+            print(f"  ✅ Markdown 파일 저장: {filename}")
+            
+            # 링크 업데이트
+            article['link'] = f"/article.html?slug={today}-{title_slug}"
+            
+        except Exception as e:
+            print(f"  ⚠️ Markdown 저장 실패: {e}")
+            article['link'] = "#"
     
     def merge_articles(self, 
                       rss_articles: List[Dict], 
