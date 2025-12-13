@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-13 13:35",
-  "total": 14,
+  "updatedAt": "2025-12-13 13:40",
+  "total": 15,
   "articles": [
+    {
+      "title": "막힌 아이디어, AI로 뚫는 2025년 최신 브레인스토밍 실전 전략",
+      "source": "AI Life Studio",
+      "time": "2025-12-13 13:40",
+      "summary": "2025년의 빠르게 변화하는 비즈니스 환경에서는 혁신적인 아이디어가 필수적이지만, 기존 브레인스토밍 방식으로는 아이디어 고갈 문제를 해결하기 어렵습니다. 이에 2025년의 발전된 인공지능(AI)은 단순한 보조 도구를 넘어 정보 분석, 패턴 인식, 창의적 제안 능력으로 아이디어 발상과 확장의 핵심 파트너로 부상했습니다. 본 글은 막힌 아이디어를 뚫고 전에 없",
+      "link": "/article.html?slug=2025-12-13-ai-2025",
+      "image": "https://via.placeholder.com/1280x720/1e293b/60a5fa?text=creative%20thought%20process%20with%20",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-13-ai-2025",
+      "canonical_url": ""
+    },
     {
       "title": "AI 개인 맞춤 비서로 일상 업무 효율 극대화하는 실전 가이드",
       "source": "AI Life Studio",
