@@ -54,6 +54,13 @@ jobs:
           python blog_automation.py --rss-config config_korean.json --no-ai
         fi
         
+    - name: 🔨 블로그 빌드 (Markdown → HTML)
+      run: |
+        echo "🔨 build_blog.py 실행 중..."
+        python automation/build_blog.py
+        echo "✅ 블로그 빌드 완료"
+        
+    
     - name: 📊 data.json 이동
       run: |
         if [ -f automation/data.json ]; then
@@ -69,7 +76,8 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        git add data.json
+        # AI 생성 Markdown, data.json, data/, feed/, contents/ 모두 추가
+        git add data.json data/ feed/ contents/
         
         # 변경사항이 있을 때만 커밋
         if ! git diff --staged --quiet; then
