@@ -1,24 +1,44 @@
 {
-  "updatedAt": "2025-12-12 16:19",
-  "totalArticles": 12,
+  "updatedAt": "2025-12-13 00:16",
+  "totalArticles": 14,
   "hasArchive": false,
   "articles": [
     {
-      "title": "Zevo wants to add robotaxis to its car-share fleet, starting with newcomer Tensor",
+      "title": "Riding onboard with Rivian’s race to autonomy",
       "source": "TechCrunch",
-      "time": "1시간 전",
-      "summary": "As robotaxi adoption continues, wild ideas like personal ownership and renting them out are starting to pop up again....",
-      "link": "https://techcrunch.com/2025/12/12/zevo-wants-to-add-robotaxis-to-its-car-share-fleet-starting-with-newcomer-tensor/",
+      "time": "2시간 전",
+      "summary": "Rivian demonstrated the progress it's made, and in the process showed just how far it still has to go to make its cars autonomous....",
+      "link": "https://techcrunch.com/2025/12/12/riding-onboard-with-rivians-race-to-autonomy/",
       "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
       "category": "AI/테크",
       "type": "rss"
     },
     {
-      "title": "Flaw in photo booth maker’s website exposes customers’ pictures",
+      "title": "A comprehensive list of 2025 tech layoffs",
       "source": "TechCrunch",
-      "time": "41분 전",
-      "summary": "Hama Film makes photo booths that upload pictures and videos online. But their backend systems have a simple flaw that allows anyone to download customer pictures....",
-      "link": "https://techcrunch.com/2025/12/12/flaw-in-photo-booth-makers-website-exposes-customers-pictures/",
+      "time": "5분 전",
+      "summary": "A complete list of all the known layoffs in tech, from Big Tech to startups, broken down by month throughout 2025....",
+      "link": "https://techcrunch.com/2025/12/12/tech-layoffs-2025-list/",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
+      "category": "AI/테크",
+      "type": "rss"
+    },
+    {
+      "title": "이제는 우주에서 경쟁?! 데이터센터 구축하는 빅테크들",
+      "source": "AI타임스",
+      "time": "17시간 전",
+      "summary": "AI타임스 조예주 기자 joyejuoffice@aitimes.com...",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=204760",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
+      "category": "AI/테크",
+      "type": "rss"
+    },
+    {
+      "title": "[12월12일] '창립 10주년' 맞은 오픈AI가 강조한 것은",
+      "source": "AI타임스",
+      "time": "17시간 전",
+      "summary": "'GPT-5.2' 출시로 그동안 입을 다물었던 오픈AI의 입이 열렸습니다. 모델 출시에 맞춰 샌프란시스코에서는 기자 간담회까지 연 것으로 알려졌습니다. 그만큼 새 모델의 성능에 자신을 가진 것으로 볼 수 있습니다.샘 알트먼 CEO는 주초에는 일부 취재진과 오찬을 하며 회사에 대한 이야기를 나눈 것으로 알려졌습니다. 이 가운데에서는 전문가들이 오픈AI와 구글...",
+      "link": "https://www.aitimes.com/news/articleView.html?idxno=204742",
       "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
       "category": "AI/테크",
       "type": "rss"
@@ -26,7 +46,7 @@
     {
       "title": "[PGC 통신] GF 1일차 '노치킨' 한국 줄줄이 하위권...T1만 상위권 마무리",
       "source": "테크M",
-      "time": "16시간 전",
+      "time": "1분 전",
       "summary": "12일(현지시간) 태국 방콕 시암 파라곤에서 열린 '펍지(PUBG) 글로벌 챔피언십 2025' 그랜드 파이널 1일차에서 한국 팀들이 다소 아쉬운 성적을 거뒀다.T1은 치킨을 얻진 못했지만 14킬을 기록한 '이엔드' 선수의 활약과 '레이닝' 선수의 노련한 경기 운영으로 꾸준히 점수를 쌓아가며 나투스 빈체레(59점), 팀 팔콘스(51점)에 이어 3위(45점)에...",
       "link": "https://www.techm.kr/news/articleView.html?idxno=147717",
       "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
@@ -36,7 +56,7 @@
     {
       "title": "[e스포츠人] PGC GF 1일차 3위로 우승 불씨 살린 T1 \"우린 실전에 강한 팀\"",
       "source": "테크M",
-      "time": "15시간 전",
+      "time": "23시간 전",
       "summary": "글로벌 배틀그라운드 e스포츠 최강자를 가리는 '펍지 글로벌 챔피언십(PGC) 2025' 그랜드 파이널 1일차에서 5개 한국 팀 중 유일하게 상위권인 3위로 경기를 마무리한 T1이 우승에 대한 자신감을 표출했다.12일 태국 방콕 시암 파라곤에서 열린 PGC 2025 그랜드 파이널 1일차 경기 이후 기자들과 만난 신명관 T1 감독은 \"T1은 실전에 강하다\"며 ...",
       "link": "https://www.techm.kr/news/articleView.html?idxno=147718",
       "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80",
