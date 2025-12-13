@@ -84,6 +84,9 @@
             border-radius: 0.5rem;
             overflow-x: auto;
             margin: 1.5rem 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
         }
         
         .article-content pre code {
@@ -254,8 +257,8 @@
             document.getElementById('source').textContent = article.source || 'AI Life Studio';
             document.getElementById('date').textContent = article.date || '';
             document.getElementById('time').textContent = article.time || formatDate(article.date);
-            document.getElementById('category').textContent = article.category || 'AI/테크';
-            document.getElementById('category-badge').textContent = article.category || 'AI/테크';
+            document.getElementById('category').textContent = article.source || article.category || 'AI/테크';
+            document.getElementById('category-badge').textContent = article.source || article.category || 'AI/테크';
 
             // 썸네일
             if (article.image) {

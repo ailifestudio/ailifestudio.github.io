@@ -145,10 +145,10 @@ AI 실전 활용 주제 1개를 추천해줘.
 <strong>TIP:</strong> 내용
 </p>
 
-8. 코드 예시는 <pre> 태그 사용:
+8. 코드 또는 예시는 <pre> 태그 사용:
 
-<pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; overflow-x:auto;">
-코드 내용
+<pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word; max-width:100%;">
+예시 내용 (긴 텍스트도 자동 줄바꿈)
 </pre>
 
 주제: {topic}
