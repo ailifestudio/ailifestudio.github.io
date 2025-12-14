@@ -134,59 +134,56 @@ class AIContentGenerator:
         existing_titles = self.get_existing_titles()
         existing_titles_text = '\n'.join(f"- {title}" for title in existing_titles[:20])  # 최근 20개만
         
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        
         topic_prompt = f"""
-# Role Definition
-당신은 대한민국 상위 1% IT/Tech 전문 블로거입니다.
-한국어 원어민 독자를 대상으로 자연스럽고 전문적인 한국어 콘텐츠를 작성해야 합니다.
+# 미션
+당신은 '블루오션 키워드' 전문가입니다.
+대중의 관심도는 높지만 공급이 적은, 즉 검색 수요는 많으나 양질의 콘텐츠가 부족한 주제를 발굴하는 것이 목표입니다.
 
-# Task
-주어진 주제에 대해 아래 [작성 규칙]을 엄격히 준수하여 블로그 포스팅을 작성하십시오.
+# 타겟 독자
+- 연령: 30~40대 직장인, 프리랜서
+- 관심사: AI를 실무에 적용하여 업무 효율을 높이거나 새로운 기회를 찾고 싶어 함
+- 특징: 기술 전문가가 아니므로 "설치 방법"이나 "개발자용 튜토리얼"보다는 **즉시 사용 가능한 실용 가이드**를 선호
 
-# User Input (Topic)
-주제: {주제}
+# 금지 주제 (Negative Filtering)
+기존 블로그에 이미 다룬 주제와 중복되지 않도록 주의하십시오:
+{existing_titles_text}
 
-# [작성 규칙] (❌ 위반 시 치명적 오류 간주)
-1. **언어 제한 (Language Control):**
-   - **본문 전체: 100% 한국어 작성.** (영어 단어, 문장 혼용 절대 금지)
-   - 예외: 'AI', 'CEO', 'IT' 같은 통용되는 고유명사 약어만 허용.
-   - ⚠️ **중요:** 본문 중간에 "Prompt example" 같은 영어 예시를 절대 넣지 마십시오.
+# 작업 프로세스 (4단계)
 
-2. **이미지 플레이스홀더 규칙 (엄격 준수):**
-   - 형식: `[IMAGE_PLACEHOLDER_번호]` 만 딱 적으십시오.
-   - ❌ 금지 예시: `[IMAGE_PLACEHOLDER_1] (Futuristic office...)` -> 괄호 열고 설명 쓰면 **실패**입니다.
-   - ⭕ 올바른 예시:
-     <h3>섹션 제목</h3>
-     <p>내용...</p>
-     [IMAGE_PLACEHOLDER_1]
+## Step 1: 트렌드 스캐닝
+- 현재 날짜: {current_date}
+- 2025년 최신 AI 활용 키워드를 분석하십시오.
+- 예: AI 에이전트, 멀티모달 AI, AI 자동화, 생산성 도구, 프롬프트 엔지니어링 응용
 
-3. **형식 및 구조:**
-   - HTML 태그만 사용 (<h2>, <h3>, <p>, <ul>, <li>, <strong>, <mark>, <pre>, <br>).
-   - <html>, <body> 태그 제외.
-   - 분량: 공백 포함 1,500자 ~ 2,000자.
+## Step 2: 네거티브 필터링 (제외 항목)
+다음 유형의 주제는 절대 선택하지 마십시오:
+- "돈 버는 법", "부업", "재테크", "주식" 등 금전적 수익 강조 (신뢰도 하락)
+- "ChatGPT 사용법", "프롬프트 작성법" 같은 지나치게 기초적인 활용법 (이미 포화)
+- "Python 설치", "API 연동" 같은 개발자 전용 주제 (타겟 독자 불일치)
+- 기존 제목과 60% 이상 유사한 주제
 
-4. **스타일 박스 (그대로 복사):**
-   - 팁: <p style="border-left:4px solid #3b82f6; background:#f0f9ff; padding:15px; border-radius:4px; margin:15px 0;"><strong>💡 TIP:</strong> 내용</p>
-   - 주의: <p style="border-left:4px solid #ef4444; background:#fef2f2; padding:15px; border-radius:4px; margin:15px 0;"><strong>⚠️ 주의:</strong> 내용</p>
-   - 코드: <pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; white-space:pre-wrap; word-wrap:break-word; line-height:1.6; border:1px solid #334155; margin:15px 0;">코드</pre>
+## Step 3: 앵글 구체화
+- 2025 트렌드와 연결: "2025년", "최신", "신기능" 등
+- 구체적 효과 명시: "50% 단축", "3배 향상", "5분 완성" 등 숫자 활용
+- 타겟의 페인 포인트 직접 언급: "회의록 정리", "기획안 작성", "데이터 분석" 등
+
+## Step 4: 제목 최적화 (Title Engineering)
+- 길이: 25~35자 (한글 기준)
+- 구조: [타겟] + [도구/방법] + [구체적 결과/숫자]
+- 핵심 키워드를 앞쪽에 배치 (SEO)
+- 예시:
+  * "직장인 회의록, AI 에이전트로 5분 만에 자동 정리"
+  * "[2025] 기획안 작성, ChatGPT + Claude 조합으로 3배 빠르게"
+  * "비개발자도 쉬운 AI 자동화, Make.com 실전 활용법"
 
 ---
 
-# [Step-by-Step 실행 지침]
-
-**Step 1: 구조 설계 (Internal Monologue)**
-- 주제를 분석하여 목차를 구성하십시오. (출력하지 않음)
-
-**Step 2: 콘텐츠 작성 (HTML Output)**
-- 위 규칙을 지켜 **완벽한 한국어 블로그 글**을 작성하십시오.
-- **영어 문장이 단 한 문장이라도 본문에 섞이면 안 됩니다.**
-
-**Step 3: 이미지 프롬프트 생성 (List Output)**
-- ⚠️ 글 작성이 완전히 끝난 후, 반드시 `<hr id="image-prompt-separator">` 태그를 넣으십시오.
-- 그 아래에 이미지 생성용 영어 프롬프트 표를 작성하십시오. (이 부분만 유일하게 영어 사용 가능)
-- **형식**:
-| ID | Context | English Prompt for AI Image Generation |
-|:--|:--|:--|
-| [IMAGE_PLACEHOLDER_1] | (메인 주제) | (Cinematic, Detailed, 8k, Description...) |
+# 최종 출력 형식
+**한 줄로 완성된 제목만 출력하십시오.**
+설명이나 부연은 절대 포함하지 마십시오.
+"""
         
         try:
             topic = self._generate_with_retry(topic_prompt)
@@ -201,9 +198,8 @@ class AIContentGenerator:
         """블로그 글 자동 생성"""
         print(f"\n[2단계] 블로그 글 생성 중...")
         
-        post_prompt = f"""
-[작성 규칙]
-# Role Definition
+        # 프롬프트를 일반 문자열로 구성 (f-string 내부에 복잡한 특수문자 회피)
+        post_prompt = f"""# Role Definition
 당신은 대한민국 상위 1% IT/Tech 전문 블로거이자 SEO 전문가입니다.
 독자가 글을 읽고 즉시 실행할 수 있는 실용적인 가이드를 제공하여 체류 시간을 극대화하는 것이 목표입니다.
 
@@ -214,51 +210,51 @@ class AIContentGenerator:
 주제: {topic}
 
 # [작성 규칙] (엄격 준수)
-1. **형식**: 오직 HTML 태그만 사용 (<h2>, <h3>, <p>, <ul>, <li>, <strong>, <mark>, <pre>, <br> 허용). <html>, <head>, <body> 태그는 제외.
-2. **분량**: 공백 포함 1,500자 ~ 2,000자 이상.
-3. **구성**:
+1. 형식: 오직 HTML 태그만 사용 (<h2>, <h3>, <p>, <ul>, <li>, <strong>, <mark>, <pre>, <br> 허용). <html>, <head>, <body> 태그는 제외.
+2. 분량: 공백 포함 1,500자 ~ 2,000자 이상.
+3. 구성:
    - 제목 (<h2>)
    - 서문 (인사말 생략, 페인포인트 자극 2-3문단)
    - 본문 (4~6개 섹션, <h3> 제목 + 설명)
    - 실무 활용 예시
    - 주의사항 또는 한계점
    - 정리 요약 (Call to Action 포함)
-4. **이미지 플레이스홀더**:
+4. 이미지 플레이스홀더:
    - 전체 글 내에 [IMAGE_PLACEHOLDER_1] ~ [IMAGE_PLACEHOLDER_5]를 최대 5개 배치.
    - [IMAGE_PLACEHOLDER_1]은 반드시 서론 직후(썸네일용)에 배치.
    - 나머지는 핵심 섹션 직후 배치.
-   - ⚠️ 중요: 본문 안에는 **플레이스홀더만 삽입**하고, 영어 설명은 절대 넣지 마십시오.
-5. **강조**: 핵심 문장은 <strong> 또는 <mark>로 강조.
-6. **실무 팁 박스 스타일** (반드시 아래 코드 복사):
-   <p style="border-left:4px solid #3b82f6; background:#f0f9ff; padding:15px; border-radius:4px; margin:15px 0;"><strong>💡 TIP:</strong> 내용</p>
+   - 중요: 본문 안에는 플레이스홀더만 삽입하고, 영어 설명은 절대 넣지 마십시오.
+5. 강조: 핵심 문장은 <strong> 또는 <mark>로 강조.
+6. 실무 팁 박스 스타일 (반드시 아래 코드 복사):
+   <p style=\"border-left:4px solid #3b82f6; background:#f0f9ff; padding:15px; border-radius:4px; margin:15px 0;\"><strong>💡 TIP:</strong> 내용</p>
 
-7. **⚠️ 주의사항 박스 스타일 (내용 필수 작성 - 누락 엄금)**:
-   - 아래 HTML 코드를 사용하되, **내용 부분에 반드시 주제와 관련된 치명적인 단점, 비용 문제, 보안 이슈, 기술적 한계 등을 구체적으로 작성**하십시오.
-   - **절대 금지**: 내용을 비워두거나, "주의사항을 입력하세요"라는 문구를 그대로 출력하는 행위.
+7. 주의사항 박스 스타일 (내용 필수 작성 - 누락 엄금):
+   - 아래 HTML 코드를 사용하되, 내용 부분에 반드시 주제와 관련된 치명적인 단점, 비용 문제, 보안 이슈, 기술적 한계 등을 구체적으로 작성하십시오.
+   - 절대 금지: 내용을 비워두거나, 주의사항을 입력하세요라는 문구를 그대로 출력하는 행위.
    - 코드:
-   <p style="border-left:4px solid #ef4444; background:#fef2f2; padding:15px; border-radius:4px; margin:15px 0;"><strong>⚠️ 주의:</strong> (이곳에 반드시 구체적인 경고 내용을 작성할 것)</p>
+   <p style=\"border-left:4px solid #ef4444; background:#fef2f2; padding:15px; border-radius:4px; margin:15px 0;\"><strong>⚠️ 주의:</strong> (이곳에 반드시 구체적인 경고 내용을 작성할 것)</p>
 
-8. **코드/명령어 박스 스타일** (반드시 아래 코드 복사):
-   <pre style="background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; white-space:pre-wrap; word-wrap:break-word; line-height:1.6; border:1px solid #334155; margin:15px 0;">코드 내용</pre>
+8. 코드/명령어 박스 스타일 (반드시 아래 코드 복사):
+   <pre style=\"background:#1e293b; color:#e2e8f0; padding:15px; border-radius:8px; white-space:pre-wrap; word-wrap:break-word; line-height:1.6; border:1px solid #334155; margin:15px 0;\">코드 내용</pre>
 
 ---
 
 # [Step-by-Step 실행 지침]
 
-**Step 1: 구조 설계 (Internal Monologue)**
+Step 1: 구조 설계 (Internal Monologue)
 - 출력하지 말고 혼자 생각하십시오. 주제를 분석하여 가장 논리적인 목차를 구성합니다.
-- **[중요]** 주의사항 박스에 들어갈 '현실적인 위험 요소(Risk Factor)'를 미리 생각하십시오.
+- 중요: 주의사항 박스에 들어갈 현실적인 위험 요소(Risk Factor)를 미리 생각하십시오.
 
-**Step 2: 콘텐츠 작성 (HTML Output)**
+Step 2: 콘텐츠 작성 (HTML Output)
 - 위 [작성 규칙]에 맞춰 고품질의 HTML 글을 작성하십시오.
 - 스타일(CSS)을 정확하게 적용하십시오.
-- **팁 박스와 주의 박스는 반드시 1회 이상 사용하고, 내용은 절대 비워두지 마십시오.**
+- 팁 박스와 주의 박스는 반드시 1회 이상 사용하고, 내용은 절대 비워두지 마십시오.
 
-**Step 3: 이미지 프롬프트 생성 (List Output)**
-- ⚠️ 글 작성이 끝난 후, 맨 마지막에 `<hr>` 태그로 구분선을 넣고 그 아래에 작성하십시오.
-- 각 플레이스홀더 번호에 맞춰, '고품질 AI 이미지 생성용 영어 프롬프트'를 작성하십시오.
+Step 3: 이미지 프롬프트 생성 (List Output)
+- 글 작성이 끝난 후, 맨 마지막에 <hr> 태그로 구분선을 넣고 그 아래에 작성하십시오.
+- 각 플레이스홀더 번호에 맞춰, 고품질 AI 이미지 생성용 영어 프롬프트를 작성하십시오.
 - 이 부분은 블로그 발행 시 관리자가 참고하여 삭제할 부분입니다.
-- **형식**:
+- 형식:
 | ID | Context | English Prompt for AI Image Generation |
 |:--|:--|:--|
 | [IMAGE_PLACEHOLDER_1] | (메인 주제) | (Cinematic, Detailed, 8k, Description...) |
