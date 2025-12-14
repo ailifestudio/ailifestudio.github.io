@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2025-12-14 16:22",
-  "total": 27,
+  "updatedAt": "2025-12-14 16:34",
+  "total": 28,
   "articles": [
     {
       "title": "2025 최신 멀티모달 AI로 기획서 슬라이드 30분 만에 완성",
@@ -36,6 +36,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-14-ai-2025-ai-70",
+      "canonical_url": ""
+    },
+    {
+      "title": "직장인, Gemini Advanced 데이터 분석 기능으로 시장 트렌드 2배 빠르게 파악 30대 직장인, GenSpark AI Search로 경쟁사 동향 분석 시간 70% 절감 프리랜서, Nano Banana AI로 나만의 시그니처 이미지 5분 만에 완성 팀장, Antigravity AI로 복잡한 프로젝트 마일스톤 관리 정확도 20% 향상 비개발자 직장인, DeepSeek V3 AI로 데이터 전처리 스크립트 10분 만에 생성 재무팀 직장인, Microsoft Copilot for Excel로 월간 보고서 데이터 취합 시간 60% 단축 영업 직장인, HubSpot AI로 고객 맞춤 이메일 작성 시간 3배 단축 팀장, Clova Note AI로 비대면 회의 핵심 요약 10분 만에 완성 직장인, Gamma AI로 전문가급 발표 자료 30분 만에 제작 30대 직장인, Duolingo AI 코치로 틈새 영어 회화 실력 2배 향상 자기계발 직장인, Eightify AI로 긴 강의 영상 요약 학습 시간 80% 단축 프리랜서, Notion AI로 매일 읽는 전문 서적 핵심 내용 자동 요약 직장인, ChatGPT 4o로 해외 비즈니스 이메일 어조 100% 맞춤 교정 30대 직장인, Gemini AI로 3박 4일 유럽 여행 코스 5분 만에 기획 예술 취미 직장인, Suno AI로 나만의 배경 음악 3분 만에 작곡 헬린이 직장인, Lululemon Studio Mirror AI 코치로 홈트 자세 정확도 90% 달성",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-14-163436-ai-article",
+      "image": "/automation/generated_images/thumbnail_3646e21d.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-14-163436-ai-article",
       "canonical_url": ""
     },
     {
