@@ -76,45 +76,68 @@ class ImageAuditAgent:
         
         return data
     
-    def generate_image(self, description: str, image_id: str) -> tuple:
+    def generate_image(self, description: str, image_id: str, max_retries: int = 3) -> tuple:
         """
-        Pollinations.ai로 이미지 생성
+        Pollinations.ai로 이미지 생성 (재시도 로직 포함)
+        
+        Args:
+            description: 이미지 설명
+            image_id: 이미지 ID
+            max_retries: 최대 재시도 횟수 (기본값: 3)
         
         Returns:
             (image_path, image_url) 튜플
         """
-        try:
-            # URL 인코딩
-            encoded_prompt = urllib.parse.quote(description)
-            pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1365&height=768&nologo=true&enhance=true"
-            
-            print(f"   🎨 이미지 생성 중: {description[:50]}...")
-            
-            # 이미지 다운로드
-            response = requests.get(pollinations_url, timeout=60)
-            
-            if response.status_code == 200:
-                # 파일명 생성 (description 해시)
-                file_hash = hashlib.md5(description.encode()).hexdigest()[:8]
-                image_filename = f"{image_id}_{file_hash}.png"
-                image_path = self.output_dir / image_filename
+        import time
+        
+        for attempt in range(max_retries):
+            try:
+                # URL 인코딩
+                encoded_prompt = urllib.parse.quote(description)
+                pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1365&height=768&nologo=true&enhance=true"
                 
-                # 저장
-                with open(image_path, 'wb') as f:
-                    f.write(response.content)
+                if attempt == 0:
+                    print(f"   🎨 이미지 생성 중: {description[:50]}...")
+                else:
+                    print(f"      🔄 재시도 {attempt}/{max_retries - 1}...")
                 
-                # 상대 경로 반환 (data.json용)
-                relative_path = f"automation/generated_images/{image_filename}"
+                # 이미지 다운로드
+                response = requests.get(pollinations_url, timeout=60)
                 
-                print(f"      ✅ 생성 완료: {image_filename}")
-                return str(image_path), relative_path
-            else:
-                print(f"      ❌ 생성 실패: HTTP {response.status_code}")
-                return None, None
-                
-        except Exception as e:
-            print(f"      ❌ 생성 오류: {e}")
-            return None, None
+                if response.status_code == 200:
+                    # 파일명 생성 (description 해시)
+                    file_hash = hashlib.md5(description.encode()).hexdigest()[:8]
+                    image_filename = f"{image_id}_{file_hash}.png"
+                    image_path = self.output_dir / image_filename
+                    
+                    # 저장
+                    with open(image_path, 'wb') as f:
+                        f.write(response.content)
+                    
+                    # 상대 경로 반환 (data.json용)
+                    relative_path = f"automation/generated_images/{image_filename}"
+                    
+                    print(f"      ✅ 생성 완료: {image_filename}")
+                    return str(image_path), relative_path
+                else:
+                    print(f"      ⚠️ HTTP {response.status_code}")
+                    if attempt < max_retries - 1:
+                        time.sleep(2)  # 2초 대기 후 재시도
+                        continue
+                    else:
+                        print(f"      ❌ 생성 실패: HTTP {response.status_code} (재시도 {max_retries}회 모두 실패)")
+                        return None, None
+                    
+            except Exception as e:
+                print(f"      ⚠️ 오류: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(2)  # 2초 대기 후 재시도
+                    continue
+                else:
+                    print(f"      ❌ 생성 실패: {e} (재시도 {max_retries}회 모두 실패)")
+                    return None, None
+        
+        return None, None
     
     def audit_image_with_vision(self, image_path: str, original_description: str) -> str:
         """
