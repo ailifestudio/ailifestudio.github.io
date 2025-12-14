@@ -35,7 +35,7 @@ class ImageAuditAgent:
         
         genai.configure(api_key=self.api_keys[0])
         # Vision 모델 사용
-        self.vision_model = genai.GenerativeModel("gemini-2.0-flash-exp")
+        self.vision_model = genai.GenerativeModel("gemini-1.5-flash")
         
         # 출력 디렉토리 생성
         self.output_dir = Path(__file__).parent / "generated_images"

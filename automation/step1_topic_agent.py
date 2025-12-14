@@ -31,7 +31,7 @@ class TopicAgent:
             raise ValueError("❌ GEMINI_API_KEY가 설정되지 않았습니다.")
         
         genai.configure(api_key=self.api_keys[0])
-        self.model = genai.GenerativeModel("gemini-2.0-flash-exp")
+        self.model = genai.GenerativeModel("gemini-1.5-flash")
         
         print(f"✅ Gemini API 초기화 완료 (키: {len(self.api_keys)}개)")
     
@@ -57,7 +57,7 @@ class TopicAgent:
         self.current_key_index = (self.current_key_index + 1) % len(self.api_keys)
         new_key = self.api_keys[self.current_key_index]
         genai.configure(api_key=new_key)
-        self.model = genai.GenerativeModel("gemini-2.0-flash-exp")
+        self.model = genai.GenerativeModel("gemini-1.5-flash")
         print(f"🔄 API 키 #{self.current_key_index + 1}로 전환")
     
     def _generate_with_retry(self, prompt: str, max_retries: int = None) -> str:
