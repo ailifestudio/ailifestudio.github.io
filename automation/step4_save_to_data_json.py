@@ -94,8 +94,11 @@ class DataJsonSaver:
                 
             elif section_type == 'image':
                 url = section['url']
+                # GitHub Pages에서 작동하도록 절대 경로로 변환
+                if url.startswith('automation/'):
+                    url = f'/{url}'
                 description = section.get('description', '')[:50]
-                html_parts.append(f'<img src="{url}" alt="{description}..." />')
+                html_parts.append(f'<img src="{url}" alt="{description}..." style="max-width:100%; height:auto; margin:20px 0;" />')
                 
             elif section_type == 'tip_box':
                 content = section['content']
@@ -140,7 +143,10 @@ class DataJsonSaver:
             # HTML 변환
             html_content = self.sections_to_html(validated_data['sections'])
             
-            # Markdown 작성
+            # Markdown 작성 (이미지 경로 절대 경로로 변환)
+            if thumbnail_url.startswith('automation/'):
+                thumbnail_url = f'/{thumbnail_url}'
+            
             markdown_content = f"""---
 title: "{validated_data['title']}"
 date: {datetime.now().strftime('%Y-%m-%d')}
