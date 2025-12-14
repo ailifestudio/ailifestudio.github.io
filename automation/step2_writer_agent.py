@@ -31,7 +31,7 @@ class WriterAgent:
             raise ValueError("❌ GEMINI_API_KEY가 설정되지 않았습니다.")
         
         genai.configure(api_key=self.api_keys[0])
-        self.model = genai.GenerativeModel("gemini-1.5-flash")
+        self.model = genai.GenerativeModel("gemini-2.5-flash")
         
         print(f"✅ Gemini API 초기화 완료")
     
