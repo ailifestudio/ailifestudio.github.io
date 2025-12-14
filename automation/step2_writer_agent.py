@@ -129,8 +129,6 @@ class WriterAgent:
      * 인물: "Korean professional", "Asian ethnicity", "Korean business styling"
      * 배경: "Modern office in Seoul", "Han River view", "Gangnam city street"
      * UI: "Korean text interface (Hangul)", "KakaoTalk style UI"
-   - 구체적 묘사: "A confident Korean IT professional (age 30-40) sitting..."
-   - 품질 키워드: "professional photography", "8k quality", "natural lighting", "cinematic shot"
 
 3. 나쁜 예시 (절대 금지):
    ❌ "description": "사람이 일하는 모습" (한글)
