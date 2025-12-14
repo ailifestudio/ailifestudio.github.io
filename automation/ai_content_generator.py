@@ -289,10 +289,18 @@ class AIContentGenerator:
             return None
     
     def _clean_html(self, html: str) -> str:
-        """HTML 정리 (불필요한 마크다운 제거)"""
+        """HTML 정리 (불필요한 마크다운 및 관리자용 테이블 제거)"""
         # ```html, ``` 제거
         html = re.sub(r'```html\s*', '', html)
         html = re.sub(r'```\s*$', '', html)
+        
+        # <hr> 태그 이후의 이미지 프롬프트 테이블 제거 (관리자용 정보)
+        # <hr> 이후 모든 내용 제거
+        hr_pos = html.find('<hr>')
+        if hr_pos != -1:
+            html = html[:hr_pos]
+            print(f"  ℹ️  관리자용 이미지 프롬프트 테이블 제거 완료")
+        
         html = html.strip()
         return html
     
