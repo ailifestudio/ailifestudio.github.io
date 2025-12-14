@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2025-12-14 15:20",
-  "total": 24,
+  "updatedAt": "2025-12-14 15:25",
+  "total": 25,
   "articles": [
     {
       "title": "2025 최신 멀티모달 AI로 기획서 슬라이드 30분 만에 완성",
@@ -36,6 +36,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-14-ai-2025-ai-70",
+      "canonical_url": ""
+    },
+    {
+      "title": "신입/경력 직장인, AI 지식 챗봇으로 사내 정보 검색을 30초 만에 완료",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-14-152515-ai-article",
+      "image": "automation/generated_images/thumbnail_a76b7719.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-14-152515-ai-article",
       "canonical_url": ""
     },
     {
