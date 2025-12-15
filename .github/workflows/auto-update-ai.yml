@@ -59,6 +59,7 @@ jobs:
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+        HUGGINGFACE_API_TOKEN: ${{ secrets.HUGGINGFACE_API_TOKEN }}  # ⬅️ 이 줄 추가!
       run: |
         echo "🎨 Step 3: 이미지 생성 및 Gemini Vision 검수 중..."
         python automation/step3_image_audit_agent.py
