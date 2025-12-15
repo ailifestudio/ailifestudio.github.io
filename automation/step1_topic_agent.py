@@ -132,7 +132,7 @@ class TopicAgent:
 특히 **'김이솝', '알린', '닥또리', '소소한 AI 입문 노트'** 등 인기 테크 유튜버들이 다루는 **최신 AI 이슈**를 포착하여, 3040 직장인을 위한 실무 가이드로 재가공하는 능력이 탁월합니다.
 
 # Task
-현재 시점({current_date})을 기준으로, **나노바나나, 젠스파크, 제미나이**를 포함하여 **유튜브에서 가장 화제가 되고 있는 최신 AI 툴**을 선정하고, 유튜버들의 스타일을 벤치마킹하여 제목을 작성하십시오.
+현재 시점({current_date})을 기준으로, **나노바나나, 젠스파크, 제미나이**를 포함하여 **유튜브에서 가장 화제가 되고 있는 최신 AI 툴 중 하나**를 선정하고, 유튜버들의 스타일을 벤치마킹하여 **단 하나의 제목**을 작성하십시오.
 
 # 🔥 Hot Trends Search Scope (검색 및 확장 범위)
 **AI에게 지시: 아래 예시 국한되지 말고, 유사한 카테고리의 최신 'Rising Star' 툴을 적극적으로 포함하십시오.**
@@ -180,8 +180,12 @@ class TopicAgent:
    - *예시:* "논문 100장 읽기 지옥, NotebookLM으로 팟캐스트처럼 듣자"
 
 # Output Format
-- 부연 설명 없이 **완성된 제목 1줄**만 출력하십시오.
+- 부연 설명, 줄바꿈, 추가 제안 없이 **완성된 제목 딱 1줄**만 출력하십시오.
+- 여러 개 제안하지 말고 **가장 좋은 제목 1개**만 선택하십시오.
 - **다양성 필수:** 나노바나나, 젠스파크, 제미나이 외에도 DeepSeek, Napkin AI 등 **다양한 최신 툴을 로테이션하여 선정**하십시오.
+
+# 예시 출력 (정확히 이런 형식):
+Nano Banana로 광고용 캐릭터 룩북, 퇴근 전 뚝딱 만드는 비결
 """
         
         try:
@@ -189,11 +193,16 @@ class TopicAgent:
             topic = self._generate_with_retry(topic_prompt)
             topic = topic.strip()
             
-            # 검증: 제목이 너무 짧거나 길면 재생성
-            if len(topic) < 15 or len(topic) > 50:
-                print(f"  ⚠️ 제목 길이 부적절 ({len(topic)}자), 재생성 중...")
+            # 검증: 제목이 너무 짧거나 길거나 여러 줄이면 재생성
+            if len(topic) < 15 or len(topic) > 80 or '\n' in topic:
+                print(f"  ⚠️ 제목 형식 부적절 ({len(topic)}자, 줄바꿈: {'\n' in topic}), 재생성 중...")
                 topic = self._generate_with_retry(topic_prompt)
                 topic = topic.strip()
+            
+            # 줄바꿈이 있으면 첫 번째 줄만 사용
+            if '\n' in topic:
+                topic = topic.split('\n')[0].strip()
+                print(f"  ⚠️ 여러 줄 감지됨, 첫 번째 줄만 사용: {topic}")
             
             print(f"\n✅ 주제 생성 완료:")
             print(f"   📌 {topic}")

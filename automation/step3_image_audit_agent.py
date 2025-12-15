@@ -76,58 +76,68 @@ class ImageAuditAgent:
         
         return data
     
-    def generate_image(description, img_type, img_id, output_dir):
-    """FLUX.1-schnell 모델로 이미지 생성 (Hugging Face Inference API)"""
-    import os
-    import requests
-    import time
-    
-    # Hugging Face API 설정
-    API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell"
-    headers = {"Authorization": f"Bearer {os.environ.get('HUGGINGFACE_API_TOKEN')}"}
-    
-    # 프롬프트 최적화 (네거티브 프롬프트 추가)
-    positive_prompt = description
-    negative_prompt = "low quality, blurry, distorted text, deformed, ugly, bad anatomy"
-    
-    # API 요청 페이로드
-    payload = {
-        "inputs": positive_prompt,
-        "parameters": {
-            "negative_prompt": negative_prompt,
-            "width": 1024,
-            "height": 576,  # 블로그 썸네일에 최적화된 비율
-            "num_inference_steps": 4,  # FLUX.1-schnell은 4스텝 최적
-        }
-    }
-    
-    max_retries = 3
-    for attempt in range(1, max_retries + 1):
-        try:
-            response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
-            
-            if response.status_code == 200:
-                # 이미지 저장
-                filename = f"img_{img_id}_{secrets.token_hex(4)}.png"
-                image_path = output_dir / filename
+    def generate_image(self, description: str, image_id: str, max_retries: int = 3) -> tuple:
+        """
+        Pollinations.ai로 이미지 생성 (재시도 로직 포함)
+        
+        Args:
+            description: 이미지 설명
+            image_id: 이미지 ID
+            max_retries: 최대 재시도 횟수 (기본값: 3)
+        
+        Returns:
+            (image_path, image_url) 튜플
+        """
+        import time
+        
+        for attempt in range(max_retries):
+            try:
+                # URL 인코딩
+                encoded_prompt = urllib.parse.quote(description)
+                pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1365&height=768&nologo=true&enhance=true"
                 
-                with open(image_path, "wb") as f:
-                    f.write(response.content)
+                if attempt == 0:
+                    print(f"   🎨 이미지 생성 중: {description[:50]}...")
+                else:
+                    print(f"      🔄 재시도 {attempt}/{max_retries - 1}...")
                 
-                print(f"✅ 생성 완료: {image_path.name} (시도 {attempt}/{max_retries})")
-                return str(image_path)
-            else:
-                print(f"⚠️  생성 실패 (HTTP {response.status_code}): {response.text[:100]}")
-                if attempt < max_retries:
-                    time.sleep(2)
-        except Exception as e:
-            print(f"❌ 생성 오류 (시도 {attempt}/{max_retries}): {str(e)[:50]}")
-            if attempt < max_retries:
-                time.sleep(2)
-    
-    print(f"❌ 최종 실패: {description[:50]}...")
-    return None
-
+                # 이미지 다운로드
+                response = requests.get(pollinations_url, timeout=60)
+                
+                if response.status_code == 200:
+                    # 파일명 생성 (description 해시)
+                    file_hash = hashlib.md5(description.encode()).hexdigest()[:8]
+                    image_filename = f"{image_id}_{file_hash}.png"
+                    image_path = self.output_dir / image_filename
+                    
+                    # 저장
+                    with open(image_path, 'wb') as f:
+                        f.write(response.content)
+                    
+                    # 상대 경로 반환 (data.json용)
+                    relative_path = f"automation/generated_images/{image_filename}"
+                    
+                    print(f"      ✅ 생성 완료: {image_filename}")
+                    return str(image_path), relative_path
+                else:
+                    print(f"      ⚠️ HTTP {response.status_code}")
+                    if attempt < max_retries - 1:
+                        time.sleep(2)  # 2초 대기 후 재시도
+                        continue
+                    else:
+                        print(f"      ❌ 생성 실패: HTTP {response.status_code} (재시도 {max_retries}회 모두 실패)")
+                        return None, None
+                    
+            except Exception as e:
+                print(f"      ⚠️ 오류: {e}")
+                if attempt < max_retries - 1:
+                    time.sleep(2)  # 2초 대기 후 재시도
+                    continue
+                else:
+                    print(f"      ❌ 생성 실패: {e} (재시도 {max_retries}회 모두 실패)")
+                    return None, None
+        
+        return None, None
     
     def audit_image_with_vision(self, image_path: str, original_description: str) -> str:
         """
