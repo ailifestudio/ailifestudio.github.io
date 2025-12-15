@@ -2,11 +2,11 @@ name: Auto Update Blog with AI
 
 on:
   schedule:
-    - cron: '0 0,6,12 * * *'
+    - cron: '0 0,6,12 * * *' # 매일 09:00, 15:00, 21:00 KST 실행 (UTC 기준 0, 6, 12)
   workflow_dispatch:
     inputs:
       enable_ai:
-        description: 'AI 콘텐츠 생성 활성화' 
+        description: 'AI 콘텐츠 생성 활성화'
         required: false
         default: 'true'
         type: choice
@@ -30,6 +30,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip' # pip 캐시 활성화 (빌드 속도 향상)
         
     - name: 📦 의존성 설치
       run: |
@@ -37,7 +38,7 @@ jobs:
         pip install -r requirements.txt
         
     - name: ✍️ Step 1 - 주제 선정
-      if: ${{ github.event.inputs.enable_ai != 'false' }}
+      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
@@ -46,7 +47,7 @@ jobs:
         python automation/step1_topic_agent.py
     
     - name: 📝 Step 2 - 글 작성
-      if: ${{ github.event.inputs.enable_ai != 'false' }}
+      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
@@ -55,22 +56,23 @@ jobs:
         python automation/step2_writer_agent.py
     
     - name: 🎨 Step 3 - 이미지 생성 및 검수
-      if: ${{ github.event.inputs.enable_ai != 'false' }}
+      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
-        HUGGINGFACE_API_TOKEN: ${{ secrets.HUGGINGFACE_API_TOKEN }}
+        # Pollinations 사용 시 HUGGINGFACE 토큰은 필요 없지만, 혹시 모를 확장을 위해 유지
+        HUGGINGFACE_API_TOKEN: ${{ secrets.HUGGINGFACE_API_TOKEN }} 
       run: |
         echo "🎨 Step 3: 이미지 생성 및 Gemini Vision 검수 중..."
         python automation/step3_image_audit_agent.py
     
     - name: 💾 Step 4 - data.json 저장
-      if: ${{ github.event.inputs.enable_ai != 'false' }}
+      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       run: |
         echo "💾 Step 4: data.json 및 Markdown 파일 생성 중..."
         python automation/step4_save_to_data_json.py
         
-    - name: 🔨 블로그 빌드
+    - name: 🔨 블로그 빌드 (RSS/HTML)
       run: |
         echo "🔨 build_blog.py 실행 중..."
         python automation/build_blog.py
@@ -89,56 +91,71 @@ jobs:
     - name: 📋 검수용 PR 생성
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TZ: 'Asia/Seoul' # 한국 시간대 설정
       run: |
+        # Git 사용자 설정
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        git add data.json data/ feed/ contents/ automation/generated_images/ automation/intermediate_outputs/
+        # 1. 커밋할 파일 추가 (중간 산출물 제외하고 최종 결과물만)
+        # contents/: 마크다운 글
+        # automation/generated_images/: 생성된 이미지
+        # data.json: 메타 데이터
+        # feed/: RSS 피드 (생성된다면)
+        git add data.json contents/ automation/generated_images/ feed/
         
+        # 2. 변경사항 확인
         if ! git diff --staged --quiet; then
-          BRANCH_NAME="ai-review-$(date +'%Y%m%d-%H%M%S')"
-          TOPIC=$(cat automation/intermediate_outputs/step1_topic.json | jq -r '.title' || echo "AI 생성 포스트")
+          # 현재 시간 구하기 (한국 시간)
+          CURRENT_DATE=$(date +'%Y%m%d-%H%M%S')
+          BRANCH_NAME="ai-review-$CURRENT_DATE"
           
+          # 주제 가져오기 (파일이 없을 경우 대비 안전장치)
+          if [ -f automation/intermediate_outputs/step1_topic.json ]; then
+            TOPIC=$(cat automation/intermediate_outputs/step1_topic.json | jq -r '.title')
+          else
+            TOPIC="AI 자동 생성 포스트 ($CURRENT_DATE)"
+          fi
+          
+          # 브랜치 생성 및 푸시
           git checkout -b $BRANCH_NAME
           git commit -m "🤖 [검수 요청] $TOPIC"
           git push origin $BRANCH_NAME
           
-          cat > /tmp/pr_body.md << 'EOF'
-## 📝 AI가 새로운 포스팅을 작성했습니다
-
-**작성 시각:** 자동 생성
-
----
-
-### ✅ 검수 체크리스트
-- [ ] 이미지 확인 (automation/generated_images/)
-- [ ] 이미지가 주제와 맞는지 확인
-- [ ] 내용 확인 (contents/*.md)
-- [ ] 오타 및 문법 확인
-
-### 📌 다음 단계
-1. **승인:** Merge pull request 버튼 클릭
-2. **수정:** Files changed 탭에서 수정
-3. **거부:** Close pull request
-
-### 🔧 문제 발견 시
-- 이미지 이상: PR 닫고 재실행
-- 내용 수정: Files changed에서 수정
-
----
-
-미리보기: Files changed 탭에서 이미지 클릭
-EOF
+          # PR 본문 작성
+          cat > /tmp/pr_body.md << EOF
+          ## 📝 AI가 새로운 포스팅을 작성했습니다
           
+          **주제:** $TOPIC
+          **작성 시각:** $(date +'%Y-%m-%d %H:%M:%S') (KST)
+          
+          ---
+          
+          ### ✅ 검수 체크리스트
+          - [ ] **이미지:** \`automation/generated_images/\` 폴더 확인 (이상한 이미지는 없나요?)
+          - [ ] **내용:** \`contents/\` 폴더의 Markdown 파일 확인 (오타/팩트 체크)
+          - [ ] **메타데이터:** \`data.json\` 업데이트 확인
+          
+          ### 📌 관리자 행동 가이드
+          1. **승인 (배포):** [Merge pull request] 버튼 클릭 → 즉시 블로그 반영
+          2. **수정:** [Files changed] 탭 → 파일별 [...] 메뉴 → Edit file → 수정 후 Commit
+          3. **반려:** [Close pull request] 버튼 클릭 → 폐기
+          
+          ---
+          🤖 *This content was generated by Gemini AI Pipeline.*
+          EOF
+          
+          # PR 생성
           gh pr create \
             --title "🤖 [검수 요청] $TOPIC" \
             --body-file /tmp/pr_body.md \
             --base main \
             --head $BRANCH_NAME \
-            --label "ai-generated,needs-review"
+            --label "ai-generated" \
+            --label "needs-review"
           
           echo "✅ PR 생성 완료: $BRANCH_NAME"
-          echo "📱 모바일에서 GitHub 알림 확인하세요!"
+          echo "📱 GitHub Mobile 앱에서 알림을 확인하세요!"
         else
-          echo "ℹ️ 변경사항 없음"
+          echo "ℹ️ 변경사항이 없습니다 (새로운 글이 생성되지 않았거나 에러 발생)."
         fi
