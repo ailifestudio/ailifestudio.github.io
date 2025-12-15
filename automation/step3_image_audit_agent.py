@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Step 3: Image Generation & Vision Audit Agent
-- Hugging Face FLUX.1-schnell로 고품질 이미지 생성
+- Pollinations.ai로 이미지 생성
 - Gemini Vision으로 품질 검수 (PASS/FAIL)
 - 검증된 이미지만 최종 콘텐츠에 포함
 """
@@ -78,7 +78,7 @@ class ImageAuditAgent:
     
     def generate_image(self, description: str, image_id: str, max_retries: int = 3) -> tuple:
         """
-        Hugging Face FLUX.1-schnell로 이미지 생성 (재시도 로직 포함)
+        Pollinations.ai로 이미지 생성 (재시도 로직 포함)
         
         Args:
             description: 이미지 설명
@@ -89,66 +89,40 @@ class ImageAuditAgent:
             (image_path, image_url) 튜플
         """
         import time
-        import secrets
-        
-        # Hugging Face API 설정
-        API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell"
-        hf_token = os.environ.get('HUGGINGFACE_API_TOKEN', '')
-        
-        if not hf_token:
-            print(f"      ❌ HUGGINGFACE_API_TOKEN이 설정되지 않았습니다.")
-            return None, None
-        
-        headers = {"Authorization": f"Bearer {hf_token}"}
-        
-        # 프롬프트 최적화
-        positive_prompt = description
-        
-        # API 요청 페이로드
-        payload = {
-            "inputs": positive_prompt,
-            "parameters": {
-                "width": 1024,
-                "height": 576,
-                "num_inference_steps": 4,
-            }
-        }
         
         for attempt in range(max_retries):
             try:
-                if attempt == 0:
-                    print(f"   🎨 이미지 생성 중 (FLUX.1): {description[:50]}...")
-                else:
-                    print(f"      🔄 재시도 {attempt + 1}/{max_retries}...")
+                # URL 인코딩
+                encoded_prompt = urllib.parse.quote(description)
+                pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1365&height=768&nologo=true&enhance=true"
                 
-                # Hugging Face API 호출
-                response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
+                if attempt == 0:
+                    print(f"   🎨 이미지 생성 중: {description[:50]}...")
+                else:
+                    print(f"      🔄 재시도 {attempt}/{max_retries - 1}...")
+                
+                # 이미지 다운로드
+                response = requests.get(pollinations_url, timeout=60)
                 
                 if response.status_code == 200:
-                    # 파일명 생성
-                    file_hash = secrets.token_hex(4)
+                    # 파일명 생성 (description 해시)
+                    file_hash = hashlib.md5(description.encode()).hexdigest()[:8]
                     image_filename = f"{image_id}_{file_hash}.png"
                     image_path = self.output_dir / image_filename
                     
-                    # 이미지 저장
+                    # 저장
                     with open(image_path, 'wb') as f:
                         f.write(response.content)
                     
                     # 상대 경로 반환 (data.json용)
                     relative_path = f"automation/generated_images/{image_filename}"
                     
-                    print(f"      ✅ 생성 완료: {image_filename} (FLUX.1-schnell)")
+                    print(f"      ✅ 생성 완료: {image_filename}")
                     return str(image_path), relative_path
-                elif response.status_code == 503:
-                    # 모델 로딩 중
-                    print(f"      ⏳ 모델 로딩 중... (30초 대기)")
-                    if attempt < max_retries - 1:
-                        time.sleep(30)
-                        continue
                 else:
-                    print(f"      ⚠️ HTTP {response.status_code}: {response.text[:100]}")
+                    print(f"      ⚠️ HTTP {response.status_code}")
                     if attempt < max_retries - 1:
-                        time.sleep(5)
+                        time.sleep(2)  # 2초 대기 후 재시도
                         continue
                     else:
                         print(f"      ❌ 생성 실패: HTTP {response.status_code} (재시도 {max_retries}회 모두 실패)")
