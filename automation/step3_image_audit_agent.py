@@ -92,8 +92,9 @@ class ImageAuditAgent:
         
         for attempt in range(max_retries):
             try:
-                # URL 인코딩
-                encoded_prompt = urllib.parse.quote(description)
+                # URL 인코딩 + 프롬프트 강화 (영뚱한 이미지 방지)
+                enhanced_prompt = f"professional business photography, {description}, office setting, corporate environment, realistic photo, no swimming no sports"
+                encoded_prompt = urllib.parse.quote(enhanced_prompt)
                 pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1365&height=768&nologo=true&enhance=true"
                 
                 if attempt == 0:
