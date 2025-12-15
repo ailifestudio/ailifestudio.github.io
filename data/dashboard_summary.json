@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2025-12-15 11:44",
-  "total": 4,
+  "updatedAt": "2025-12-15 11:52",
+  "total": 5,
   "articles": [
     {
       "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
@@ -36,6 +36,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-15-110632-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "DeepSeek V3로 복잡한 엑셀 수식 1분 해결, 퇴근 시간 앞당기는 AI 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-115249-ai-article",
+      "image": "/automation/generated_images/thumbnail_9377a32d.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-115249-ai-article",
       "canonical_url": ""
     },
     {
