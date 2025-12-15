@@ -194,8 +194,9 @@ Nano Banana로 광고용 캐릭터 룩북, 퇴근 전 뚝딱 만드는 비결
             topic = topic.strip()
             
             # 검증: 제목이 너무 짧거나 길거나 여러 줄이면 재생성
-            if len(topic) < 15 or len(topic) > 80 or '\n' in topic:
-                print(f"  ⚠️ 제목 형식 부적절 ({len(topic)}자, 줄바꿈: {'\n' in topic}), 재생성 중...")
+            has_newline = '\n' in topic
+            if len(topic) < 15 or len(topic) > 80 or has_newline:
+                print(f"  ⚠️ 제목 형식 부적절 ({len(topic)}자, 줄바꿈: {has_newline}), 재생성 중...")
                 topic = self._generate_with_retry(topic_prompt)
                 topic = topic.strip()
             
