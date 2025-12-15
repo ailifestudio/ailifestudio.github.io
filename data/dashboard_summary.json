@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-15 11:03",
-  "total": 1,
+  "updatedAt": "2025-12-15 11:06",
+  "total": 2,
   "articles": [
+    {
+      "title": "Napkin AI, 글만 썼는데 다이어그램이 뚝딱! 보고서 마감 5분 단축 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-110632-ai-article",
+      "image": "/automation/generated_images/thumbnail_41ace125.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-110632-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "최신 AI로 스마트하게 일하는 5가지 생산성 비법",
       "source": "AI/테크",
