@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-12-14 16:54",
+  "updatedAt": "2025-12-15 01:28",
   "total": 28,
   "articles": [
     {
@@ -41,7 +41,7 @@
     {
       "title": "직장인, Gemini Advanced 데이터 분석 기능으로 시장 트렌드 2배 빠르게 파악 30대 직장인, GenSpark AI Search로 경쟁사 동향 분석 시간 70% 절감 프리랜서, Nano Banana AI로 나만의 시그니처 이미지 5분 만에 완성 팀장, Antigravity AI로 복잡한 프로젝트 마일스톤 관리 정확도 20% 향상 비개발자 직장인, DeepSeek V3 AI로 데이터 전처리 스크립트 10분 만에 생성 재무팀 직장인, Microsoft Copilot for Excel로 월간 보고서 데이터 취합 시간 60% 단축 영업 직장인, HubSpot AI로 고객 맞춤 이메일 작성 시간 3배 단축 팀장, Clova Note AI로 비대면 회의 핵심 요약 10분 만에 완성 직장인, Gamma AI로 전문가급 발표 자료 30분 만에 제작 30대 직장인, Duolingo AI 코치로 틈새 영어 회화 실력 2배 향상 자기계발 직장인, Eightify AI로 긴 강의 영상 요약 학습 시간 80% 단축 프리랜서, Notion AI로 매일 읽는 전문 서적 핵심 내용 자동 요약 직장인, ChatGPT 4o로 해외 비즈니스 이메일 어조 100% 맞춤 교정 30대 직장인, Gemini AI로 3박 4일 유럽 여행 코스 5분 만에 기획 예술 취미 직장인, Suno AI로 나만의 배경 음악 3분 만에 작곡 헬린이 직장인, Lululemon Studio Mirror AI 코치로 홈트 자세 정확도 90% 달성",
       "source": "AI/테크",
-      "time": "오늘",
+      "time": "어제",
       "summary": "",
       "link": "/article.html?slug=2025-12-14-163436-ai-article",
       "image": "/automation/generated_images/thumbnail_3646e21d.png",
@@ -53,7 +53,7 @@
     {
       "title": "직장인, AI 커리어 코치로 개인 역량 분석 및 맞춤형 성장 로드맵 10분 만에 설계",
       "source": "AI/테크",
-      "time": "오늘",
+      "time": "어제",
       "summary": "",
       "link": "/article.html?slug=2025-12-14-160755-ai-article",
       "image": "automation/generated_images/thumbnail_a4a79baa.png",
@@ -65,7 +65,7 @@
     {
       "title": "직장인, AI 에이전트로 다음 회의 자료 취합 및 핵심 의제 10분 만에 도출",
       "source": "AI/테크",
-      "time": "오늘",
+      "time": "어제",
       "summary": "",
       "link": "/article.html?slug=2025-12-14-154132-ai-article",
       "image": "automation/generated_images/thumbnail_00c9f00c.png",
@@ -77,7 +77,7 @@
     {
       "title": "신입/경력 직장인, AI 지식 챗봇으로 사내 정보 검색을 30초 만에 완료",
       "source": "AI/테크",
-      "time": "오늘",
+      "time": "어제",
       "summary": "",
       "link": "/article.html?slug=2025-12-14-152515-ai-article",
       "image": "automation/generated_images/thumbnail_a76b7719.png",
@@ -317,7 +317,7 @@
     {
       "title": "OSMU 블로그 시스템에 오신 것을 환영합니다",
       "source": "IT/Tech",
-      "time": "어제",
+      "time": "2일 전",
       "summary": "표준 디렉토리 구조 기반의 완전 자동화된 블로그 시스템입니다. Markdown으로 글을 작성하면 GitHub Pages와 WordPress에 자동으로 배포됩니다.",
       "link": "/article.html?slug=welcome",
       "image": "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=800&q=80",
@@ -329,7 +329,7 @@
     {
       "title": "최신 AI로 스마트하게 일하는 5가지 생산성 비법",
       "source": "AI/테크",
-      "time": "2일 전",
+      "time": "3일 전",
       "summary": "AI 도구를 활용해 업무 효율을 극대화하는 실전 팁 5가지를 소개합니다. ChatGPT, Notion AI, Midjourney 등 최신 AI 도구 활용법을 배워보세요.",
       "link": "/article.html?slug=2025-12-12-ai-productivity-tips",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
