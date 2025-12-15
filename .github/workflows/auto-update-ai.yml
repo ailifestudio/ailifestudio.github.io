@@ -16,7 +16,9 @@ on:
           - 'false'
 
 permissions:
-  contents: write        # ← 이 부분 추가!
+  contents: write
+  pull-requests: write   # PR 생성 권한 추가
+
 
 jobs:
   update-blog:
@@ -87,25 +89,69 @@ jobs:
           exit 1
         fi
         
-    - name: 📤 변경사항 커밋 및 푸시
+        - name: 📋 검수용 PR 생성
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        # 변경사항 확인
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # AI 생성 Markdown, data.json, data/, feed/, contents/, 이미지 모두 추가
         git add data.json data/ feed/ contents/ automation/generated_images/ automation/intermediate_outputs/
         
-        # 변경사항이 있을 때만 커밋
         if ! git diff --staged --quiet; then
-          # AI 생성 여부에 따라 커밋 메시지 변경
-          if [ -n "${{ secrets.GEMINI_API_KEY }}" ] || [ -n "${{ secrets.GEMINI_API_KEYS }}" ]; then
-            git commit -m "🤖 자동 업데이트 (AI + RSS): $(date +'%Y-%m-%d %H:%M')"
-          else
-            git commit -m "📰 자동 업데이트 (RSS): $(date +'%Y-%m-%d %H:%M')"
-          fi
+          # 브랜치명 생성 (날짜 기반)
+          BRANCH_NAME="ai-review-$(date +'%Y%m%d-%H%M%S')"
           
-          git push
-          echo "✅ 블로그 업데이트 완료!"
+          # 주제 추출
+          TOPIC=$(cat automation/intermediate_outputs/step1_topic.json | jq -r '.title' || echo "AI 생성 포스트")
+          
+          # 새 브랜치 생성 및 이동
+          git checkout -b $BRANCH_NAME
+          
+          # 커밋
+          git commit -m "🤖 [검수 요청] $TOPIC"
+          
+          # 푸시
+          git push origin $BRANCH_NAME
+          
+          # PR 생성
+          gh pr create \
+            --title "🤖 [검수 요청] $TOPIC" \
+            --body "## 📝 AI가 새로운 포스팅을 작성했습니다
+
+**제목:** $TOPIC
+
+**작성 시각:** $(date +'%Y-%m-%d %H:%M')
+
+---
+
+### ✅ 검수 체크리스트
+- [ ] 이미지 확인 (automation/generated_images/)
+- [ ] 이미지가 주제와 맞는지 (수영/스포츠 이미지 X)
+- [ ] 내용 확인 (contents/*.md)
+- [ ] 오타 및 문법 확인
+
+### 📌 다음 단계
+1. **승인:** [Merge pull request] 클릭 → 블로그 자동 배포
+2. **수정:** Files changed 탭에서 파일 수정
+3. **거부:** Close pull request → 글 폐기
+
+### 🔧 문제 발견 시
+- **이미지 이상:** PR 닫고 워크플로우 재실행 (랜덤 시드로 다른 이미지 생성)
+- **내용 수정:** Files changed → 연필 아이콘으로 직접 수정
+
+---
+
+**미리보기:**
+- Files changed 탭에서 이미지 클릭하면 미리볼 수 있습니다" \
+            --base main \
+            --head $BRANCH_NAME \
+            --label "ai-generated,needs-review"
+          
+          echo "✅ PR 생성 완료: $BRANCH_NAME"
+          echo "📱 모바일/PC에서 GitHub 알림을 확인하세요!"
         else
-          echo "ℹ️ 변경사항 없음"
+          echo "ℹ️ 변경사항 없음 (PR 생성 안 함)"
         fi
+
