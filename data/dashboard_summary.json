@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-15 11:25",
-  "total": 3,
+  "updatedAt": "2025-12-15 11:37",
+  "total": 4,
   "articles": [
+    {
+      "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-113720-ai-article",
+      "image": "https://picsum.photos/seed/ai-tech/1280/720",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-113720-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "감마 AI로 기획안 PPT 3분 완성, 발표 자료 걱정 끝",
       "source": "AI/테크",
