@@ -94,7 +94,7 @@ class WriterAgent:
   "sections": [
     {{"type": "heading", "level": 2, "content": "제목"}},
     {{"type": "paragraph", "content": "서론 내용 (인사말 생략, 페인포인트 자극 2-3문단)"}},
-    {{"type": "image_placeholder", "id": "img_1", "description": "A confident Korean IT professional (age 30-40) sitting in a modern Seoul office with floor-to-ceiling windows showing Namsan Tower in the background, natural afternoon lighting, professional photography style, 8k quality", "position": "after_intro"}},
+    {{"type": "image_placeholder", "id": "img_1", "description": "Korean professional working with laptop in modern office", "position": "after_intro"}},
     {{"type": "heading", "level": 3, "content": "섹션 1 제목"}},
     {{"type": "paragraph", "content": "섹션 1 내용"}},
     {{"type": "tip_box", "content": "실무에서는..."}},
@@ -125,19 +125,21 @@ class WriterAgent:
 
 2. description 작성 규칙:
    - 반드시 영어(English)로 작성
-   - 한국적 맥락 필수 포함:
-     * 인물: "Korean professional", "Asian ethnicity", "Korean business styling"
-     * 배경: "Modern office in Seoul", "Han River view", "Gangnam city street"
-     * UI: "Korean text interface (Hangul)", "KakaoTalk style UI"
+   - 간단하고 명확하게 (10-15 단어 이내)
+   - 한국적 맥락은 최소한만:
+     * "Korean professional working with laptop"
+     * "Modern Seoul office workspace"
+     * "Team collaboration meeting in office"
 
 3. 나쁜 예시 (절대 금지):
    ❌ "description": "사람이 일하는 모습" (한글)
+   ❌ "description": "A confident Korean IT professional (age 30-40, male) sitting in a modern Seoul office with floor-to-ceiling windows..." (너무 구체적)
    ❌ "description": "office" (너무 간략)
-   ❌ "description": "person working" (국적 불명)
 
 4. 좋은 예시:
-   ✅ "description": "A confident Korean IT professional (age 30-40) sitting in a modern Seoul office with floor-to-ceiling windows showing Namsan Tower in the background, typing on MacBook, natural afternoon lighting, professional photography style, 8k quality"
-   ✅ "description": "Korean business team (3-4 people, mixed gender, professional attire) discussing AI strategy around a large monitor displaying Korean text dashboard, modern Gangnam office interior, warm collaborative atmosphere, cinematic wide shot"
+   ✅ "description": "Korean professional working with laptop in modern office"
+   ✅ "description": "Business team collaboration meeting in Seoul office"
+   ✅ "description": "Computer screen showing data dashboard and analytics"
 
 # Output Format
 - JSON 형식으로만 출력하십시오.
