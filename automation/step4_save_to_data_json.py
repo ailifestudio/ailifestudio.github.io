@@ -89,7 +89,7 @@ class DataSaver:
         md_content += f"date: {current_time}\n"
         md_content += f"layout: post\n"
         md_content += f"author: AI Editor\n"
-        md_content += "category: AI/Tech\n"
+        md_content += "category: ai\n"
         md_content += "---\n\n"
 
         sections = data.get('sections', [])
@@ -206,7 +206,7 @@ class DataSaver:
             "title": data['title'],
             "summary": data.get('summary', '')[:120] + "...",
             "date": date_str,
-            "category": "AI/Tech",
+            "category": "ai",
             "image": thumbnail,
             "link": f"/contents/{filename.replace('.md', '.html')}", # 링크 주소
             "tags": data.get('tags', []),
