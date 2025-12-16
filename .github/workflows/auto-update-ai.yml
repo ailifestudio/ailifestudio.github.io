@@ -91,7 +91,7 @@ jobs:
         
     - name: 📋 검수용 PR 생성
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.MY_PAT }}  # <-- 방금 만든 'MY_PAT'으로 변경
         TZ: 'Asia/Seoul'
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
