@@ -1,293 +1,220 @@
 #!/usr/bin/env python3
 """
-Step 4: Save to data.json
-- Step 3의 검증된 콘텐츠를 data.json에 저장
-- Markdown 파일 생성 (contents/*.md)
-- 썸네일 이미지 생성
+Step 4: Save to data.json & Markdown (Translator Edition)
+- Step 3에서 검증된 콘텐츠를 최종 블로그 포맷으로 변환
+- 영어 이미지 프롬프트를 '한글'로 자동 번역하여 캡션에 사용
+- Markdown 파일 생성 (Jekyll/Github Pages용)
 """
 
 import json
 import os
-import hashlib
-import requests
-import urllib.parse
 from datetime import datetime
 from pathlib import Path
-from typing import Dict
+import google.generativeai as genai
+import time
+import re
 
-
-class DataJsonSaver:
-    def __init__(self):
-        """초기화"""
-        self.output_dir = Path(__file__).parent / "generated_images"
-        self.output_dir.mkdir(exist_ok=True)
-        print("✅ DataJsonSaver 초기화 완료")
-    
-    def load_validated_content(self, input_path: str = "automation/intermediate_outputs/step3_validated_content.json") -> dict:
-        """Step 3 출력 로드"""
-        with open(input_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+class DataSaver:
+    def __init__(self, config_path="config_ai.json"):
+        self.output_dir = Path(__file__).parent.parent
+        self.data_file = self.output_dir / 'data.json'
+        self.contents_dir = self.output_dir / 'contents'
+        self.contents_dir.mkdir(exist_ok=True)
+        self.image_dir = Path(__file__).parent / "generated_images" # 썸네일 확인용
         
-        image_count = sum(1 for s in data['sections'] if s['type'] == 'image')
+        # 번역을 위한 Gemini 초기화
+        self.config = {}
+        if Path(config_path).exists():
+            with open(config_path, 'r', encoding='utf-8') as f:
+                self.config = json.load(f)
         
-        print(f"\n📥 Step 3 출력 로드:")
-        print(f"   제목: {data['title']}")
-        print(f"   섹션 수: {len(data['sections'])}")
-        print(f"   ✅ 검증된 이미지: {image_count}개")
+        # 환경변수 우선, 없으면 config 파일 사용
+        self.api_key = os.getenv('GEMINI_API_KEY', self.config.get('gemini_api_key', ''))
         
-        return data
-    
-    def generate_thumbnail(self, topic: str) -> str:
-        """
-        Pollinations.ai로 썸네일 생성
-        
-        Returns:
-            상대 경로 (예: "automation/generated_images/thumbnail_abc123.png")
-        """
-        try:
-            thumbnail_prompt = f"{topic}, professional blog thumbnail, modern design, tech aesthetic, high quality, 16:9, Korean style"
-            encoded_prompt = urllib.parse.quote(thumbnail_prompt)
-            thumbnail_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&nologo=true&enhance=true"
-            
-            print(f"\n🎨 썸네일 생성 중...")
-            print(f"   프롬프트: {thumbnail_prompt[:60]}...")
-            
-            response = requests.get(thumbnail_url, timeout=60)
-            
-            if response.status_code == 200:
-                file_hash = hashlib.md5(topic.encode()).hexdigest()[:8]
-                thumbnail_filename = f"thumbnail_{file_hash}.png"
-                thumbnail_path = self.output_dir / thumbnail_filename
-                
-                with open(thumbnail_path, 'wb') as f:
-                    f.write(response.content)
-                
-                relative_path = f"automation/generated_images/{thumbnail_filename}"
-                print(f"   ✅ 썸네일 생성 완료: {thumbnail_filename}")
-                return relative_path
-            else:
-                print(f"   ⚠️ 썸네일 생성 실패, 기본 이미지 사용")
-                return "https://picsum.photos/seed/ai-tech/1280/720"
-                
-        except Exception as e:
-            print(f"   ⚠️ 썸네일 생성 오류: {e}")
-            return "https://picsum.photos/seed/ai-tech/1280/720"
-    
-    def sections_to_html(self, sections: list) -> str:
-        """
-        구조화된 sections를 HTML로 변환
-        (블로그 빌드 시 사용할 HTML)
-        """
-        html_parts = []
-        
-        for section in sections:
-            section_type = section['type']
-            
-            if section_type == 'heading':
-                level = section['level']
-                content = section['content']
-                html_parts.append(f"<h{level}>{content}</h{level}>")
-                
-            elif section_type == 'paragraph':
-                content = section['content']
-                html_parts.append(f"<p>{content}</p>")
-                
-            elif section_type == 'image':
-                url = section['url']
-                # GitHub Pages에서 작동하도록 절대 경로로 변환
-                if url.startswith('automation/'):
-                    url = f'/{url}'
-                description = section.get('description', '')[:50]
-                html_parts.append(f'<img src="{url}" alt="{description}..." style="max-width:100%; height:auto; margin:20px 0;" />')
-                
-            elif section_type == 'tip_box':
-                content = section['content']
-                html_parts.append(
-                    f'<p style="border-left:4px solid #3b82f6; background:#f0f9ff; '
-                    f'padding:15px; border-radius:4px; margin:15px 0;">'
-                    f'<strong>💡 TIP:</strong> {content}</p>'
-                )
-                
-            elif section_type == 'warning_box':
-                content = section['content']
-                html_parts.append(
-                    f'<p style="border-left:4px solid #ef4444; background:#fef2f2; '
-                    f'padding:15px; border-radius:4px; margin:15px 0;">'
-                    f'<strong>⚠️ 주의:</strong> {content}</p>'
-                )
-                
-            elif section_type == 'code_block':
-                language = section.get('language', '')
-                content = section['content']
-                html_parts.append(
-                    f'<pre style="background:#1e293b; color:#e2e8f0; padding:15px; '
-                    f'border-radius:8px; white-space:pre-wrap; word-wrap:break-word; '
-                    f'line-height:1.6; border:1px solid #334155; margin:15px 0;">'
-                    f'<code class="language-{language}">{content}</code></pre>'
-                )
-        
-        return '\n'.join(html_parts)
-    
-    def create_markdown_file(self, validated_data: dict, thumbnail_url: str):
-        """
-        Markdown 파일 생성 (contents/*.md)
-        """
-        try:
-            # 파일명 생성
-            timestamp = datetime.now().strftime('%Y-%m-%d-%H%M%S')
-            filename = f"{timestamp}-ai-article.md"
-            contents_dir = Path(__file__).parent.parent / 'contents'
-            contents_dir.mkdir(exist_ok=True)
-            filepath = contents_dir / filename
-            
-            # HTML 변환
-            html_content = self.sections_to_html(validated_data['sections'])
-            
-            # Markdown 작성 (이미지 경로 절대 경로로 변환)
-            if thumbnail_url.startswith('automation/'):
-                thumbnail_url = f'/{thumbnail_url}'
-            
-            markdown_content = f"""---
-title: "{validated_data['title']}"
-date: {datetime.now().strftime('%Y-%m-%d')}
-category: ai
-tags: {', '.join(validated_data.get('tags', []))}
-image: {thumbnail_url}
----
-
-{html_content}
-"""
-            
-            with open(filepath, 'w', encoding='utf-8') as f:
-                f.write(markdown_content)
-            
-            print(f"\n📄 Markdown 파일 생성:")
-            print(f"   파일명: {filename}")
-            print(f"   경로: {filepath}")
-            
-            return str(filepath)
-            
-        except Exception as e:
-            print(f"\n❌ Markdown 파일 생성 실패: {e}")
-            return None
-    
-    def update_data_json(self, validated_data: dict, thumbnail_url: str):
-        """
-        data.json 업데이트
-        """
-        try:
-            data_json_path = Path(__file__).parent.parent / 'data.json'
-            
-            # 기존 data.json 로드
-            if data_json_path.exists():
-                with open(data_json_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-            else:
-                data = {"articles": []}
-            
-            # 기존 형식에 맞춰 article 생성
-            article = {
-                "title": validated_data['title'],
-                "source": "AI/테크",
-                "time": "방금 전",
-                "summary": validated_data.get('summary', '')[:200],
-                "link": "#",
-                "image": thumbnail_url,
-                "category": "ai",
-                "type": "ai_generated",
-                "created_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                "data": {
-                    "sections": validated_data['sections'],
-                    "tags": validated_data.get('tags', []),
-                    "stats": validated_data.get('stats', {})
-                }
-            }
-            
-            # articles 배열에 추가 (맨 앞에)
-            if 'articles' not in data:
-                data['articles'] = []
-            
-            data['articles'].insert(0, article)
-            
-            # 최대 50개까지만 유지
-            if len(data['articles']) > 50:
-                data['articles'] = data['articles'][:50]
-            
-            # 저장
-            with open(data_json_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            
-            print(f"\n💾 data.json 업데이트 완료:")
-            print(f"   경로: {data_json_path}")
-            print(f"   총 articles: {len(data['articles'])}개")
-            
-            return True
-            
-        except Exception as e:
-            print(f"\n❌ data.json 업데이트 실패: {e}")
-            import traceback
-            traceback.print_exc()
-            return False
-    
-    def process(self):
-        """전체 처리 프로세스"""
-        print("\n" + "="*60)
-        print("💾 Step 4: Save to data.json")
-        print("="*60)
-        
-        # Step 3 출력 로드
-        validated_data = self.load_validated_content()
-        
-        # 썸네일 생성
-        thumbnail_url = self.generate_thumbnail(validated_data['title'])
-        
-        # Markdown 파일 생성
-        markdown_file = self.create_markdown_file(validated_data, thumbnail_url)
-        
-        # data.json 업데이트
-        success = self.update_data_json(validated_data, thumbnail_url)
-        
-        if success:
-            print("\n" + "="*60)
-            print("✅ Step 4 완료!")
-            print("="*60)
-            print(f"\n생성된 파일:")
-            print(f"   • data.json (업데이트됨)")
-            if markdown_file:
-                print(f"   • {markdown_file}")
-            print(f"   • {thumbnail_url}")
-            
-            # 이미지 파일 목록
-            image_count = sum(1 for s in validated_data['sections'] if s['type'] == 'image')
-            if image_count > 0:
-                print(f"\n생성된 이미지: {image_count}개")
-                for section in validated_data['sections']:
-                    if section['type'] == 'image':
-                        print(f"   • {section['url']}")
+        if self.api_key:
+            genai.configure(api_key=self.api_key)
+            # 번역은 가볍고 빠른 1.5-flash 모델 사용
+            self.model = genai.GenerativeModel("gemini-1.5-flash")
         else:
-            print("\n⚠️ Step 4 일부 실패")
+            print("⚠️ GEMINI_API_KEY가 없습니다. 번역 기능이 비활성화됩니다.")
+            self.model = None
 
+    def load_validated_content(self, input_path="automation/intermediate_outputs/step3_validated_content.json"):
+        """Step 3 결과 로드"""
+        try:
+            with open(input_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            print("❌ Step 3 결과 파일이 없습니다.")
+            return None
 
-def main():
-    """메인 실행 함수"""
-    try:
-        saver = DataJsonSaver()
-        saver.process()
+    def translate_descriptions(self, descriptions):
+        """
+        영어 설명 리스트를 한글로 일괄 번역 (API 1회 호출로 절약)
+        """
+        if not self.model or not descriptions:
+            return descriptions # 키 없거나 데이터 없으면 원본 반환
+
+        print(f"   🌐 이미지 설명 {len(descriptions)}개 한글로 번역 중...")
         
-        print("\n" + "="*60)
-        print("🎉 전체 파이프라인 완료!")
-        print("="*60)
-        print("\n다음 단계:")
-        print("   1. Git 커밋 & 푸시")
-        print("   2. GitHub Pages 자동 배포")
-        print("   3. 블로그에서 확인")
-        
-    except Exception as e:
-        print(f"\n❌ Step 4 실패: {e}")
-        import traceback
-        traceback.print_exc()
-        exit(1)
+        # 프롬프트 구성
+        prompt = "Translate the following image descriptions into natural Korean captions for a blog post. Return ONLY the translated lines in order, one per line.\n\n"
+        for desc in descriptions:
+            prompt += f"- {desc}\n"
+            
+        try:
+            response = self.model.generate_content(prompt)
+            # 결과 파싱 (줄바꿈으로 분리 및 불필요한 기호 제거)
+            translated_lines = [line.strip().replace('- ', '') for line in response.text.strip().split('\n') if line.strip()]
+            
+            # 개수가 맞으면 반환, 아니면 원본 반환 (안전장치)
+            if len(translated_lines) == len(descriptions):
+                return translated_lines
+            else:
+                print("   ⚠️ 번역 개수 불일치로 원본 사용")
+                return descriptions
+        except Exception as e:
+            print(f"   ⚠️ 번역 실패: {e}")
+            return descriptions
 
+    def create_markdown_content(self, data):
+        """
+        JSON -> Markdown 변환 (한글 캡션 + 영어 프롬프트 툴팁)
+        """
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        today_date = datetime.now().strftime('%Y-%m-%d')
+        
+        md_content = "---\n"
+        md_content += f"title: \"{data['title']}\"\n"
+        md_content += f"date: {current_time}\n"
+        md_content += f"layout: post\n"
+        md_content += f"author: AI Editor\n"
+        md_content += "category: AI/Tech\n"
+        md_content += "---\n\n"
+
+        sections = data.get('sections', [])
+        
+        # 1. 이미지 섹션만 모아서 번역 준비
+        image_sections = [s for s in sections if s['type'] == 'image']
+        english_descs = [s['description'] for s in image_sections]
+        
+        # 번역 실행
+        korean_descs = self.translate_descriptions(english_descs)
+        
+        # 매핑용 딕셔너리 생성 (영어 -> 한글)
+        desc_map = {eng: kor for eng, kor in zip(english_descs, korean_descs)}
+
+        # 2. 본문 작성 Loop
+        for section in sections:
+            if section['type'] == 'text':
+                md_content += f"{section['content']}\n\n"
+            
+            elif section['type'] == 'heading':
+                md_content += f"{'#' * section['level']} {section['content']}\n\n"
+
+            elif section['type'] == 'list':
+                for item in section['items']:
+                    md_content += f"- {item}\n"
+                md_content += "\n"
+            
+            elif section['type'] == 'code':
+                md_content += f"```python\n{section['content']}\n```\n\n"
+
+            elif section['type'] == 'image':
+                image_url = f"/{section['url']}" # 절대 경로
+                eng_desc = section['description'].replace('"', "'") # 따옴표 충돌 방지
+                kor_desc = desc_map.get(section['description'], eng_desc) # 번역본 가져오기 (없으면 영어)
+                
+                # HTML 구조 개선:
+                # - alt: 한글 설명 (검색엔진 최적화)
+                # - figcaption: 한글 설명 (진하게) + 영어 프롬프트 (작게)
+                img_tag = f"""
+<figure style="text-align:center; margin: 30px 0;">
+  <img src="{image_url}" alt="{kor_desc}" style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+  <figcaption style="margin-top:10px; text-align: center;">
+    <div style="color:#555; font-size:0.95em; font-weight:bold; margin-bottom:5px;">{kor_desc}</div>
+    <div style="color:#aaa; font-size:0.8em; font-family:monospace; background:#f5f5f5; padding:4px 8px; border-radius:4px; display:inline-block;">Prompt: {eng_desc}</div>
+  </figcaption>
+</figure>
+"""
+                md_content += img_tag + "\n\n"
+        
+        # 3. 요약 추가
+        if 'summary' in data:
+            md_content += "---\n## 📝 요약\n"
+            md_content += f"{data['summary']}\n"
+
+        return md_content, today_date
+
+    def update_data_json(self, new_article):
+        """data.json 업데이트 (프론트엔드용)"""
+        # 기존 파일 로드
+        if self.data_file.exists():
+            with open(self.data_file, 'r', encoding='utf-8') as f:
+                try:
+                    current_data = json.load(f)
+                    if isinstance(current_data, dict) and 'articles' in current_data:
+                        articles = current_data['articles']
+                    else:
+                        articles = current_data if isinstance(current_data, list) else []
+                except json.JSONDecodeError:
+                    articles = []
+        else:
+            articles = []
+
+        # 중복 방지 (제목 기준 삭제 후 재삽입)
+        articles = [a for a in articles if a['title'] != new_article['title']]
+        
+        # 최신 글을 맨 위로
+        articles.insert(0, new_article)
+        
+        # 최대 50개 유지
+        if len(articles) > 50:
+            articles = articles[:50]
+
+        # 저장
+        with open(self.data_file, 'w', encoding='utf-8') as f:
+            json.dump({"articles": articles}, f, ensure_ascii=False, indent=2)
+        print(f"✅ data.json 업데이트 완료 ({len(articles)}개 글)")
+
+    def run(self):
+        data = self.load_validated_content()
+        if not data: return
+
+        print("\n💾 Step 4: Markdown 변환 및 저장 (번역 포함)")
+        
+        # Markdown 내용 생성
+        md_content, date_str = self.create_markdown_content(data)
+        
+        # 파일명 생성
+        timestamp = datetime.now().strftime('%H%M%S')
+        filename = f"{date_str}-{timestamp}-ai-article.md"
+        file_path = self.contents_dir / filename
+
+        # .md 파일 저장
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        
+        print(f"✅ Markdown 생성 완료: contents/{filename}")
+
+        # 썸네일 이미지 찾기 (첫 번째 이미지 or 기본값)
+        images = [s['url'] for s in data['sections'] if s['type'] == 'image']
+        thumbnail = f"/{images[0]}" if images else "https://picsum.photos/800/400"
+        
+        # data.json 업데이트용 객체
+        article_entry = {
+            "title": data['title'],
+            "summary": data.get('summary', '')[:120] + "...",
+            "date": date_str,
+            "category": "AI/Tech",
+            "image": thumbnail,
+            "link": f"/contents/{filename.replace('.md', '.html')}", # 링크 주소
+            "tags": data.get('tags', []),
+            "file_path": str(filename) # 나중에 찾기 쉽게
+        }
+        
+        self.update_data_json(article_entry)
 
 if __name__ == "__main__":
-    main()
+    saver = DataSaver()
+    saver.run()
