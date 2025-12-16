@@ -69,6 +69,8 @@ jobs:
     
     - name: 💾 Step 4 - data.json 저장
       if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}  # <--- 이 줄이 반드시 있어야 번역됨!
       run: |
         echo "💾 Step 4: data.json 및 Markdown 파일 생성 중..."
         python automation/step4_save_to_data_json.py
