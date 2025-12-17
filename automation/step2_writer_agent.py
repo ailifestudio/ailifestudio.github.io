@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Step 2: Writer & Art Director Agent
-- 구조화된 JSON 콘텐츠 생성
-- ★ 핵심 수정: 비개발자를 위해 '코딩(Python)' 금지 -> '한글 채팅 프롬프트' 강제
+Step 2: Writer & Art Director Agent (Final Integrated Version)
+- 1. 비개발자를 위해 '코딩(Python)' 금지 -> '한글 채팅 프롬프트' 강제
+- 2. Flux 최적화: 이미지 묘사(English)는 아주 길고 구체적으로 (50단어 이상)
+- 3. 관리자 편의: 이미지 설명(Korean) 별도 생성
 """
 
 import google.generativeai as genai
@@ -46,13 +47,12 @@ class WriterAgent:
         if max_key_rotations is None:
             max_key_rotations = len(self.api_keys)
         
-        last_error = None
         for rotation in range(max_key_rotations):
             try:
                 response = self.model.generate_content(prompt)
                 return response.text
             except Exception as e:
-                # 에러 처리 로직 (생략 없이 유지)
+                # 에러 처리 로직
                 if '429' in str(e) or 'quota' in str(e).lower():
                      if rotation < max_key_rotations - 1:
                         self.current_key_index = (self.current_key_index + 1) % len(self.api_keys)
@@ -66,12 +66,13 @@ class WriterAgent:
     
     def generate_structured_content(self, topic: str) -> dict:
         print("\n" + "="*60)
-        print("📝 Step 2: Writer Agent (General User Mode)")
-        print("   ⚙️  설정: 코딩(Python) 금지 -> 한글 자연어 프롬프트 강제")
+        print("📝 Step 2: Writer Agent (Final Integrated Mode)")
+        print("   ⚙️  설정 1: 코딩 금지 (한글 프롬프트 강제)")
+        print("   ⚙️  설정 2: 이미지 묘사 이중화 (Flux용 영문 상세 + 관리용 한글 요약)")
         print("="*60)
         
         writer_prompt = f"""# Role Definition
-당신은 IT 비전공자도 쉽게 이해할 수 있는 콘텐츠를 만드는 '친절한 IT 에디터'입니다.
+당신은 IT 비전공자도 쉽게 이해할 수 있는 콘텐츠를 만드는 '친절한 IT 에디터'이자, 시각적 완성도를 책임지는 '아트 디렉터'입니다.
 
 # Topic
 주제: {topic}
@@ -95,12 +96,30 @@ class WriterAgent:
   "2024년 전기차 시장 트렌드를 요약해주고, 주요 경쟁사 3곳의 장단점을 표로 정리해줘."
   "신규 입사자를 위한 온보딩 매뉴얼 목차를 짜줘. 톤앤매너는 친절하고 격려하는 느낌으로."
 
+# ★ [매우 중요] Image Art Directing Rules (Flux Model Optimized)
+이미지 퀄리티를 높이기 위해 `description`을 **최대한 길고, 구체적이고, 묘사적으로(Descriptive)** 작성하세요.
+
+1. **`description` (영어 - 생성용)**:
+   - ❌ Bad: "Korean man working" (너무 짧음 -> 기괴한 이미지 원인)
+   - ⭕ **Good:** "A high-quality cinematic shot of a handsome Korean male professional in his 30s, wearing a smart casual navy blazer, sitting at a clean wooden desk in a modern Seoul office with floor-to-ceiling windows. Warm afternoon sunlight hits his face, serious and focused expression, typing on a sleek silver laptop. Depth of field, 8k resolution, photorealistic, soft lighting."
+   - **필수 요소:** 주체(한국인), 복장, 장소(배경), 조명(Cinematic/Soft), 구도, 표정, 분위기를 50단어 이상 영어 문장으로 서술하세요.
+
+2. **`description_ko` (한글 - 관리용)**:
+   - 관리자 참고용이므로, 위 영어 내용을 간단하게 요약해서 한글로 적으세요.
+   - 예: "채광 좋은 현대적 사무실에서 집중하여 일하는 30대 한국인 남성 전문가"
+
 # JSON 구조
 {{
   "sections": [
     {{"type": "heading", "level": 2, "content": "제목"}},
     {{"type": "paragraph", "content": "서론 (공감 형성)"}},
-    {{"type": "image_placeholder", "id": "img_1", "description": "Korean professional using AI tool on laptop", "position": "after_intro"}},
+    {{
+      "type": "image_placeholder", 
+      "id": "img_1", 
+      "description": "Very long and detailed English description for AI image generation...", 
+      "description_ko": "관리자 참고용 한글 요약 설명...",
+      "position": "after_intro"
+    }},
     {{"type": "heading", "level": 3, "content": "섹션 1: 왜 필요한가?"}},
     {{"type": "paragraph", "content": "내용..."}},
     {{"type": "tip_box", "content": "꿀팁..."}},
@@ -154,7 +173,7 @@ def main():
         topic = agent.load_topic()
         result = agent.generate_structured_content(topic['title'])
         agent.save_output(result)
-        print("\n✅ Step 2 완료! (비개발자 모드)")
+        print("\n✅ Step 2 완료! (비개발자 + 고화질 모드)")
     except Exception as e:
         print(f"\n❌ Step 2 실패: {e}")
         exit(1)
