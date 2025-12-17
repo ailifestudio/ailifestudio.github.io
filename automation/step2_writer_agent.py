@@ -4,7 +4,7 @@ Step 2: Writer & Art Director Agent (Final Integrated Version)
 - 1. 비개발자를 위해 '코딩(Python)' 금지 -> '한글 채팅 프롬프트' 강제
 - 2. Flux 최적화: 이미지 묘사(English)는 아주 길고 구체적으로 (50단어 이상)
 - 3. 관리자 편의: 이미지 설명(Korean) 별도 생성
-- 4. 모델 변경: gemini-1.5-flash-latest (라이브러리 호환성 해결)
+- 4. 모델 변경: gemini-1.5-flash-001 (가장 안정적인 정식 버전)
 """
 
 import google.generativeai as genai
@@ -31,8 +31,8 @@ class WriterAgent:
             raise ValueError("❌ GEMINI_API_KEY가 설정되지 않았습니다.")
         
         genai.configure(api_key=self.api_keys[0])
-        # [수정] 모델명을 구체적으로 변경 (404 에러 해결)
-        self.model = genai.GenerativeModel("gemini-1.5-flash-latest")
+        # [수정] 가장 안정적인 정식 버전명 사용 (404/429 에러 방지)
+        self.model = genai.GenerativeModel("gemini-1.5-flash-001")
     
     def _load_api_keys(self) -> List[str]:
         keys_json = os.getenv('GEMINI_API_KEYS', '')
@@ -54,7 +54,6 @@ class WriterAgent:
                 response = self.model.generate_content(prompt)
                 return response.text
             except Exception as e:
-                # 에러 처리 로직
                 error_str = str(e)
                 if '429' in error_str or 'quota' in error_str.lower():
                      print(f"⚠️ 쿼터 초과 발생 (Key #{self.current_key_index + 1})")
@@ -62,13 +61,12 @@ class WriterAgent:
                         self.current_key_index = (self.current_key_index + 1) % len(self.api_keys)
                         print(f"🔄 다음 키로 전환 중... (Key #{self.current_key_index + 1})")
                         genai.configure(api_key=self.api_keys[self.current_key_index])
-                        # [수정] 모델명 유지
-                        self.model = genai.GenerativeModel("gemini-1.5-flash-latest")
+                        # [수정] 모델 재설정 시에도 정식 버전명 사용
+                        self.model = genai.GenerativeModel("gemini-1.5-flash-001")
                         continue
                      else:
                         print("❌ 모든 키의 쿼터가 소진되었습니다.")
                 
-                # 404 에러 등 기타 오류 처리
                 print(f"⚠️ API 호출 실패: {e} (5초 대기)")
                 time.sleep(5)
                 
@@ -82,7 +80,7 @@ class WriterAgent:
     def generate_structured_content(self, topic: str) -> dict:
         print("\n" + "="*60)
         print("📝 Step 2: Writer Agent (Final Integrated Mode)")
-        print("   ⚙️  모델: gemini-1.5-flash-latest (호환성 패치)")
+        print("   ⚙️  모델: gemini-1.5-flash-001 (Stable Version)")
         print("   ⚙️  설정: 코딩 금지 + 이미지 묘사 이중화")
         print("="*60)
         
@@ -188,7 +186,7 @@ def main():
         topic = agent.load_topic()
         result = agent.generate_structured_content(topic['title'])
         agent.save_output(result)
-        print("\n✅ Step 2 완료! (Gemini 1.5 Flash Latest)")
+        print("\n✅ Step 2 완료! (Gemini 1.5 Flash-001)")
     except Exception as e:
         print(f"\n❌ Step 2 실패: {e}")
         exit(1)
