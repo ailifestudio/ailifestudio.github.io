@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """
-Step 2: Writer & Art Director Agent (Final Integrated Version)
-- 1. 비개발자를 위해 '코딩(Python)' 금지 -> '한글 채팅 프롬프트' 강제
-- 2. Flux 최적화: 이미지 묘사(English)는 아주 길고 구체적으로 (50단어 이상)
-- 3. 관리자 편의: 이미지 설명(Korean) 별도 생성
-- 4. 모델 변경: gemini-2.0-flash (사용 가능한 최신 모델 적용)
+Step 2: Writer & Art Director Agent (Failover System)
+- 1순위: gemini-1.5-flash (쿼터 넉넉)
+- 2순위: gemini-pro (안정성 백업)
+- 자동 모델 전환 및 키 로테이션 기능 탑재
 """
 
 import google.generativeai as genai
@@ -31,8 +30,9 @@ class WriterAgent:
             raise ValueError("❌ GEMINI_API_KEY가 설정되지 않았습니다.")
         
         genai.configure(api_key=self.api_keys[0])
-        # [수정] 디버깅 로그에서 확인된 '사용 가능한 모델'로 변경
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        # [1순위 모델] 쿼터가 가장 넉넉한 1.5 Flash
+        self.current_model_name = "gemini-1.5-flash"
+        self.model = genai.GenerativeModel(self.current_model_name)
     
     def _load_api_keys(self) -> List[str]:
         keys_json = os.getenv('GEMINI_API_KEYS', '')
@@ -47,43 +47,48 @@ class WriterAgent:
     
     def _generate_with_retry(self, prompt: str, max_key_rotations: int = None) -> str:
         if max_key_rotations is None:
-            max_key_rotations = len(self.api_keys)
+            max_key_rotations = len(self.api_keys) * 2 # 모델 교체까지 고려해서 시도 횟수 늘림
         
-        for rotation in range(max_key_rotations):
+        for attempt in range(max_key_rotations):
             try:
+                print(f"   🤖 시도 모델: {self.current_model_name} (Key #{self.current_key_index + 1})")
                 response = self.model.generate_content(prompt)
                 return response.text
             except Exception as e:
                 error_str = str(e)
                 
-                # 429 Quota 에러 (할당량 초과)
-                if '429' in error_str or 'quota' in error_str.lower():
-                     print(f"⚠️ 쿼터 초과 (Key #{self.current_key_index + 1})")
-                     if rotation < max_key_rotations - 1:
-                        self.current_key_index = (self.current_key_index + 1) % len(self.api_keys)
-                        print(f"🔄 다음 키로 전환... (Key #{self.current_key_index + 1})")
-                        genai.configure(api_key=self.api_keys[self.current_key_index])
-                        # 모델 재설정
-                        self.model = genai.GenerativeModel("gemini-2.0-flash")
-                        continue
+                # 429 (쿼터 초과) 또는 404 (모델 없음) 발생 시
+                if '429' in error_str or 'quota' in error_str.lower() or '404' in error_str:
+                     print(f"   ⚠️ 오류 발생: {error_str.split('message')[0][:100]}...")
+                     
+                     # 1. 모델이 1.5-flash였다면 -> gemini-pro로 교체해본다
+                     if self.current_model_name == "gemini-1.5-flash":
+                         print(f"   🔄 모델 전환: 1.5-flash -> gemini-pro (안정성 백업)")
+                         self.current_model_name = "gemini-pro"
+                         self.model = genai.GenerativeModel(self.current_model_name)
+                         time.sleep(2)
+                         continue
+                     
+                     # 2. 이미 gemini-pro였거나 둘 다 실패하면 -> 다음 키로 교체
                      else:
-                        print("❌ 모든 키의 쿼터가 소진되었습니다.")
+                        if self.current_key_index < len(self.api_keys) - 1:
+                            self.current_key_index += 1
+                            print(f"   🔑 키 전환: Key #{self.current_key_index + 1}로 변경")
+                            genai.configure(api_key=self.api_keys[self.current_key_index])
+                            # 새 키에서는 다시 1.5-flash부터 시도
+                            self.current_model_name = "gemini-1.5-flash"
+                            self.model = genai.GenerativeModel(self.current_model_name)
+                            time.sleep(2)
+                            continue
+                        else:
+                            print("❌ 모든 키와 모델을 시도했으나 실패했습니다.")
+                            raise e
                 
-                # 404 Model Not Found
-                elif '404' in error_str and 'not found' in error_str.lower():
-                    print(f"⚠️ 모델을 찾을 수 없음: {e}")
-                    # (디버깅 로그는 이미 확인했으므로 생략 가능하지만 안전을 위해 유지)
-                    print("🔍 [디버깅] 사용 가능한 모델 목록 재확인:")
-                    try:
-                        for m in genai.list_models():
-                            if 'generateContent' in m.supported_generation_methods:
-                                print(f"   - {m.name}")
-                    except: pass
-                
+                # 기타 에러
                 print(f"⚠️ API 호출 실패: {e} (5초 대기)")
                 time.sleep(5)
                 
-                if rotation == max_key_rotations - 1:
+                if attempt == max_key_rotations - 1:
                     raise e
     
     def load_topic(self, input_path: str = "automation/intermediate_outputs/step1_topic.json") -> dict:
@@ -92,8 +97,8 @@ class WriterAgent:
     
     def generate_structured_content(self, topic: str) -> dict:
         print("\n" + "="*60)
-        print("📝 Step 2: Writer Agent (Final Integrated Mode)")
-        print("   ⚙️  모델: gemini-2.0-flash (Verified)")
+        print("📝 Step 2: Writer Agent (Failover System)")
+        print("   ⚙️  전략: 1.5 Flash -> 실패시 Gemini Pro 자동 전환")
         print("   ⚙️  설정: 코딩 금지 + 이미지 묘사 이중화")
         print("="*60)
         
@@ -199,7 +204,7 @@ def main():
         topic = agent.load_topic()
         result = agent.generate_structured_content(topic['title'])
         agent.save_output(result)
-        print("\n✅ Step 2 완료! (Gemini 2.0 Flash)")
+        print("\n✅ Step 2 완료! (Failover System)")
     except Exception as e:
         print(f"\n❌ Step 2 실패: {e}")
         exit(1)
