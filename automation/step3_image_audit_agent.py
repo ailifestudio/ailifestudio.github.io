@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Step 3: Image Generation & Vision Audit Agent
-- Pollinations.ai (Flux 모델)로 고품질 이미지 생성
-- API 쿼터 절약을 위해 Vision 검수는 'Free Pass' (무조건 통과) 모드로 동작
+Step 3: Image Generation & Vision Audit Agent (Final Integrated Version)
+- Pollinations.ai (Flux)로 고품질 이미지 생성 (영문 프롬프트 사용)
+- 한글 설명(description_ko) 보존하여 Step 4로 전달
+- Vision 검수: Free Pass (쿼터 절약)
 """
 
 import google.generativeai as genai
@@ -28,7 +29,7 @@ class ImageAuditAgent:
         self.api_keys = self._load_api_keys()
         self.current_key_index = 0
         
-        # Vision 모델 초기화 (검수 프리패스 모드여도 초기화는 유지하거나, 에러 방지용으로 둠)
+        # Vision 모델 초기화 (검수 프리패스 모드여도 초기화는 유지)
         if self.api_keys:
             genai.configure(api_key=self.api_keys[0])
             self.vision_model = genai.GenerativeModel("gemini-2.5-flash")
@@ -83,7 +84,6 @@ class ImageAuditAgent:
                 seed = random.randint(1, 99999999)
                 
                 # 2. 💎 화질 부스터 (퀄리티 강제 주입)
-                # 이 키워드들이 들어가야 AI가 '진짜 사진'처럼 그립니다.
                 quality_prefix = "Masterpiece, award winning photography, 8k resolution, highly detailed, cinematic lighting, depth of field, f/1.8, bokeh, realistic texture, raw photo,"
                 negative_prompt = "blurry, distorted, low quality, cartoon, illustration, bad hands, ugly, text, watermark, grainy"
                 
@@ -92,17 +92,14 @@ class ImageAuditAgent:
                 encoded_prompt = urllib.parse.quote(full_prompt)
                 
                 # 3. URL 생성 (Flux 모델 고정)
-                # enhance=false로 설정 (Flux는 원본이 더 리얼함, enhance 켜면 오히려 그림 같아짐)
                 pollinations_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=1280&height=720&model=flux&nologo=true&seed={seed}&enhance=false"
                 
                 if attempt == 0:
-                    print(f"   🎨 [Flux] 고화질 생성 시도 ({attempt+1}/{max_retries}): {description[:30]}...")
-                    # print(f"      🔗 URL: {pollinations_url}") # 로그가 너무 길면 주석 처리
+                    print(f"   🎨 [Flux] 고화질 생성 시도 ({attempt+1}/{max_retries})")
                 else:
                     print(f"      🔄 재시도 {attempt+1}/{max_retries}...")
                 
-                # 4. 요청 (핵심: timeout을 30초 -> 60초로 변경)
-                # Flux 모델은 느리기 때문에 최소 60초는 기다려줘야 합니다.
+                # 4. 요청 (Timeout 60초)
                 response = requests.get(pollinations_url, timeout=60)
                 
                 if response.status_code == 200:
@@ -119,10 +116,9 @@ class ImageAuditAgent:
                     return str(image_path), relative_path
                 else:
                     print(f"      ⚠️ HTTP {response.status_code}")
-                    time.sleep(5) # 실패 시 5초 휴식 후 재시도
+                    time.sleep(5)
                     
             except Exception as e:
-                # 타임아웃 메시지가 나오면 시간을 더 늘리라고 안내 (로그 확인용)
                 if "Read timed out" in str(e):
                     print(f"      ⏳ 시간 초과 (서버가 바쁨 - 재시도합니다)")
                 else:
@@ -133,19 +129,15 @@ class ImageAuditAgent:
         return None, None
     
     def audit_image_with_vision(self, image_path: str, original_description: str, max_key_rotations: int = None) -> str:
-        """
-        [Free Pass 모드] API 쿼터 절약을 위해 Vision 검수를 생략하고 무조건 통과시킵니다.
-        """
-        # -----------------------------------------------------------
-        # [Quota Saving Mode] API 호출 없이 즉시 통과
-        # -----------------------------------------------------------
+        """[Free Pass 모드] API 쿼터 절약을 위해 무조건 통과"""
         print(f"      ⏩ [Free Pass] 쿼터 절약을 위해 Vision 검수 생략 (PASS)")
         return "PASS"
 
     def process_content_with_images(self, content_data: dict) -> dict:
         """이미지 플레이스홀더 처리 메인 로직"""
         print("\n" + "="*60)
-        print("🎨 Step 3: Image Generation (Free Pass Mode)")
+        print("🎨 Step 3: Image Generation (Final Integrated Mode)")
+        print("   ⚙️  설정: 한글 설명(description_ko) 보존 및 전달")
         print("="*60)
         
         sections = content_data['sections']
@@ -163,11 +155,18 @@ class ImageAuditAgent:
             if section['type'] == 'image_placeholder':
                 stats["total_placeholders"] += 1
                 
-                print(f"\n[{stats['total_placeholders']}] 이미지 처리 중 (ID: {section['id']})")
+                # 영어 설명과 한글 설명 가져오기
+                eng_desc = section.get('description', '')
+                kor_desc = section.get('description_ko', '') # ★ 핵심: 한글 설명 추출
                 
-                # 1. 이미지 생성
+                print(f"\n[{stats['total_placeholders']}] 이미지 처리 중 (ID: {section['id']})")
+                print(f"   🇺🇸 Prompt: {eng_desc[:40]}...")
+                if kor_desc:
+                    print(f"   🇰🇷 Caption: {kor_desc[:40]}...")
+                
+                # 1. 이미지 생성 (영어 프롬프트 사용)
                 image_path, relative_path = self.generate_image(
-                    section['description'],
+                    eng_desc,
                     section['id']
                 )
                 
@@ -175,14 +174,15 @@ class ImageAuditAgent:
                     stats["generated"] += 1
                     
                     # 2. 검수 (Free Pass)
-                    audit_result = self.audit_image_with_vision(image_path, section['description'])
+                    audit_result = self.audit_image_with_vision(image_path, eng_desc)
                     
                     if audit_result == "PASS":
                         stats["passed"] += 1
                         updated_section = {
                             "type": "image",
                             "id": section['id'],
-                            "description": section['description'],
+                            "description": eng_desc,       # 영어 (보존)
+                            "description_ko": kor_desc,    # ★ 핵심: 한글 (보존하여 Step 4로 전달)
                             "url": relative_path,
                             "audit_status": "PASS",
                             "audit_timestamp": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -190,15 +190,13 @@ class ImageAuditAgent:
                         updated_sections.append(updated_section)
                         print(f"      🎉 최종 승인: 이미지 삽입됨")
                     else:
-                        # Free Pass 모드에서는 이쪽으로 올 일이 거의 없음
                         stats["failed"] += 1
                         stats["removed"] += 1
-                        updated_sections.append(section) # 원본 유지하거나 삭제
+                        updated_sections.append(section)
                 else:
                     stats["failed"] += 1
                     stats["removed"] += 1
                     print(f"      🗑️ 생성 실패로 플레이스홀더 삭제")
-                    # 이미지가 없으므로 섹션 제거 (리스트에 추가 안함)
             else:
                 updated_sections.append(section)
         
