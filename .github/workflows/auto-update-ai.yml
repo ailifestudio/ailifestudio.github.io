@@ -5,14 +5,10 @@ on:
     - cron: '0 0,6,12 * * *' # 매일 09:00, 15:00, 21:00 KST
   workflow_dispatch:
     inputs:
-      enable_ai:
-        description: 'AI 콘텐츠 생성 활성화'
+      manual_topic:
+        description: '주제를 입력하세요 (비워두면 AI가 자동 선정)'
         required: false
-        default: 'true'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
+        type: string
 
 permissions:
   contents: write
@@ -39,17 +35,38 @@ jobs:
         cd automation
         pip install -r requirements.txt
         
-    - name: ✍️ Step 1 - 주제 선정
-      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
+    # ----------------------------------------------------------------
+    # [Step 1] 주제 선정 (스마트 하이브리드 모드)
+    # ----------------------------------------------------------------
+    - name: 🚀 Step 1 - 주제 선정 (자동 vs 수동)
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+        MANUAL_TOPIC: ${{ github.event.inputs.manual_topic }}
       run: |
-        echo "🎯 Step 1: 블루오션 키워드 발굴 중..."
-        python automation/step1_topic_agent.py
+        mkdir -p automation/intermediate_outputs
+        
+        # 1. 입력값이 없거나 "자동"이면 -> AI가 알아서 선정 (기존 방식)
+        if [[ -z "$MANUAL_TOPIC" || "$MANUAL_TOPIC" == "자동" ]]; then
+          echo "🤖 [자동 모드] AI가 블루오션 키워드를 발굴합니다..."
+          python automation/step1_topic_agent.py
+          
+        # 2. 주제가 입력되면 -> 그 주제로 강제 설정 (수동 방식)
+        else
+          echo "📝 [수동 모드] 지정된 주제로 글을 작성합니다: $MANUAL_TOPIC"
+          # 파이썬 원라이너로 topic.json 파일 즉시 생성
+          python3 -c "import json; import os; topic = os.environ['MANUAL_TOPIC']; data = {'title': topic, 'search_keywords': [topic]}; print(json.dumps(data, ensure_ascii=False))" > automation/intermediate_outputs/step1_topic.json
+        fi
+        
+        # 결과 확인
+        echo "✅ 최종 확정 주제:"
+        cat automation/intermediate_outputs/step1_topic.json
     
+    # ----------------------------------------------------------------
+    # [Step 2 ~ 4] 콘텐츠 생성 파이프라인
+    # (수동 실행 시에도 무조건 돌도록 if 조건을 제거했습니다)
+    # ----------------------------------------------------------------
     - name: 📝 Step 2 - 글 작성
-      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
@@ -58,7 +75,6 @@ jobs:
         python automation/step2_writer_agent.py
     
     - name: 🎨 Step 3 - 이미지 생성 및 검수
-      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
@@ -68,13 +84,15 @@ jobs:
         python automation/step3_image_audit_agent.py
     
     - name: 💾 Step 4 - data.json 저장
-      if: ${{ github.event_name == 'schedule' || github.event.inputs.enable_ai != 'false' }}
       env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}  # <--- 이 줄이 반드시 있어야 번역됨!
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}  # (번역 필요시 사용, 현재는 최적화됨)
       run: |
         echo "💾 Step 4: data.json 및 Markdown 파일 생성 중..."
         python automation/step4_save_to_data_json.py
         
+    # ----------------------------------------------------------------
+    # [빌드 및 배포]
+    # ----------------------------------------------------------------
     - name: 🔨 블로그 빌드 (RSS/HTML)
       run: |
         echo "🔨 build_blog.py 실행 중..."
@@ -93,7 +111,7 @@ jobs:
         
     - name: 📋 검수용 PR 생성
       env:
-        GH_TOKEN: ${{ secrets.MY_PAT }}  # <-- 방금 만든 'MY_PAT'으로 변경
+        GH_TOKEN: ${{ secrets.MY_PAT }} 
         TZ: 'Asia/Seoul'
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -129,17 +147,15 @@ jobs:
           git push origin $BRANCH_NAME
           
           # ---------------------------------------------------------
-          # PR 본문 작성 (printf "%s" 방식으로 특수문자 에러 원천 차단)
+          # PR 본문 작성
           # ---------------------------------------------------------
           PR_TITLE="🤖 [검수 요청] $TOPIC"
           CURRENT_TIME=$(date +'%Y-%m-%d %H:%M:%S')
           
-          # 파일 생성
           printf "## 📝 AI가 새로운 포스팅을 작성했습니다\n\n" > /tmp/pr_body.md
           printf "**주제:** %s\n" "$TOPIC" >> /tmp/pr_body.md
           printf "**작성 시각:** %s (KST)\n\n" "$CURRENT_TIME" >> /tmp/pr_body.md
           
-          # --- (구분선) 및 - (체크리스트) 에러 방지를 위해 %s 포맷 사용
           printf "%s\n" "---" >> /tmp/pr_body.md
           
           printf "### ✅ 검수 체크리스트\n" >> /tmp/pr_body.md
@@ -170,13 +186,12 @@ jobs:
           echo "ℹ️ 변경사항 없음"
         fi
 
-    # [추가됨] 디버깅 파일 목록을 먼저 보여줌
+    # [디버깅] 실패 시 로그 출력
     - name: 🔍 (실패 시) 디버깅 파일 목록 확인
       if: failure()
       run: |
         echo "========================================================"
         echo "🐞 [디버깅] 중간 산출물 파일 경로 안내"
-        echo "   (아래 파일들이 압축되어 업로드됩니다)"
         echo "========================================================"
         if [ -d "automation/intermediate_outputs" ]; then
           ls -R automation/intermediate_outputs/ | sed 's/^/📄 /'
@@ -184,12 +199,3 @@ jobs:
           echo "⚠️ 중간 산출물 폴더가 존재하지 않습니다."
         fi
         echo "========================================================"
-
-    # [기존] 실제 파일 업로드
-    - name: 📤 (실패 시) 디버깅용 파일 업로드
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: debug-logs
-        path: automation/intermediate_outputs/
-        retention-days: 3
