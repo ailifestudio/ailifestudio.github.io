@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-Step 2: Writer & Art Director Agent (Editor Mode + Scroll Fix)
-- 기능 1: 주제만 있으면 -> AI 창작 (Creative Writing)
-- 기능 2: 본문도 있으면 -> AI 정리 & 이미지 추가 (Editing)
-- 핵심 수정: '가로 스크롤' 원인인 Code Block(```) 사용 금지 -> 인용구(>) 강제
+Step 2: Writer & Art Director Agent (Final)
+- 기능: 에디터 모드 & 창작 모드
+- 필수 1: "Intro:" 접두사 절대 금지 (자연스러운 한글 소제목)
+- 필수 2: 썸네일(img_1) 포함 이미지 3~5장 필수 생성
+- 필수 3: 스크롤 방지 (Tip Box 사용)
 """
 
 import google.generativeai as genai
@@ -69,15 +70,15 @@ class WriterAgent:
         with open(input_path, 'r', encoding='utf-8') as f: return json.load(f)
     
     def generate_structured_content(self, topic: str) -> dict:
-        # 1. 수동 본문 확인 (에디터 모드 여부 결정)
         manual_content = os.getenv('MANUAL_CONTENT', '').strip()
         
-        # [공통 규칙] 스크롤 방지를 위한 강력한 지시
+        # [공통 규칙]
         common_rules = """
-        ### 🚨 SCROLL FIX RULES (Very Important):
-        1. **NEVER use Code Blocks (```).** They cause scroll issues on mobile.
-        2. Instead of `code_block`, use **`tip_box`** or just `paragraph` with ">" (blockquote) style for prompts.
-        3. Even for "Prompt Examples", do NOT use the `code_block` type in JSON. Use `tip_box` instead.
+        ### 🚨 CRITICAL RULES (Must Follow):
+        1. **NO "Intro:" Prefix:** The first heading MUST be a natural Korean title (e.g., "업무 효율이 고민이신가요?"), **NEVER** start with "Intro:" or "서론:".
+        2. **IMAGE COUNT:** You MUST include **3 to 5 images** in total.
+        3. **THUMBNAIL (Important):** The first image (`img_1`) is the **Blog Thumbnail**. It must be the most representative and high-quality wide shot.
+        4. **SCROLL FIX:** NEVER use `code_block` (```). Use `tip_box` for prompts.
         """
         
         if manual_content:
@@ -93,27 +94,34 @@ You are a professional Editor.
 
 **Task:**
 1. Organize the draft into a structured blog post (JSON).
-2. **Expand content:** Make it longer and richer (min 300 chars/paragraph).
-3. **Insert Images:** Add `image_placeholder` where appropriate.
+2. **Expand content:** Min 300 chars/paragraph.
+3. **Insert Images:** Add 3~5 images (First one is thumbnail).
 
 {common_rules}
 
-**JSON Schema:**
+**JSON Schema Example:**
 {{
   "title": "{topic}",
   "sections": [
-    {{ "type": "heading", "level": 2, "content": "Intro" }},
+    {{ "type": "heading", "level": 2, "content": "독자를 사로잡는 첫 소제목 (Intro X)" }},
     {{ "type": "paragraph", "content": "..." }},
     {{ 
       "type": "image_placeholder", 
       "id": "img_1", 
-      "description": "Cinematic shot, wide angle, 8k, --no ugly hands", 
-      "description_ko": "한글 설명 (필수)",
+      "description": "Thumbnail shot, cinematic, wide angle, 8k, --no ugly hands", 
+      "description_ko": "썸네일용 대표 이미지 설명 (필수)",
       "position": "after_intro" 
     }},
     {{ "type": "heading", "level": 3, "content": "..." }},
     {{ "type": "paragraph", "content": "..." }},
-    {{ "type": "tip_box", "content": "Korean Prompt Example (Do not use code_block)" }}
+    {{ 
+      "type": "image_placeholder", 
+      "id": "img_2", 
+      "description": "...", 
+      "description_ko": "...",
+      "position": "middle" 
+    }},
+    {{ "type": "tip_box", "content": "Korean Prompt Example (No code_block)" }}
   ],
   "summary": "Summary",
   "tags": ["Tag1"]
@@ -130,29 +138,43 @@ You are a professional IT Tech Editor.
 **Task:** Write a high-quality blog post in **JSON format**.
 
 **Rules:**
-1. **Length:** Minimum 300~500 characters per paragraph (Korean).
+1. **Length:** Minimum 300~500 characters per paragraph.
 2. **Content:** Rich details, Why/How/Examples.
-3. **Images:** 50+ words description, Korean translation required.
+3. **Images:** 3~5 images required. 50+ words description. Avoid close-ups.
 
 {common_rules}
 
-**JSON Schema:**
+**JSON Schema Example:**
 {{
   "title": "{topic}",
   "sections": [
-    {{ "type": "heading", "level": 2, "content": "Intro" }},
+    {{ "type": "heading", "level": 2, "content": "흥미로운 도입부 소제목 (Intro 절대 금지)" }},
     {{ "type": "paragraph", "content": "Write very long intro..." }},
     {{ 
       "type": "image_placeholder", 
       "id": "img_1", 
-      "description": "Cinematic shot, wide angle, 8k, --no ugly hands", 
-      "description_ko": "한글 설명 (필수)",
+      "description": "Best quality thumbnail shot, cinematic lighting, wide angle, 8k", 
+      "description_ko": "블로그 썸네일용 이미지 설명 (필수)",
       "position": "after_intro" 
     }},
     {{ "type": "heading", "level": 3, "content": "Section 1" }},
     {{ "type": "paragraph", "content": "Write detailed content..." }},
-    {{ "type": "tip_box", "content": "Useful tip or Prompt Example" }},
-    {{ "type": "warning_box", "content": "Warning" }}
+    {{ 
+      "type": "image_placeholder", 
+      "id": "img_2", 
+      "description": "...", 
+      "description_ko": "...",
+      "position": "middle" 
+    }},
+    {{ "type": "tip_box", "content": "Useful tip (No ```)" }},
+    {{ "type": "paragraph", "content": "..." }},
+    {{ 
+      "type": "image_placeholder", 
+      "id": "img_3", 
+      "description": "...", 
+      "description_ko": "...",
+      "position": "end" 
+    }}
   ],
   "summary": "Summary",
   "tags": ["Tag1"]
