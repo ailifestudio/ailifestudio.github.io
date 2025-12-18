@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-18 08:20",
-  "total": 6,
+  "updatedAt": "2025-12-18 08:26",
+  "total": 7,
   "articles": [
+    {
+      "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-18-082603-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-18-082603-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
       "source": "AI/테크",
