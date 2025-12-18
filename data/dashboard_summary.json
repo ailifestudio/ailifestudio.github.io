@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-18 07:42",
-  "total": 6,
+  "updatedAt": "2025-12-18 07:50",
+  "total": 7,
   "articles": [
+    {
+      "title": "NotebookLM, 수십 페이지 보고서도 오디오북처럼 듣고 칼퇴하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-18-075000-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-18-075000-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
       "source": "AI/테크",
