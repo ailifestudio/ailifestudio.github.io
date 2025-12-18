@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Step 2: Writer & Art Director Agent (Final Strategy)
-- 전략: gemini-1.5-flash-8b (최신 초경량 모델, 쿼터 회피용)
+Step 2: Writer & Art Director Agent (Return of 2.5 Flash)
+- 전략: 쿼터 초기화를 기대하며 '유일하게 인식된 모델'인 2.5-flash 사용
 - 설정: 코딩 금지 + 이미지 묘사 이중화
 """
 
@@ -30,9 +30,9 @@ class WriterAgent:
         
         genai.configure(api_key=self.api_keys[0])
         
-        # [최후의 수단] 1.5 Flash 8B (초경량 모델)
-        self.current_model_name = "gemini-1.5-flash-8b"
-        self.model = genai.GenerativeModel(self.current_model_name)
+        # [수정] 로그에서 유일하게 '존재함(404 아님)'이 확인된 모델
+        self.model_name = "gemini-2.5-flash"
+        self.model = genai.GenerativeModel(self.model_name)
     
     def _load_api_keys(self) -> List[str]:
         keys_json = os.getenv('GEMINI_API_KEYS', '')
@@ -51,23 +51,29 @@ class WriterAgent:
         
         for attempt in range(max_key_rotations):
             try:
-                print(f"   🤖 시도: {self.current_model_name} (Key #{self.current_key_index + 1})")
+                print(f"   🤖 시도: {self.model_name} (Key #{self.current_key_index + 1})")
                 response = self.model.generate_content(prompt)
                 return response.text
             except Exception as e:
                 error_str = str(e)
                 print(f"   ⚠️ 오류: {error_str.split('message')[0][:80]}...")
                 
-                # 키 로테이션
-                if self.current_key_index < len(self.api_keys) - 1:
-                    self.current_key_index += 1
-                    print(f"   🔑 키 변경: Key #{self.current_key_index + 1}로 이동")
-                    genai.configure(api_key=self.api_keys[self.current_key_index])
-                    self.model = genai.GenerativeModel(self.current_model_name)
-                    time.sleep(2)
-                    continue
-                else:
-                    print("❌ 모든 키가 소진되었습니다.")
+                # 429 (쿼터 초과) 발생 시 키 교체
+                if '429' in error_str or 'quota' in error_str.lower():
+                    if self.current_key_index < len(self.api_keys) - 1:
+                        self.current_key_index += 1
+                        print(f"   🔄 쿼터 초과! Key #{self.current_key_index + 1}로 교체하여 재시도")
+                        genai.configure(api_key=self.api_keys[self.current_key_index])
+                        self.model = genai.GenerativeModel(self.model_name)
+                        time.sleep(2)
+                        continue
+                    else:
+                        print("❌ 모든 키의 쿼터가 소진되었습니다.")
+                        raise e
+                
+                # 그 외 오류 (404 등)
+                time.sleep(5)
+                if attempt == max_key_rotations - 1:
                     raise e
     
     def load_topic(self, input_path: str = "automation/intermediate_outputs/step1_topic.json") -> dict:
@@ -76,8 +82,8 @@ class WriterAgent:
     
     def generate_structured_content(self, topic: str) -> dict:
         print("\n" + "="*60)
-        print("📝 Step 2: Writer Agent (1.5 Flash 8B Strategy)")
-        print("   ⚙️  모델: gemini-1.5-flash-8b")
+        print("📝 Step 2: Writer Agent (Retry 2.5 Flash)")
+        print(f"   ⚙️  모델: {self.model_name} (쿼터 리셋 기대)")
         print("   ⚙️  설정: 코딩 금지 + 이미지 묘사 이중화")
         print("="*60)
         
@@ -101,12 +107,14 @@ class WriterAgent:
 
 # ★ 'code_block' 작성 규칙 (엄격 준수):
 `code_block`에는 프로그래밍 코드 대신, **독자가 AI 채팅창에 복사해서 붙여넣을 수 있는 '한글 지시문(Prompt)'**을 넣으세요.
-- ❌ Bad: `import requests`
-- ⭕ Good: "2024년 트렌드를 요약해줘."
+- ❌ Bad (작성 금지): `import requests`
+- ⭕ Good (작성 권장): "신규 입사자를 위한 온보딩 매뉴얼 목차를 짜줘."
 
-# ★ Image Art Directing Rules (Flux Model Optimized)
+# ★ [매우 중요] Image Art Directing Rules (Flux Model Optimized)
+이미지 퀄리티를 높이기 위해 `description`을 **최대한 길고, 구체적이고, 묘사적으로(Descriptive)** 작성하세요.
+
 1. **`description` (영어 - 생성용)**:
-   - 50단어 이상의 구체적이고 긴 영어 문장. 조명, 구도, 인물, 8k 등 포함.
+   - 50단어 이상의 영어 문장. 조명, 구도, 인물 묘사, 8k, photorealistic 키워드 포함.
 2. **`description_ko` (한글 - 관리용)**:
    - 위 내용을 요약한 한글 설명.
 
@@ -173,7 +181,7 @@ def main():
         topic = agent.load_topic()
         result = agent.generate_structured_content(topic['title'])
         agent.save_output(result)
-        print("\n✅ Step 2 완료! (1.5 Flash 8B)")
+        print("\n✅ Step 2 완료! (Gemini 2.5 Flash)")
     except Exception as e:
         print(f"\n❌ Step 2 실패: {e}")
         exit(1)
