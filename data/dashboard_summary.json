@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2025-12-19 01:47",
+  "updatedAt": "2025-12-19 02:02",
   "total": 9,
   "articles": [
     {
@@ -20,7 +20,7 @@
       "time": "어제",
       "summary": "",
       "link": "/article.html?slug=2025-12-18-123304-ai-article",
-      "image": "",
+      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-18-123304-ai-article",
