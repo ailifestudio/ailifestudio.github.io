@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
 """
-Step 4: Save to data.json & Markdown (Optimization Version)
-- 최적화: 불필요한 번역 API 호출 제거 (Step 2에서 만든 한글 설명 사용)
-- 스타일: 박스 깨짐 방지 (>)
-- 이미지: 화면엔 이미지만 표시 + 한글(Alt)/영어(주석) 숨김 처리
+Step 4: Save to data.json & Markdown (Final Polish)
+- 기능 1: 가로 스크롤 방지 (Code Block -> 인용구/팁박스 변환)
+- 기능 2: 썸네일 자동 등록 (Front Matter에 image 필드 추가)
+- 기능 3: 불필요한 번역 호출 제거 (Step 2 데이터 활용)
 """
 
 import json
 import os
 from datetime import datetime
 from pathlib import Path
+import re
 
 class DataSaver:
     def __init__(self):
-        """초기화 (API 설정 불필요)"""
         self.output_dir = Path(__file__).parent.parent
         self.data_file = self.output_dir / 'data.json'
         self.contents_dir = self.output_dir / 'contents'
         self.contents_dir.mkdir(exist_ok=True)
 
     def load_validated_content(self, input_path="automation/intermediate_outputs/step3_validated_content.json"):
-        """Step 3 결과 로드"""
         try:
             with open(input_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
@@ -28,67 +27,75 @@ class DataSaver:
             print("❌ Step 3 결과 파일이 없습니다.")
             return None
 
+    def clean_markdown_syntax(self, text):
+        """본문 내에 숨어있는 코드블록 문법(```) 제거"""
+        if not text: return ""
+        text = re.sub(r'```\w*\n', '', text) 
+        text = text.replace('```', '')
+        return text
+
     def create_markdown_content(self, data):
-        """Markdown 변환 로직 (번역 과정 없이 즉시 생성)"""
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         today_date = datetime.now().strftime('%Y-%m-%d')
         
-        # Front Matter
+        # [1] 썸네일 찾기 (첫 번째 이미지 URL 추출)
+        sections = data.get('sections', [])
+        images = [s for s in sections if s['type'] == 'image']
+        thumbnail_url = ""
+        if images:
+            url = images[0]['url']
+            # URL이 /로 시작하지 않으면 붙여줌 (절대 경로)
+            thumbnail_url = f"/{url}" if not url.startswith('/') else url
+
+        # [2] Front Matter (머리말) 작성
         md = "---\n"
         md += f"title: \"{data['title']}\"\n"
         md += f"date: {current_time}\n"
         md += f"layout: post\n"
         md += f"author: AI Editor\n"
         md += "category: ai\n"
+        # 🌟 대시보드 썸네일용 코드 추가
+        if thumbnail_url:
+            md += f"image: \"{thumbnail_url}\"\n"
         md += "---\n\n"
 
-        sections = data.get('sections', [])
-
+        # [3] 본문 작성
         for s in sections:
             sType = s['type']
             content = s.get('content', '')
 
-            # [기본] 문단, 헤딩, 리스트
             if sType in ['paragraph', 'text']:
-                md += f"{content}\n\n"
+                md += f"{self.clean_markdown_syntax(content)}\n\n"
             elif sType == 'heading':
                 md += f"{'#' * s['level']} {content}\n\n"
             elif sType == 'list':
-                for item in s['items']:
-                    md += f"- {item}\n"
+                for item in s['items']: md += f"- {item}\n"
                 md += "\n"
             
-            # [코드 블록] 영어/한글 상관없이 있는 그대로 출력
+            # [핵심] 코드블록 -> 인용구 변환 (스크롤 방지)
             elif sType in ['code_block', 'code']:
-                lang = s.get('language', 'text')
-                md += f"```{lang}\n{content}\n```\n\n"
-
-            # [스타일 수정] 팁 박스 (인용구 스타일)
+                md += f"> 💬 **AI 프롬프트 예시:**\n>\n"
+                clean_code = self.clean_markdown_syntax(content).strip()
+                # 줄바꿈이 깨지지 않도록 인용구 기호(>)를 줄마다 붙임
+                formatted_content = clean_code.replace("\n", "\n> ")
+                md += f"> {formatted_content}\n\n"
+            
             elif sType == 'tip_box':
                 md += f"> 💡 **TIP:** {content}\n\n"
-
-            # [스타일 수정] 경고 박스 (인용구 스타일)
             elif sType == 'warning_box':
                 md += f"> ⚠️ **주의:** {content}\n\n"
-
-            # [핵심] 이미지 처리 (API 호출 없이 바로 사용)
+            
+            # [이미지] 화면엔 사진만 깔끔하게 표시
             elif sType == 'image':
-                url = f"/{s['url']}"
-                eng = s.get('description', '')          # 영어 (Flux용)
-                kor = s.get('description_ko', eng)      # 한글 (관리자용 - Step 2에서 가져옴)
-                
-                # 1. 화면 표시: 이미지만 깔끔하게 (Alt 태그는 SEO를 위해 한글 사용)
-                md += f"![{kor}]({url})\n"
-                
-                # 2. 숨김 처리 (관리자용 주석): 영어와 한글 모두 기록
-                md += f"\n\n"
+                url = f"/{s['url']}" if not s['url'].startswith('/') else s['url']
+                kor = s.get('description_ko', '')
+                md += f"![{kor}]({url})\n\n"
         
-        # 요약 추가
         if 'summary' in data:
             md += "---\n## 📝 요약\n"
             md += f"{data['summary']}\n"
 
-        return md, today_date
+        return md, today_date, thumbnail_url
 
     def update_data_json(self, new_article):
         if self.data_file.exists():
@@ -96,26 +103,23 @@ class DataSaver:
                 try:
                     data = json.load(f)
                     articles = data.get('articles', []) if isinstance(data, dict) else data
-                except:
-                    articles = []
-        else:
-            articles = []
+                except: articles = []
+        else: articles = []
 
-        # 중복 방지 및 최신 글 추가
         articles = [a for a in articles if a['title'] != new_article['title']]
         articles.insert(0, new_article)
         articles = articles[:50]
 
         with open(self.data_file, 'w', encoding='utf-8') as f:
             json.dump({"articles": articles}, f, ensure_ascii=False, indent=2)
-        print(f"✅ data.json 업데이트 완료 ({len(articles)}개 글)")
 
     def run(self):
         data = self.load_validated_content()
         if not data: return
-
-        print("\n💾 Step 4: Markdown 변환 (Optimization Mode)")
-        md_content, date_str = self.create_markdown_content(data)
+        print("\n💾 Step 4: Markdown 변환 (Final Polish)")
+        
+        # Markdown 생성 및 썸네일 URL 획득
+        md_content, date_str, thumbnail_url = self.create_markdown_content(data)
         
         timestamp = datetime.now().strftime('%H%M%S')
         filename = f"{date_str}-{timestamp}-ai-article.md"
@@ -124,23 +128,20 @@ class DataSaver:
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(md_content)
         
-        print(f"✅ Markdown 생성 완료: contents/{filename}")
-
-        images = [s['url'] for s in data['sections'] if s['type'] == 'image']
-        thumbnail = f"/{images[0]}" if images else "https://picsum.photos/800/400"
+        # 썸네일 없으면 기본 이미지 사용
+        final_image = thumbnail_url if thumbnail_url else "https://picsum.photos/800/400"
         
-        article_entry = {
+        self.update_data_json({
             "title": data['title'],
             "summary": data.get('summary', '')[:120] + "...",
             "date": date_str,
             "category": "ai",
-            "image": thumbnail,
+            "image": final_image, # data.json에도 이미지 경로 저장
             "link": f"/contents/{filename.replace('.md', '.html')}",
             "tags": data.get('tags', []),
             "file_path": str(filename)
-        }
-        
-        self.update_data_json(article_entry)
+        })
+        print(f"✅ 저장 완료: contents/{filename}")
 
 if __name__ == "__main__":
     DataSaver().run()
