@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-21 01:40",
-  "total": 9,
+  "updatedAt": "2025-12-21 06:43",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway로 텍스트만 넣으면 보고서 설명 영상 3분 만에 뚝딱! 발표 준비 끝",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-21-064352-ai-article",
+      "image": "/automation/generated_images/img_1_0b6224f5.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-21-064352-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
