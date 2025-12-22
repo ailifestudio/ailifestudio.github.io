@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-22 01:40",
-  "total": 9,
+  "updatedAt": "2025-12-22 06:48",
+  "total": 10,
   "articles": [
+    {
+      "title": "Nano Banana, 광고 캐릭터 '얼굴 통일' 고민 끝! 다양한 마케팅 채널 적용 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-22-064817-ai-article",
+      "image": "/automation/generated_images/img_1_98e46485.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-22-064817-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
