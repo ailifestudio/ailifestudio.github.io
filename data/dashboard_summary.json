@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-23 01:26",
-  "total": 9,
+  "updatedAt": "2025-12-23 06:44",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 100페이지 보고서, 오디오북처럼 들으며 퇴근길 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-23-064440-ai-article",
+      "image": "/automation/generated_images/img_1_5cbb8779.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-23-064440-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
