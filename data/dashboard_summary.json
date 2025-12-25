@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-25 01:26",
-  "total": 9,
+  "updatedAt": "2025-12-25 06:45",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 시장 트렌드 보고서, 3분 만에 초고 완성하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-25-064544-ai-article",
+      "image": "/automation/generated_images/img_1_13be2743.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-25-064544-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
