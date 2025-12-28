@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-28 08:24",
-  "total": 9,
+  "updatedAt": "2025-12-28 12:57",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM, 수백 페이지 보고서 5분 요약은 기본! 회의록 분석까지 끝내는 실무 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-28-125744-ai-article",
+      "image": "/automation/generated_images/img_1_8884aaca.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-28-125744-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
