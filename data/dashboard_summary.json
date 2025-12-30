@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-30 08:27",
-  "total": 9,
+  "updatedAt": "2025-12-30 12:58",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0 Flash, 기획안 초안 5분 만에 뚝딱! 퇴근 시간 사수하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-30-125802-ai-article",
+      "image": "/automation/generated_images/img_1_7839afcd.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-30-125802-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
