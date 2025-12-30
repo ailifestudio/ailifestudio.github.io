@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2025-12-30 01:27",
-  "total": 9,
+  "updatedAt": "2025-12-30 06:43",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0 플래시 씽킹으로 복잡한 기획안, 5분 만에 핵심 파악하는 법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-30-064327-ai-article",
+      "image": "/automation/generated_images/img_1_c5265eec.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-30-064327-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
