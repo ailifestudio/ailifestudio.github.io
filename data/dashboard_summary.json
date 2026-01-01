@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-01 08:27",
-  "total": 9,
+  "updatedAt": "2026-01-01 12:56",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0 Flash Thinking, 아이디어만 있으면 앱 프로토타입 뚝딱 만드는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-01-125630-ai-article",
+      "image": "/automation/generated_images/img_1_2b841bf0.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-01-125630-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
