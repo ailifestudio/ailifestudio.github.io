@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-01 01:46",
-  "total": 9,
+  "updatedAt": "2026-01-01 06:43",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling, 보고서/기획안 영상 텍스트만으로 3분 만에 만드는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-01-064348-ai-article",
+      "image": "/automation/generated_images/img_1_6dfa16b2.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-01-064348-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
