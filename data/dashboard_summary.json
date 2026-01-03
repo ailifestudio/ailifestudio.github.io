@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-03 01:23",
-  "total": 9,
+  "updatedAt": "2026-01-03 06:40",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling, 텍스트 한 줄로 광고 영상 뚝딱! 마케팅 콘텐츠 고민 끝",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-03-064044-ai-article",
+      "image": "/automation/generated_images/img_1_a66d6a18.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-03-064044-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
