@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-04 08:25",
-  "total": 9,
+  "updatedAt": "2026-01-04 12:54",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity AI, 검색 노가다 끝! 믿을 수 있는 최신 자료로 기획안 뚝딱 쓰는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-04-125413-ai-article",
+      "image": "/automation/generated_images/img_1_f823e409.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-04-125413-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
