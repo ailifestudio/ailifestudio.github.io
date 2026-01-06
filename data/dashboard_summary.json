@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-06 08:28",
-  "total": 9,
+  "updatedAt": "2026-01-06 12:58",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling, 텍스트만 넣으면 발표용 영상 뚝딱! 기획안 퀄리티 높이는 AI 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-06-125842-ai-article",
+      "image": "/automation/generated_images/img_1_dac0c8af.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-06-125842-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
