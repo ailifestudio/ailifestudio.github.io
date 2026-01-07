@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-07 01:28",
-  "total": 9,
+  "updatedAt": "2026-01-07 06:45",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway, 텍스트만 넣으면 3분 만에 회사 홍보 영상 완성! 초보도 전문가급 영상 만드는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-07-064526-ai-article",
+      "image": "/automation/generated_images/img_1_8b40be4c.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-07-064526-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
