@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-10 01:26",
-  "total": 9,
+  "updatedAt": "2026-01-10 06:39",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 최신 시장 트렌드, 퇴근 30분 전 자동 완성하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-10-063953-ai-article",
+      "image": "/automation/generated_images/img_1_9ea30042.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-10-063953-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
