@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-13 08:28",
-  "total": 9,
+  "updatedAt": "2026-01-13 13:00",
+  "total": 10,
   "articles": [
+    {
+      "title": "5초 만에 나만의 AI 비서 뚝딱? 제미나이 3 & 슈퍼 젬스가 던지는 업무 혁명의 마법!",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-13-130017-ai-article",
+      "image": "/automation/generated_images/img_1_0a55afbb.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-13-130017-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
