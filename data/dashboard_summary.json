@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-13 01:25",
-  "total": 9,
+  "updatedAt": "2026-01-13 02:06",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 장문 보고서 핵심만 듣고 칼퇴하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-13-020654-ai-article",
+      "image": "/automation/generated_images/img_1_e95ed0bd.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-13-020654-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
