@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-17 01:25",
-  "total": 9,
+  "updatedAt": "2026-01-17 02:04",
+  "total": 10,
   "articles": [
+    {
+      "title": "Arc Search로 복잡한 웹 정보 5분 만에 요약, 자료 조사 시간 확 줄이는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-17-020432-ai-article",
+      "image": "/automation/generated_images/img_1_95aaacff.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-17-020432-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
