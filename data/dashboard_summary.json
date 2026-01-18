@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-18 08:24",
-  "total": 9,
+  "updatedAt": "2026-01-18 12:53",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 2시간 회의 녹음 파일, 5분 만에 핵심 요약! 다시 듣기 지옥 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-18-125317-ai-article",
+      "image": "/automation/generated_images/img_1_bb31bbc1.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-18-125317-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
