@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-19 01:43",
-  "total": 9,
+  "updatedAt": "2026-01-19 06:50",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 텍스트를 3분 영상으로! 보고서, 홍보물 제작 시간 획기적으로 줄이는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-19-065039-ai-article",
+      "image": "/automation/generated_images/img_1_0ef66f34.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-19-065039-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
