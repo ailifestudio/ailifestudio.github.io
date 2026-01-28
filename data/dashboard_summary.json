@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-01-28 01:41",
-  "total": 9,
+  "updatedAt": "2026-01-28 02:13",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM, 회의록 오디오 3분 요약으로 야근 탈출하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-01-28-021325-ai-article",
+      "image": "/automation/generated_images/img_1_a9e67ca3.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-01-28-021325-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
