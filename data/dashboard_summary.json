@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-01 08:30",
-  "total": 9,
+  "updatedAt": "2026-02-01 13:04",
+  "total": 10,
   "articles": [
+    {
+      "title": "DeepSeek V3, 막막한 보고서 초고, 전문가 수준으로 5분 만에 완성하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-01-130459-ai-article",
+      "image": "/automation/generated_images/img_1_d848f66a.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-01-130459-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
