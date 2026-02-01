@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-01 02:09",
-  "total": 9,
+  "updatedAt": "2026-02-01 03:05",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM, 복잡한 사내 문서도 3분 만에 핵심 파악! 칼퇴 부르는 AI 비서 활용법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-01-030501-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-01-030501-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
