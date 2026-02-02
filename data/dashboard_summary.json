@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-02 02:01",
-  "total": 9,
+  "updatedAt": "2026-02-02 07:12",
+  "total": 10,
   "articles": [
+    {
+      "title": "Runway AI, 텍스트 한 줄로 홍보 영상 완성! 기획부터 제작까지 하루 만에 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-02-071200-ai-article",
+      "image": "/automation/generated_images/img_1_45706183.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-02-071200-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
