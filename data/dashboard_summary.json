@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-03 08:34",
-  "total": 9,
+  "updatedAt": "2026-02-03 13:16",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0으로 복잡한 아이디어를 앱 프로토타입으로 3분 만에 구현하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-03-131610-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-03-131610-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
