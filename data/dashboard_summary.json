@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-06 01:55",
-  "total": 9,
+  "updatedAt": "2026-02-06 07:04",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway로 1분 만에 전문가급 마케팅 영상 뚝딱! 퇴근 시간 확보하는 AI 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-06-070413-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-06-070413-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
