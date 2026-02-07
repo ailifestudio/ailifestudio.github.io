@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-07 01:51",
-  "total": 9,
+  "updatedAt": "2026-02-07 06:53",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini Flash로 복잡한 기획서 초고 10분 완성, 밤샘 야근 탈출 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-07-065356-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-07-065356-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
