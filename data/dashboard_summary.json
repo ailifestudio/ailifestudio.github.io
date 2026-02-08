@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-08 08:31",
-  "total": 9,
+  "updatedAt": "2026-02-08 13:04",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM, 복잡한 보고서를 팟캐스트로 듣자! 출퇴근길 스마트 학습 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-08-130458-ai-article",
+      "image": "/automation/generated_images/img_1_d8d8f0bf.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-08-130458-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
