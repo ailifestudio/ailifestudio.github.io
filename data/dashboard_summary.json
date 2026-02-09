@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-09 02:03",
-  "total": 9,
+  "updatedAt": "2026-02-09 07:15",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 1분 만에 전문가급 제품 홍보 영상, 기획팀 퇴근 시간 앞당기는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-09-071531-ai-article",
+      "image": "/automation/generated_images/img_1_275b21b5.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-09-071531-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
