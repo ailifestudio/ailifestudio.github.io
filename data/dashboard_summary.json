@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-09 08:51",
-  "total": 9,
+  "updatedAt": "2026-02-09 13:24",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0로 아이디어 스케치부터 앱 프로토타입까지, 퇴근 전 기획서에 AI 날개 달기",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-09-132416-ai-article",
+      "image": "/automation/generated_images/img_1_cbd17716.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-09-132416-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
