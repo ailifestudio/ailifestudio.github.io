@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-10 08:53",
-  "total": 9,
+  "updatedAt": "2026-02-10 13:30",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 1시간 웨비나 요약, 3분 만에 핵심 파악하고 퇴근하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-10-133053-ai-article",
+      "image": "/automation/generated_images/img_1_ea4086fa.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-10-133053-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
