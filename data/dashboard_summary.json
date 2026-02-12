@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-12 02:02",
-  "total": 9,
+  "updatedAt": "2026-02-12 02:49",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling, 텍스트 프롬프트로 발표 영상 3분 완성! 팀장님 깜짝 놀랄 퇴근 전 스킬",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-12-024913-ai-article",
+      "image": "/automation/generated_images/img_1_fe61e7f3.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-12-024913-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
