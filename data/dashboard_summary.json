@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-16 02:00",
-  "total": 9,
+  "updatedAt": "2026-02-16 02:44",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 흩어진 자료 3분 만에 통합, 기획안 퀄리티 높이는 AI 리서치 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-16-024453-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-16-024453-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
