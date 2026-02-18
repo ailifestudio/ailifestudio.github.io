@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-18 02:01",
-  "total": 9,
+  "updatedAt": "2026-02-18 07:10",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 시장 트렌드 3분 요약, 보고서 마감 시간 앞당기는 AI 비서",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-18-071025-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-18-071025-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
