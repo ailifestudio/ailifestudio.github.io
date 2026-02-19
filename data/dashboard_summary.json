@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-19 08:41",
-  "total": 9,
+  "updatedAt": "2026-02-19 13:21",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 복잡한 홍보 영상 5분 완성, 기획안만 있으면 퇴근 전 뚝딱!",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-19-132128-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-19-132128-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
