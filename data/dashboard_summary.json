@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-26 08:44",
-  "total": 9,
+  "updatedAt": "2026-02-26 13:22",
+  "total": 10,
   "articles": [
+    {
+      "title": "Recraft V3로 광고 룩북, 상세페이지 디자인 비용 0원! 퇴근 시간까지 벌어보자",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-26-132226-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-26-132226-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
