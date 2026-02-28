@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-02-28 08:26",
-  "total": 9,
+  "updatedAt": "2026-02-28 12:59",
+  "total": 10,
   "articles": [
+    {
+      "title": "Claude 3.5 Artifacts로 보고서 초안부터 완성까지, 실시간 수정하며 끝내는 AI 협업 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-02-28-125910-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-02-28-125910-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
