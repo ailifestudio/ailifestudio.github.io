@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-03 01:59",
-  "total": 9,
+  "updatedAt": "2026-03-03 07:03",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 긴 보고서 오디오 요약, 출퇴근길에 업무 마스터하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-03-070309-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-03-070309-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
