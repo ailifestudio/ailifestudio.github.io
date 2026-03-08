@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-08 08:29",
-  "total": 9,
+  "updatedAt": "2026-03-08 13:04",
+  "total": 10,
   "articles": [
+    {
+      "title": "Claude 3.5 Artifacts로 기획안부터 최종보고서까지, 실시간 수정하며 퇴근 시간 지키는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-08-130422-ai-article",
+      "image": "/automation/generated_images/img_1_3330a9b5.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-08-130422-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
