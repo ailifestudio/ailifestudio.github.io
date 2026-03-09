@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-09 01:59",
-  "total": 9,
+  "updatedAt": "2026-03-09 02:45",
+  "total": 10,
   "articles": [
+    {
+      "title": "Napkin AI, 복잡한 프로젝트 흐름도를 글만 써서 자동 생성하는 실무 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-09-024537-ai-article",
+      "image": "/automation/generated_images/img_1_971bffd7.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-09-024537-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
