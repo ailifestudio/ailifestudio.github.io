@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-10 08:39",
-  "total": 9,
+  "updatedAt": "2026-03-10 13:18",
+  "total": 10,
   "articles": [
+    {
+      "title": "Nano Banana로 우리 회사 캐릭터, 포스터부터 SNS까지 일관되게 뚝딱 만드는 법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-10-131854-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-10-131854-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
