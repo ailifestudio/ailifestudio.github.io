@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-11 16:50",
-  "total": 9,
+  "updatedAt": "2026-03-12 02:41",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM, 쌓인 자료 오디오로 뚝딱! 점심시간에 다 듣고 퇴근하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-12-024121-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-12-024121-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
@@ -101,7 +113,7 @@
     {
       "title": "최신 AI로 스마트하게 일하는 5가지 생산성 비법",
       "source": "AI/테크",
-      "time": "2개월 전",
+      "time": "3개월 전",
       "summary": "AI 도구를 활용해 업무 효율을 극대화하는 실전 팁 5가지를 소개합니다. ChatGPT, Notion AI, Midjourney 등 최신 AI 도구 활용법을 배워보세요.",
       "link": "/article.html?slug=2025-12-12-ai-productivity-tips",
       "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
