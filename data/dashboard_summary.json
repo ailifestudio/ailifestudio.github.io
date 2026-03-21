@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-21 08:30",
-  "total": 9,
+  "updatedAt": "2026-03-21 13:05",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity AI, 복잡한 시장 동향 분석 리포트, 소스까지 한 번에 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-21-130524-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-21-130524-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
