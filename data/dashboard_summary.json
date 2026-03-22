@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-22 08:31",
-  "total": 9,
+  "updatedAt": "2026-03-22 13:07",
+  "total": 10,
   "articles": [
+    {
+      "title": "Claude 3.5 Artifacts, 기획안 피드백 바로 반영! 실시간 문서 완성으로 퇴근 시간 버는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-22-130751-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-22-130751-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
