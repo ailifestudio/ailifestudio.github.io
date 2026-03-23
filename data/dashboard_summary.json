@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-23 02:04",
-  "total": 9,
+  "updatedAt": "2026-03-23 07:23",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 신제품 소개 영상, 텍스트 몇 줄로 퇴근 전 뚝딱!",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-23-072319-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-23-072319-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
