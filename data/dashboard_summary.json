@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-24 01:56",
-  "total": 9,
+  "updatedAt": "2026-03-24 07:14",
+  "total": 10,
   "articles": [
+    {
+      "title": "AI 비디오 툴로 내부 보고용 영상, 텍스트만 입력하면 뚝딱! 퇴근 30분 앞당기는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-24-071408-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-24-071408-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
