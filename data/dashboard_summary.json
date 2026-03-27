@@ -1,17 +1,29 @@
 {
-  "updatedAt": "2026-03-27 02:09",
-  "total": 9,
+  "updatedAt": "2026-03-27 02:54",
+  "total": 10,
   "articles": [
     {
-      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
+      "title": "Kling/Runway, 텍스트로 전문가급 홍보 영상 3분 완성! 퇴근 시간 앞당기는 AI 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-27-025405-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-27-025405-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
       "time": "3개월 전",
       "summary": "",
-      "link": "/article.html?slug=2025-12-18-123304-ai-article",
-      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
+      "link": "/article.html?slug=2025-12-18-130221-ai-article",
+      "image": "/automation/generated_images/img_1_53fb52f7.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-18-123304-ai-article",
+      "slug": "2025-12-18-130221-ai-article",
       "canonical_url": ""
     },
     {
@@ -27,15 +39,15 @@
       "canonical_url": ""
     },
     {
-      "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
+      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
       "time": "3개월 전",
       "summary": "",
-      "link": "/article.html?slug=2025-12-18-130221-ai-article",
-      "image": "/automation/generated_images/img_1_53fb52f7.png",
+      "link": "/article.html?slug=2025-12-18-123304-ai-article",
+      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-18-130221-ai-article",
+      "slug": "2025-12-18-123304-ai-article",
       "canonical_url": ""
     },
     {
