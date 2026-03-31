@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-03-31 02:09",
-  "total": 9,
+  "updatedAt": "2026-03-31 02:57",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 장문 문서 5분 만에 요약, 밀린 보고서 분석 시간 확 줄이는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-03-31-025723-ai-article",
+      "image": "/automation/generated_images/img_1_42b1890e.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-03-31-025723-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
