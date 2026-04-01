@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-01 02:26",
-  "total": 9,
+  "updatedAt": "2026-04-01 03:25",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling으로 1분 만에 업무 보고 영상 뚝딱, 눈과 귀 사로잡는 발표 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-01-032522-ai-article",
+      "image": "/automation/generated_images/img_1_23706fd3.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-01-032522-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
