@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-05 08:40",
-  "total": 9,
+  "updatedAt": "2026-04-05 13:13",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 텍스트 보고서 30초 영상 변환, 회의 준비 시간 절반으로 줄이는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-05-131336-ai-article",
+      "image": "/automation/generated_images/img_1_12a64179.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-05-131336-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
