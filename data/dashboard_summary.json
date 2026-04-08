@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-08 02:11",
-  "total": 9,
+  "updatedAt": "2026-04-08 02:58",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 처음 보는 기술 보고서, 퇴근 전 전문가 되는 초스피드 리서치",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-08-025810-ai-article",
+      "image": "/automation/generated_images/img_1_287d6494.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-08-025810-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
