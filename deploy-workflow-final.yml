@@ -1,19 +1,19 @@
 name: Deploy OSMU System
 
 on:
-  push:
-    paths:
-      - 'contents/**'      # ✅ 표준 경로 감지
-      - 'automation/**'
-      - 'index.html'
-    branches:
-      - main
+  # push:  # (선택사항) 푸시할 때마다 실행되는 게 싫다면 이것도 주석 처리하세요
+  #   paths:
+  #     - 'contents/**'
+  #     - 'automation/**'
+  #     - 'index.html'
+  #   branches:
+  #     - main
   
-  schedule:
-    # 매일 3회 자동 실행 (한국시간 기준)
-    - cron: '0 0,8,16 * * *'  # UTC 00:00, 08:00, 16:00 (KST 09:00, 17:00, 01:00)
+  # schedule:  <-- 이 부분을 통째로 삭제하거나 주석 처리합니다.
+  #   - cron: '0 0,8,16 * * *' 
   
-  workflow_dispatch:      # 수동 실행 버튼
+  workflow_dispatch:      # ✅ 이 설정이 있어야 '수동 실행' 버튼이 생깁니다. (이미 있으므로 유지)
+
 
 permissions:
   contents: write         # ✅ 파일 쓰기 권한 필수
