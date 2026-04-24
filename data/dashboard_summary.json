@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-24 02:29",
-  "total": 9,
+  "updatedAt": "2026-04-24 03:31",
+  "total": 10,
   "articles": [
+    {
+      "title": "Claude 3.5 아티팩트, 아이디어 구상부터 최종 보고서까지, AI와 함께 완성하는 생산성 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-24-033112-ai-article",
+      "image": "/automation/generated_images/img_1_f6d9f304.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-24-033112-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
