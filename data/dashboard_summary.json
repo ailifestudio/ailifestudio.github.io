@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-26 08:58",
-  "total": 9,
+  "updatedAt": "2026-04-26 13:22",
+  "total": 10,
   "articles": [
+    {
+      "title": "보고서 독해 시간 10분으로 끝! NotebookLM으로 듣고 퇴근하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-26-132218-ai-article",
+      "image": "/automation/generated_images/img_1_592fbb3a.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-26-132218-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
