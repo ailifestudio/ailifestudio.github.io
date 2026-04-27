@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-04-27 02:36",
-  "total": 9,
+  "updatedAt": "2026-04-27 03:41",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI, 기획안 텍스트로 뚝딱! 마케팅 숏폼 영상 5분 만에 만드는 실무 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-04-27-034158-ai-article",
+      "image": "/automation/generated_images/img_1_9876fd0b.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-04-27-034158-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
