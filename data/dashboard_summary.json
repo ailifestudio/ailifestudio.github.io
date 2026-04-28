@@ -1,17 +1,17 @@
 {
-  "updatedAt": "2026-04-28 02:44",
-  "total": 9,
+  "updatedAt": "2026-04-28 03:46",
+  "total": 10,
   "articles": [
     {
-      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
+      "title": "NotebookLM으로 긴 회의록도 '듣기'만 하면 끝! 퇴근 30분 앞당기는 비법",
       "source": "AI/테크",
-      "time": "4개월 전",
+      "time": "오늘",
       "summary": "",
-      "link": "/article.html?slug=2025-12-18-123304-ai-article",
-      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
+      "link": "/article.html?slug=2026-04-28-034611-ai-article",
+      "image": "/automation/generated_images/img_1_38568487.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-18-123304-ai-article",
+      "slug": "2026-04-28-034611-ai-article",
       "canonical_url": ""
     },
     {
@@ -27,6 +27,18 @@
       "canonical_url": ""
     },
     {
+      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
+      "source": "AI/테크",
+      "time": "4개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-18-123304-ai-article",
+      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-18-123304-ai-article",
+      "canonical_url": ""
+    },
+    {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
       "time": "4개월 전",
@@ -36,6 +48,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-18-130221-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "Napkin AI, 글만 썼는데 다이어그램이 뚝딱! 보고서 마감 5분 단축 비법",
+      "source": "AI/테크",
+      "time": "4개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-110632-ai-article",
+      "image": "/automation/generated_images/thumbnail_41ace125.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-110632-ai-article",
       "canonical_url": ""
     },
     {
@@ -72,18 +96,6 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-15-112244-ai-article",
-      "canonical_url": ""
-    },
-    {
-      "title": "Napkin AI, 글만 썼는데 다이어그램이 뚝딱! 보고서 마감 5분 단축 비법",
-      "source": "AI/테크",
-      "time": "4개월 전",
-      "summary": "",
-      "link": "/article.html?slug=2025-12-15-110632-ai-article",
-      "image": "/automation/generated_images/thumbnail_41ace125.png",
-      "category": "AI/테크",
-      "type": "markdown",
-      "slug": "2025-12-15-110632-ai-article",
       "canonical_url": ""
     },
     {
