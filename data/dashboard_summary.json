@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-02 02:33",
-  "total": 9,
+  "updatedAt": "2026-05-02 07:55",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity AI로 복잡한 시장 동향 분석 5분 만에 끝, 퇴근 시간 사수하는 딥리서치 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-02-075537-ai-article",
+      "image": "/automation/generated_images/img_1_624cb100.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-02-075537-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
