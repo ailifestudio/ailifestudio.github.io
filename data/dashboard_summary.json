@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-08 02:46",
-  "total": 9,
+  "updatedAt": "2026-05-08 07:52",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling, 텍스트로 만드는 3분짜리 발표 영상! 퇴근 전 뚝딱 만드는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-08-075215-ai-article",
+      "image": "/automation/generated_images/img_1_1652bdc1.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-08-075215-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
