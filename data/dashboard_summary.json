@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-10 02:45",
-  "total": 9,
+  "updatedAt": "2026-05-10 03:54",
+  "total": 10,
   "articles": [
+    {
+      "title": "DeepSeek V3로 복잡한 기획안 초안 10분 완성, 논리 정연한 보고서 거저 만드는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-10-035449-ai-article",
+      "image": "/automation/generated_images/img_1_dda7de78.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-10-035449-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
