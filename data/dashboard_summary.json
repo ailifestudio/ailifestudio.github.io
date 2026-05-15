@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-15 02:55",
-  "total": 9,
+  "updatedAt": "2026-05-15 04:02",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity AI, 검색 노가다 끝! 전문가급 시장 트렌드 분석 10분 완성",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-15-040201-ai-article",
+      "image": "/automation/generated_images/img_1_9f538586.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-15-040201-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
