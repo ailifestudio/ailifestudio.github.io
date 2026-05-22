@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-22 03:28",
-  "total": 9,
+  "updatedAt": "2026-05-22 04:11",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 수십 페이지 회의록 핵심, 1분 만에 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-22-041149-ai-article",
+      "image": "/automation/generated_images/img_1_5164cec1.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-22-041149-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
