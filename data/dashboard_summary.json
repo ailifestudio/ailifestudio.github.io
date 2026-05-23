@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-23 02:47",
-  "total": 9,
+  "updatedAt": "2026-05-23 03:51",
+  "total": 10,
   "articles": [
+    {
+      "title": "OpenAI Operator, 지루한 반복 업무 싹 없애고 칼퇴하는 AI 비서 활용 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-23-035104-ai-article",
+      "image": "/automation/generated_images/img_1_786ac58f.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-23-035104-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
