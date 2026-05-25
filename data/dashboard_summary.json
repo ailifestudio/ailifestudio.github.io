@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-25 03:36",
-  "total": 9,
+  "updatedAt": "2026-05-25 04:23",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling으로 아이디어 영상 1분 만에 완성, 발표 자료 퀄리티 높이는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-25-042320-ai-article",
+      "image": "/automation/generated_images/img_1_458e2e19.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-25-042320-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "GenSpark, 경쟁사 동향 분석 보고서 3분 완성! 퇴근 시간 사수하는 AI 비서 활용법",
       "source": "AI/테크",
