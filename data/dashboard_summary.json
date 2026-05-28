@@ -1,29 +1,17 @@
 {
-  "updatedAt": "2026-05-28 02:55",
-  "total": 9,
+  "updatedAt": "2026-05-28 04:12",
+  "total": 10,
   "articles": [
     {
-      "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
+      "title": "Kling/Runway로 복잡한 아이디어 영상 초안, 5분 만에 만드는 기획력 비법",
       "source": "AI/테크",
-      "time": "5개월 전",
+      "time": "오늘",
       "summary": "",
-      "link": "/article.html?slug=2025-12-18-130221-ai-article",
-      "image": "/automation/generated_images/img_1_53fb52f7.png",
+      "link": "/article.html?slug=2026-05-28-041231-ai-article",
+      "image": "/automation/generated_images/img_1_f53297eb.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-18-130221-ai-article",
-      "canonical_url": ""
-    },
-    {
-      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
-      "source": "AI/테크",
-      "time": "5개월 전",
-      "summary": "",
-      "link": "/article.html?slug=2025-12-18-123304-ai-article",
-      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
-      "category": "AI/테크",
-      "type": "markdown",
-      "slug": "2025-12-18-123304-ai-article",
+      "slug": "2026-05-28-041231-ai-article",
       "canonical_url": ""
     },
     {
@@ -39,27 +27,39 @@
       "canonical_url": ""
     },
     {
-      "title": "Napkin AI, 글만 썼는데 다이어그램이 뚝딱! 보고서 마감 5분 단축 비법",
+      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
       "time": "5개월 전",
       "summary": "",
-      "link": "/article.html?slug=2025-12-15-110632-ai-article",
-      "image": "/automation/generated_images/thumbnail_41ace125.png",
+      "link": "/article.html?slug=2025-12-18-123304-ai-article",
+      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-15-110632-ai-article",
+      "slug": "2025-12-18-123304-ai-article",
       "canonical_url": ""
     },
     {
-      "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
+      "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
       "time": "5개월 전",
       "summary": "",
-      "link": "/article.html?slug=2025-12-15-113720-ai-article",
-      "image": "https://picsum.photos/seed/ai-tech/1280/720",
+      "link": "/article.html?slug=2025-12-18-130221-ai-article",
+      "image": "/automation/generated_images/img_1_53fb52f7.png",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-15-113720-ai-article",
+      "slug": "2025-12-18-130221-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "감마 AI로 기획안 PPT 3분 완성, 발표 자료 걱정 끝",
+      "source": "AI/테크",
+      "time": "5개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-112244-ai-article",
+      "image": "/automation/generated_images/thumbnail_58578ef7.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-112244-ai-article",
       "canonical_url": ""
     },
     {
@@ -75,6 +75,18 @@
       "canonical_url": ""
     },
     {
+      "title": "Napkin AI, 글만 썼는데 다이어그램이 뚝딱! 보고서 마감 5분 단축 비법",
+      "source": "AI/테크",
+      "time": "5개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-110632-ai-article",
+      "image": "/automation/generated_images/thumbnail_41ace125.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-110632-ai-article",
+      "canonical_url": ""
+    },
+    {
       "title": "DeepSeek V3로 복잡한 엑셀 수식 1분 해결, 퇴근 시간 앞당기는 AI 비법",
       "source": "AI/테크",
       "time": "5개월 전",
@@ -87,15 +99,15 @@
       "canonical_url": ""
     },
     {
-      "title": "감마 AI로 기획안 PPT 3분 완성, 발표 자료 걱정 끝",
+      "title": "Claude 3.5 Artifacts: 아이디어부터 최종보고서까지, 대화하듯 끝내는 비법",
       "source": "AI/테크",
       "time": "5개월 전",
       "summary": "",
-      "link": "/article.html?slug=2025-12-15-112244-ai-article",
-      "image": "/automation/generated_images/thumbnail_58578ef7.png",
+      "link": "/article.html?slug=2025-12-15-113720-ai-article",
+      "image": "https://picsum.photos/seed/ai-tech/1280/720",
       "category": "AI/테크",
       "type": "markdown",
-      "slug": "2025-12-15-112244-ai-article",
+      "slug": "2025-12-15-113720-ai-article",
       "canonical_url": ""
     },
     {
