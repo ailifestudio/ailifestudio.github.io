@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-28 11:36",
-  "total": 9,
+  "updatedAt": "2026-05-28 16:16",
+  "total": 10,
   "articles": [
+    {
+      "title": "긴 회의록과 보고서, NotebookLM으로 팟캐스트처럼 듣고 칼퇴하는 법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-28-161610-ai-article",
+      "image": "/automation/generated_images/img_1_d406ba5a.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-28-161610-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
