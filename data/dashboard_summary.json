@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-05-29 03:24",
-  "total": 9,
+  "updatedAt": "2026-05-29 10:07",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling으로 텍스트만 넣었을 뿐인데, 고퀄리티 제품 데모 영상 3분 완성",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-05-29-100707-ai-article",
+      "image": "/automation/generated_images/img_1_42b73734.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-05-29-100707-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
