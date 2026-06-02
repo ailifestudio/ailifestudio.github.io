@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-02 12:02",
-  "total": 9,
+  "updatedAt": "2026-06-02 16:47",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway로 아이디어만 툭 던져도, 홍보 영상 초안 3분 만에 완성하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-02-164701-ai-article",
+      "image": "/automation/generated_images/img_1_83b57fb5.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-02-164701-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
