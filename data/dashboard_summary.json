@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-03 12:39",
-  "total": 9,
+  "updatedAt": "2026-06-03 17:02",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 2시간 회의록 5분 만에 요약! 중요한 내용 놓칠 걱정 끝",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-03-170241-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-03-170241-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
