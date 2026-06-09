@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-09 02:53",
-  "total": 9,
+  "updatedAt": "2026-06-09 09:56",
+  "total": 10,
   "articles": [
+    {
+      "title": "DeepSeek V3, 엑셀 수식 노가다 이제 그만! 퇴근 시간 30분 앞당기는 AI 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-09-095658-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-09-095658-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
