@@ -1,19 +1,7 @@
 {
-  "updatedAt": "2026-06-11 03:43",
+  "updatedAt": "2026-06-11 12:08",
   "total": 9,
   "articles": [
-    {
-      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
-      "source": "AI/테크",
-      "time": "5개월 전",
-      "summary": "",
-      "link": "/article.html?slug=2025-12-18-123304-ai-article",
-      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
-      "category": "AI/테크",
-      "type": "markdown",
-      "slug": "2025-12-18-123304-ai-article",
-      "canonical_url": ""
-    },
     {
       "title": "Napkin AI로 복잡한 업무 흐름도, 텍스트 입력만으로 3분 완성하는 비법",
       "source": "AI/테크",
@@ -24,6 +12,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-18-130221-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
+      "source": "AI/테크",
+      "time": "5개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-18-123304-ai-article",
+      "image": "/automation/generated_images/Gemini_Generated_Image_ook0rbook0rbook0.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-18-123304-ai-article",
       "canonical_url": ""
     },
     {
@@ -75,18 +75,6 @@
       "canonical_url": ""
     },
     {
-      "title": "감마 AI로 기획안 PPT 3분 완성, 발표 자료 걱정 끝",
-      "source": "AI/테크",
-      "time": "5개월 전",
-      "summary": "",
-      "link": "/article.html?slug=2025-12-15-112244-ai-article",
-      "image": "/automation/generated_images/thumbnail_58578ef7.png",
-      "category": "AI/테크",
-      "type": "markdown",
-      "slug": "2025-12-15-112244-ai-article",
-      "canonical_url": ""
-    },
-    {
       "title": "DeepSeek V3로 복잡한 엑셀 수식 1분 해결, 퇴근 시간 앞당기는 AI 비법",
       "source": "AI/테크",
       "time": "5개월 전",
@@ -96,6 +84,18 @@
       "category": "AI/테크",
       "type": "markdown",
       "slug": "2025-12-15-115249-ai-article",
+      "canonical_url": ""
+    },
+    {
+      "title": "감마 AI로 기획안 PPT 3분 완성, 발표 자료 걱정 끝",
+      "source": "AI/테크",
+      "time": "5개월 전",
+      "summary": "",
+      "link": "/article.html?slug=2025-12-15-112244-ai-article",
+      "image": "/automation/generated_images/thumbnail_58578ef7.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2025-12-15-112244-ai-article",
       "canonical_url": ""
     },
     {
