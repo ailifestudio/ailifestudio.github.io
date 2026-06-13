@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-13 10:26",
-  "total": 9,
+  "updatedAt": "2026-06-13 14:13",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 1분 만에 광고 시안 영상 뚝딱, 기획안에 임팩트 더하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-13-141329-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-13-141329-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
