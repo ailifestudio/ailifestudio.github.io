@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-14 03:51",
-  "total": 9,
+  "updatedAt": "2026-06-14 09:46",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling으로 텍스트만 넣으면, 전문가급 홍보 영상 5분 만에 뚝딱!",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-14-094631-ai-article",
+      "image": "",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-14-094631-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
