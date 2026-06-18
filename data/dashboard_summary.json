@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-18 03:42",
-  "total": 9,
+  "updatedAt": "2026-06-18 10:41",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway로 텍스트만 넣었더니 5분 만에 사내 교육 영상 완성",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-18-104107-ai-article",
+      "image": "/automation/generated_images/img_1_570d2b1c.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-18-104107-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
