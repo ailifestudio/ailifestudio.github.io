@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-18 03:42",
-  "total": 9,
+  "updatedAt": "2026-06-18 04:41",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling으로 텍스트만 넣으면 마케팅 영상 뚝딱! 퇴근 후 칼퇴 부르는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-18-044151-ai-article",
+      "image": "/automation/generated_images/img_1_c6cda16a.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-18-044151-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
