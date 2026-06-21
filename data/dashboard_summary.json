@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-21 11:13",
-  "total": 9,
+  "updatedAt": "2026-06-21 14:25",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling/Runway, 텍스트로 고퀄리티 마케팅 영상 뚝딱! 퇴근 전 홍보 영상 완성 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-21-142522-ai-article",
+      "image": "/automation/generated_images/img_1_1dda0208.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-21-142522-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
