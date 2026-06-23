@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-23 02:58",
-  "total": 9,
+  "updatedAt": "2026-06-23 09:55",
+  "total": 10,
   "articles": [
+    {
+      "title": "Claude 3.5 Artifacts, 챗봇과 작업 결과물을 동시에! 생산성 끝판왕의 등장",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-23-095553-ai-article",
+      "image": "/automation/generated_images/img_1_de18444e.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-23-095553-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
