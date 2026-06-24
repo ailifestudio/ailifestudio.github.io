@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-24 10:46",
-  "total": 9,
+  "updatedAt": "2026-06-24 14:45",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity로 시장 트렌드 조사 10분 컷, 경쟁사 보고서도 퇴근 전 완성",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-24-144526-ai-article",
+      "image": "/automation/generated_images/img_1_ae3e6b39.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-24-144526-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
