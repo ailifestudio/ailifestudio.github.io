@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-25 02:58",
-  "total": 9,
+  "updatedAt": "2026-06-25 09:37",
+  "total": 10,
   "articles": [
+    {
+      "title": "시장 조사 보고서 뼈대 잡기 막막할 때, Perplexity로 5분 만에 끝내는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-25-093731-ai-article",
+      "image": "/automation/generated_images/img_1_670671af.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-25-093731-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
