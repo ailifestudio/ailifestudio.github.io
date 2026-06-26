@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-26 03:29",
-  "total": 9,
+  "updatedAt": "2026-06-26 09:40",
+  "total": 10,
   "articles": [
+    {
+      "title": "DeepSeek V3로 보고서 초안 뚝딱, 아이디어 고갈 없이 칼퇴하는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-26-094051-ai-article",
+      "image": "/automation/generated_images/img_1_ef67f5f2.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-26-094051-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
