@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-27 10:05",
-  "total": 9,
+  "updatedAt": "2026-06-27 13:57",
+  "total": 10,
   "articles": [
+    {
+      "title": "Kling AI로 1분 만에 광고 영상 제작, 마케팅팀 칼퇴의 비밀",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-27-135727-ai-article",
+      "image": "/automation/generated_images/img_1_713c9555.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-27-135727-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
