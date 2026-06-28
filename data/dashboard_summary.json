@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-06-28 03:35",
-  "total": 9,
+  "updatedAt": "2026-06-28 09:21",
+  "total": 10,
   "articles": [
+    {
+      "title": "NotebookLM으로 수십 장 보고서, 팟캐스트처럼 듣고 칼퇴하는 비법",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-06-28-092141-ai-article",
+      "image": "/automation/generated_images/img_1_a279f5c2.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-06-28-092141-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
