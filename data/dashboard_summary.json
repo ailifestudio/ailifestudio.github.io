@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-07-01 11:21",
-  "total": 9,
+  "updatedAt": "2026-07-01 14:50",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0, 방대한 보고서 핵심 요약 1분! 의사결정 속도 2배 높이는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-07-01-145048-ai-article",
+      "image": "/automation/generated_images/img_1_05760dcd.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-07-01-145048-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
