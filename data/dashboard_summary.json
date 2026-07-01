@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-07-01 03:36",
-  "total": 9,
+  "updatedAt": "2026-07-01 04:24",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0 Flash Thinking으로 복잡한 보고서 초안, 10분 만에 뚝딱 만들고 칼퇴하세요!",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-07-01-042458-ai-article",
+      "image": "/automation/generated_images/img_1_ae7920fd.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-07-01-042458-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
