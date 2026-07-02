@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-07-02 10:35",
-  "total": 9,
+  "updatedAt": "2026-07-02 14:16",
+  "total": 10,
   "articles": [
+    {
+      "title": "Perplexity AI로 심층 시장 분석, 하루 걸릴 보고서 30분 만에 끝내는 비결",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-07-02-141606-ai-article",
+      "image": "/automation/generated_images/img_1_8ccd3613.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-07-02-141606-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
