@@ -1,7 +1,19 @@
 {
-  "updatedAt": "2026-07-04 02:40",
-  "total": 9,
+  "updatedAt": "2026-07-04 08:46",
+  "total": 10,
   "articles": [
+    {
+      "title": "Gemini 2.0, 산더미 같은 기획안 3분 만에 핵심 정리하는 초고속 비서",
+      "source": "AI/테크",
+      "time": "오늘",
+      "summary": "",
+      "link": "/article.html?slug=2026-07-04-084643-ai-article",
+      "image": "/automation/generated_images/img_1_7c4c1141.png",
+      "category": "AI/테크",
+      "type": "markdown",
+      "slug": "2026-07-04-084643-ai-article",
+      "canonical_url": ""
+    },
     {
       "title": "Recraft V3, 텍스트만으로 PPT용 전문가급 벡터 이미지 만드는 비결",
       "source": "AI/테크",
